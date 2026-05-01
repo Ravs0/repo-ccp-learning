@@ -89,9 +89,13 @@ export default function Home() {
                   <div className={`px-3 py-1 rounded-full text-xs font-medium ${
                     module.region === 'US' 
                       ? 'bg-accent-blue/20 text-accent-blue' 
-                      : 'bg-accent-purple/20 text-accent-purple'
+                      : module.region === 'Asia'
+                      ? 'bg-accent-purple/20 text-accent-purple'
+                      : module.region === 'Global'
+                      ? 'bg-accent-green/20 text-accent-green'
+                      : 'bg-accent-orange/20 text-accent-orange'
                   }`}>
-                    {module.region} Markets
+                    {module.region === 'General' ? 'Finance Fundamentals' : `${module.region} Markets`}
                   </div>
                   <Globe className="w-5 h-5 text-gray-500 group-hover:text-accent-cyan transition-colors" />
                 </div>

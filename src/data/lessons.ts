@@ -20,7 +20,7 @@ export interface Module {
   id: string
   title: string
   description: string
-  region: 'US' | 'Asia'
+  region: 'US' | 'Asia' | 'Global' | 'General'
   lessons: Lesson[]
 }
 
@@ -1104,6 +1104,1106 @@ This research provides a tool for selecting stress scenarios in Asia's multi-CCP
             options: ['No impact', 'Multiple CCPs and central banks required more complex coordination than U.S. single-CCP model', 'No central banks in Asia', 'All markets closed'],
             correctIndex: 1,
             explanation: 'Unlike the U.S. where the Fed and FICC coordinated centrally, Asia\'s multiple CCPs and central banks required more complex coordination during the COVID shock.'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'central-banking',
+    title: 'Central Banking & Monetary Policy',
+    region: 'General',
+    description: 'Understand how central banks influence economies through monetary policy, interest rates, and financial stability tools.',
+    lessons: [
+      {
+        id: 'lesson-1',
+        title: 'What Is Monetary Policy?',
+        duration: '30 min',
+        content: `
+## The Dual Mandate
+
+Monetary policy is what central banks do to accomplish two key goals mandated by law:
+
+1. **Promoting maximum employment** – the highest level of employment or lowest level of unemployment that the economy can sustain while maintaining a stable inflation rate
+2. **Promoting stable prices** – for the goods and services we all purchase
+
+## How Central Banks Influence the Economy
+
+Central banks set the stance of monetary policy to influence short-term interest rates and overall financial conditions with the aim of moving the economy toward maximum employment and stable prices.
+
+**Easing** (lowering rates): Loosening financial conditions to stimulate economic activity
+**Tightening** (raising rates): Tightening financial conditions to curb inflation
+
+The Federal Reserve changes the stance of monetary policy primarily by raising or lowering its target range for the federal funds rate—an interest rate for overnight borrowing by banks.
+
+## Independence with Accountability
+
+While Congress specifies the goals for monetary policy, it has provided central banks operational independence. This flexibility ensures that monetary policy decisions can be directed toward the longer term, be based on data and objective analysis, and best serve the interests of all citizens.
+
+At the same time, central banks remain accountable through transparency about policy deliberations and actions through official communications.
+
+*External Reading: [The Fed Explained - Monetary Policy](https://www.federalreserve.gov/aboutthefed/fedexplained/monetary-policy.htm)*
+`,
+        keyPoints: [
+          'Monetary policy aims for maximum employment and stable prices',
+          'Central banks use interest rates to influence economic conditions',
+          'Operational independence allows data-driven decisions',
+          'Easing stimulates growth; tightening fights inflation',
+          'Accountability achieved through transparency and communication'
+        ],
+        quiz: [
+          {
+            question: 'What are the two main goals of monetary policy?',
+            options: ['Profit maximization and market share', 'Maximum employment and stable prices', 'Government debt reduction and currency appreciation', 'Bank profitability and lending growth'],
+            correctIndex: 1,
+            explanation: 'The dual mandate of monetary policy is promoting maximum employment and stable prices.'
+          },
+          {
+            question: 'What does "easing" monetary policy mean?',
+            options: ['Raising interest rates to fight inflation', 'Lowering interest rates to stimulate the economy', 'Increasing bank reserves', 'Reducing government spending'],
+            correctIndex: 1,
+            explanation: 'Easing means lowering interest rates to loosen financial conditions and stimulate economic activity.'
+          },
+          {
+            question: 'Why are central banks given operational independence?',
+            options: ['To avoid government oversight', 'To make decisions based on data and objective analysis for long-term goals', 'To increase their profits', 'To reduce transparency'],
+            correctIndex: 1,
+            explanation: 'Operational independence allows central banks to make decisions based on data and objective analysis, directed toward long-term economic goals rather than short-term political pressures.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-2',
+        title: 'Monetary Policy Tools',
+        duration: '35 min',
+        content: `
+## The Federal Funds Rate
+
+The federal funds rate is the interest rate for overnight borrowing by banks. When the Federal Open Market Committee (FOMC) adjusts the target range for this rate, the Federal Reserve uses its monetary policy tools to ensure that market interest rates move in the direction of the new target range.
+
+## Key Policy Tools
+
+### 1. Interest on Reserve Balances (IORB)
+The primary new monetary policy tool. Banks earn interest on the reserves they hold at the Federal Reserve. This rate helps set a floor for short-term interest rates.
+
+### 2. Overnight Reverse Repurchase Agreement Facility (ON RRP)
+A supplementary tool that provides a floor for short-term rates by allowing eligible institutions to invest cash overnight at the Fed in exchange for Treasury securities.
+
+### 3. Discount Rate
+The interest rate charged to banks for borrowing directly from the Federal Reserve. This sets a ceiling for the federal funds rate.
+
+### 4. Open Market Operations
+Buying and selling government securities to maintain ample reserves in the banking system.
+
+## How Tools Work Together
+
+These administered rates work together to ensure the federal funds rate stays within the target range. The IORB and ON RRP provide a floor, while the discount rate provides a ceiling. Open market operations ensure banks have adequate reserves.
+
+*External Reading: [How the Fed Implements Monetary Policy](https://www.stlouisfed.org/in-plain-english/the-fed-implements-monetary-policy)*
+`,
+        keyPoints: [
+          'Federal funds rate is the primary monetary policy lever',
+          'Interest on reserves sets a floor for short-term rates',
+          'ON RRP facility provides supplementary rate floor',
+          'Discount rate sets a ceiling for interbank lending',
+          'Open market operations maintain adequate bank reserves'
+        ],
+        quiz: [
+          {
+            question: 'What is the primary purpose of the Interest on Reserve Balances tool?',
+            options: ['To punish banks for holding too much cash', 'To set a floor for short-term interest rates', 'To provide emergency loans to banks', 'To control inflation directly'],
+            correctIndex: 1,
+            explanation: 'Interest on Reserve Balances sets a floor for short-term interest rates by paying banks interest on their reserves held at the Fed.'
+          },
+          {
+            question: 'What does the Overnight Reverse Repo facility do?',
+            options: ['Banks borrow from the Fed overnight', 'Institutions invest cash overnight at the Fed in exchange for Treasuries', 'The Fed sells bonds to the public', 'Banks lend to each other at discounted rates'],
+            correctIndex: 1,
+            explanation: 'The ON RRP facility allows eligible institutions to invest cash overnight at the Fed in exchange for Treasury securities, providing a supplementary floor for short-term rates.'
+          },
+          {
+            question: 'What role does the discount rate play?',
+            options: ['Sets a floor for market rates', 'Sets a ceiling for the federal funds rate', 'Determines mortgage rates', 'Controls stock market prices'],
+            correctIndex: 1,
+            explanation: 'The discount rate is the rate banks pay when borrowing directly from the Fed, setting a ceiling for the federal funds rate.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-3',
+        title: 'Quantitative Easing & Unconventional Policy',
+        duration: '30 min',
+        content: `
+## When Traditional Tools Aren't Enough
+
+When interest rates approach zero (the "zero lower bound"), central banks cannot lower rates further to stimulate the economy. This is when unconventional monetary policy tools become necessary.
+
+## Quantitative Easing (QE)
+
+QE involves large-scale purchases of government bonds and other securities by the central bank. This:
+
+1. **Increases the money supply** by injecting reserves into the banking system
+2. **Lowers long-term interest rates** by increasing demand for bonds
+3. **Signals commitment** to keeping rates low for an extended period
+4. **Supports asset prices** through portfolio rebalancing effects
+
+## How QE Works
+
+When the Fed buys bonds from banks, it credits their reserve accounts. This increases the supply of reserves in the banking system, which should lower interbank lending rates. The increased demand for bonds also pushes up their prices, which lowers their yields (interest rates).
+
+## Forward Guidance
+
+Central banks also use forward guidance—communicating their future policy intentions—to influence market expectations and long-term rates. By promising to keep rates low for an extended period, central banks can reduce long-term borrowing costs even if short-term rates are at zero.
+
+## Risks and Trade-offs
+
+- **Asset bubbles:** Low rates can inflate asset prices
+- **Income inequality:** Asset price increases benefit wealthier households
+- **Exit challenges:** Unwinding QE without disrupting markets
+- **Central bank balance sheet risk:** Holding large portfolios of securities
+
+QE was used extensively after the 2008 financial crisis and during the COVID-19 pandemic.
+`,
+        keyPoints: [
+          'QE is used when interest rates hit the zero lower bound',
+          'Large-scale asset purchases increase money supply and lower long-term rates',
+          'Forward guidance communicates future policy intentions',
+          'QE supports asset prices through portfolio rebalancing',
+          'Risks include asset bubbles, inequality, and exit challenges'
+        ],
+        quiz: [
+          {
+            question: 'When is quantitative easing typically used?',
+            options: ['When inflation is too high', 'When interest rates approach zero and traditional tools are exhausted', 'When the stock market is rising', 'When government debt is low'],
+            correctIndex: 1,
+            explanation: 'QE is used when interest rates approach the zero lower bound and traditional monetary policy tools are no longer effective.'
+          },
+          {
+            question: 'How does QE affect long-term interest rates?',
+            options: ['It raises them by selling bonds', 'It lowers them by increasing demand for bonds', 'It has no effect on long-term rates', 'It only affects short-term rates'],
+            correctIndex: 1,
+            explanation: 'QE lowers long-term interest rates by increasing demand for bonds, which pushes up bond prices and reduces their yields.'
+          },
+          {
+            question: 'What is forward guidance?',
+            options: ['Guidance on which stocks to buy', 'Communicating future policy intentions to influence market expectations', 'Directing banks on whom to lend to', 'Setting exchange rate targets'],
+            correctIndex: 1,
+            explanation: 'Forward guidance is a communication strategy where central banks announce their future policy intentions to influence market expectations and long-term interest rates.'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'global-finance',
+    title: 'Global Finance & Capital Flows',
+    region: 'Global',
+    description: 'Explore international capital flows, balance of payments, exchange rates, and the global financial system.',
+    lessons: [
+      {
+        id: 'lesson-1',
+        title: 'International Capital Flows',
+        duration: '35 min',
+        content: `
+## The Financial Side of Trade
+
+International capital flows are the financial side of international trade. When someone imports a good or service, the buyer (the importer) gives the seller (the exporter) a monetary payment. If total exports were equal to total imports, these monetary transactions would balance at net zero.
+
+## Gross vs. Net Flows
+
+**Gross flows** (credits plus debits) represent the total volume of financial transactions. During 1995–2003, gross flows involving industrial countries averaged $4.9 trillion per year.
+
+**Net flows** represent the difference between inflows and outflows. Gross flows were about ten times the net capital flows, reflecting the netting out of the vast majority of financial flows.
+
+## Financing Trade Imbalances
+
+While much international trade is financed by offsetting trade flows, ultimately net trade balances must be financed by net financial flows.
+
+- **United States:** Large current-account deficits (imports > exports)
+- **Non-U.S. industrial countries:** Large trade surpluses
+- **Developing countries:** Shifted from deficits to surpluses by the late 1990s
+
+Net capital and financial flows finance these net trade imbalances, increasingly flowing from both developing and non-U.S. industrial countries to the United States.
+
+## The "Missing" Flows Problem
+
+Global balance of payments data shows statistical discrepancies—the world appears to run a current account deficit with itself, which is logically impossible. This implies:
+
+1. Underreported exports to the United States from other countries
+2. Unreported financial flows to the United States
+3. Potential measurement errors in foreign direct investment earnings
+
+These discrepancies exceed $100 billion per year, highlighting the challenges of tracking global financial flows.
+
+*External Reading: [International Capital Flows - EconLib](https://www.econlib.org/library/Enc/InternationalCapitalFlows.html)*
+`,
+        keyPoints: [
+          'Capital flows finance international trade imbalances',
+          'Gross flows are typically much larger than net flows',
+          'US runs current account deficits financed by foreign capital',
+          'Developing countries became net capital suppliers by late 1990s',
+          'Global flow data shows significant statistical discrepancies'
+        ],
+        quiz: [
+          {
+            question: 'What is the relationship between gross and net capital flows?',
+            options: ['Gross flows are smaller than net flows', 'Gross flows are typically about 10 times net flows', 'They are always equal', 'Net flows are larger than gross flows'],
+            correctIndex: 1,
+            explanation: 'Gross flows (total transactions) are typically about 10 times net flows (difference between inflows and outflows), reflecting the netting out of most transactions.'
+          },
+          {
+            question: 'How are trade imbalances financed?',
+            options: ['By printing money', 'By net financial flows between countries', 'By barter arrangements', 'They are not financed'],
+            correctIndex: 1,
+            explanation: 'Net trade imbalances must be financed by net financial flows between countries—capital flows from surplus countries to deficit countries.'
+          },
+          {
+            question: 'What does the "missing flows" problem indicate?',
+            options: ['Capital flows are not important', 'Global trade data has significant measurement errors and underreporting', 'Money is disappearing', 'All countries have balanced trade'],
+            correctIndex: 1,
+            explanation: 'The statistical discrepancies in global balance of payments data (the world appearing to run a deficit with itself) indicate significant measurement errors and underreporting of exports and financial flows.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-2',
+        title: 'Balance of Payments',
+        duration: '30 min',
+        content: `
+## What Is the Balance of Payments?
+
+The Balance of Payments (BoP) is a record of all economic transactions that take place between residents of a country and the rest of the world during a specific period. It's expressed in the domestic currency.
+
+## The Main Components
+
+### Current Account
+Records trade in goods and services, income, and current transfers:
+- **Trade balance:** Exports minus imports of goods and services
+- **Primary income:** Investment income (dividends, interest)
+- **Secondary income:** Transfers (remittances, foreign aid)
+
+### Capital Account
+Records capital transfers and acquisition/disposal of non-produced, non-financial assets (relatively small for most countries).
+
+### Financial Account
+Records financial flows:
+- **Direct investment:** Long-term ownership stakes in foreign enterprises
+- **Portfolio investment:** Purchase of foreign stocks and bonds
+- **Other investment:** Bank loans, trade credit, currency deposits
+- **Reserve assets:** Changes in central bank foreign exchange reserves
+
+## The Accounting Identity
+
+In theory, the sum of all accounts should equal zero:
+Current Account + Capital Account + Financial Account = 0
+
+A current account deficit must be financed by a financial account surplus (net capital inflows). A current account surplus corresponds to a financial account deficit (net capital outflows).
+
+## Why BoP Matters
+
+- **Exchange rate pressure:** Persistent imbalances can affect currency values
+- **Policy implications:** Guides monetary and fiscal policy decisions
+- **Sustainability:** Large deficits may indicate borrowing beyond means
+- **Global imbalances:** Can contribute to financial instability
+
+*External Reading: [Global Economics - Balance of Payments](https://www.fe.training/free-resources/financial-markets/global-economics-balance-of-payments/)*
+`,
+        keyPoints: [
+          'BoP records all transactions between a country and the rest of the world',
+          'Current account covers trade, income, and transfers',
+          'Financial account covers investment flows and reserve changes',
+          'Current account deficits must be financed by financial account surpluses',
+          'BoP data guides policy and indicates economic sustainability'
+        ],
+        quiz: [
+          {
+            question: 'What does the Current Account record?',
+            options: ['Only investment flows', 'Trade in goods and services, income, and transfers', 'Central bank reserves', 'Only government debt'],
+            correctIndex: 1,
+            explanation: 'The Current Account records trade in goods and services, income from investments, and current transfers like remittances and foreign aid.'
+          },
+          {
+            question: 'If a country has a current account deficit, what must it have?',
+            options: ['A current account surplus', 'A financial account surplus (net capital inflows)', 'A trade surplus', 'Zero foreign investment'],
+            correctIndex: 1,
+            explanation: 'A current account deficit must be financed by a financial account surplus, meaning the country is receiving net capital inflows from abroad.'
+          },
+          {
+            question: 'Why is the Balance of Payments important?',
+            options: ['It only matters for tax collection', 'It guides policy and indicates economic sustainability', 'It is only used by banks', 'It has no real-world significance'],
+            correctIndex: 1,
+            explanation: 'The Balance of Payments is important because it guides monetary and fiscal policy decisions, indicates economic sustainability, and can signal exchange rate pressures.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-3',
+        title: 'Exchange Rates & Currency Markets',
+        duration: '35 min',
+        content: `
+## What Are Exchange Rates?
+
+An exchange rate is the price of one currency in terms of another currency. It determines how much of one currency you can buy with another.
+
+## Exchange Rate Regimes
+
+### Fixed (Pegged) Exchange Rates
+The currency's value is fixed to another currency or a basket of currencies. Central banks buy and sell their own currency to maintain the peg.
+
+**Examples:** Hong Kong dollar pegged to USD, Saudi riyal pegged to USD
+
+### Floating Exchange Rates
+The currency's value is determined by market forces of supply and demand. Central banks may occasionally intervene but do not target a specific rate.
+
+**Examples:** USD, EUR, JPY, GBP
+
+### Managed Float
+A hybrid approach where the currency floats but central banks intervene to prevent excessive volatility or achieve policy objectives.
+
+## Factors Affecting Exchange Rates
+
+### Interest Rate Differentials
+Higher interest rates attract foreign capital, appreciating the currency.
+
+### Inflation Differentials
+Countries with lower inflation typically see their currency appreciate.
+
+### Current Account Deficits
+Persistent deficits may lead to currency depreciation.
+
+### Economic Performance
+Strong economic growth attracts investment, appreciating the currency.
+
+### Political Stability
+Political uncertainty leads to capital flight and depreciation.
+
+### Speculation
+Market sentiment and expectations can drive short-term movements.
+
+## The Foreign Exchange Market
+
+The FX market is the largest financial market in the world, with over $6 trillion in daily trading. It operates 24 hours a day, 5 days a week.
+
+**Major currency pairs (the "majors"):**
+- EUR/USD, USD/JPY, GBP/USD, USD/CHF
+- AUD/USD, USD/CAD, NZD/USD
+
+## Currency Crises
+
+When confidence in a currency collapses, it can lead to:
+- Rapid depreciation
+- Capital flight
+- Banking crises
+- Economic recession
+
+**Historical examples:** 1997 Asian Financial Crisis, 1992 ERM crisis, 1994 Mexican peso crisis
+`,
+        keyPoints: [
+          'Exchange rates are prices of currencies in terms of other currencies',
+          'Fixed regimes peg to another currency; floating regimes let markets decide',
+          'Interest rates, inflation, trade balances affect exchange rates',
+          'FX market is the world\'s largest financial market',
+          'Currency crises can trigger broader economic crises'
+        ],
+        quiz: [
+          {
+            question: 'What is the main difference between fixed and floating exchange rates?',
+            options: ['Fixed rates change daily, floating rates never change', 'Fixed rates are pegged to another currency; floating rates are market-determined', 'Fixed rates are used by all countries', 'Floating rates are illegal'],
+            correctIndex: 1,
+            explanation: 'Fixed (pegged) exchange rates are tied to another currency or basket, while floating exchange rates are determined by market forces of supply and demand.'
+          },
+          {
+            question: 'How do higher interest rates typically affect a currency?',
+            options: ['They cause depreciation', 'They cause appreciation by attracting foreign capital', 'They have no effect', 'They only affect stock prices'],
+            correctIndex: 1,
+            explanation: 'Higher interest rates typically cause currency appreciation because they attract foreign capital seeking higher returns, increasing demand for the currency.'
+          },
+          {
+            question: 'What is the approximate daily trading volume in the foreign exchange market?',
+            options: ['$100 billion', '$1 trillion', '$6 trillion', '$50 trillion'],
+            correctIndex: 2,
+            explanation: 'The foreign exchange market is the largest financial market globally, with over $6 trillion in daily trading volume.'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'systemic-risk',
+    title: 'Systemic Risk & Financial Crises',
+    region: 'Global',
+    description: 'Understand financial contagion, systemic risk, and the dynamics of financial crises.',
+    lessons: [
+      {
+        id: 'lesson-1',
+        title: 'What Is Systemic Risk?',
+        duration: '30 min',
+        content: `
+## Defining Systemic Risk
+
+Systemic risk is the risk of collapse of an entire financial system or entire market, as opposed to risk associated with any one individual entity, group, or component. It can be triggered by a shock to one part of the financial system that spreads to others.
+
+## Key Characteristics
+
+### Interconnectedness
+Modern financial systems are highly interconnected through:
+- Interbank lending
+- Derivatives contracts
+- Cross-ownership
+- Payment and settlement systems
+
+### Procyclicality
+Financial systems tend to amplify economic cycles:
+- Boom: Excessive risk-taking, leverage expansion
+- Bust: Fire sales, credit crunches, deleveraging
+
+### Complexity
+The intricate web of relationships makes it difficult to predict how a shock will propagate.
+
+## Sources of Systemic Risk
+
+### Too Big to Fail
+Institutions whose failure would cause widespread disruption to the financial system and economy.
+
+### Common Exposures
+Many institutions holding similar assets or making similar bets can lead to correlated losses.
+
+### Contagion Channels
+- Direct contagion: Counterparty relationships
+- Indirect contagion: Asset fire sales, information effects, liquidity hoarding
+
+### Feedback Loops
+Declining asset prices → margin calls → forced selling → further price declines
+
+## Measuring Systemic Risk
+
+### Network Analysis
+Mapping interconnections between institutions to identify central nodes and transmission channels.
+
+### Stress Testing
+Simulating extreme scenarios to assess system resilience.
+
+### Early Warning Indicators
+Metrics that may predict systemic stress (credit growth, asset price bubbles, leverage ratios).
+
+*External Reading: [BIS WP 597: Bank Networks and Contagion](https://www.bis.org/publ/work597.pdf)*
+`,
+        keyPoints: [
+          'Systemic risk threatens the entire financial system, not just individual institutions',
+          'Interconnectedness, procyclicality, and complexity amplify systemic risk',
+          'Too-big-to-fail institutions create moral hazard',
+          'Contagion spreads through counterparty relationships and asset fire sales',
+          'Network analysis and stress testing help measure systemic risk'
+        ],
+        quiz: [
+          {
+            question: 'What distinguishes systemic risk from idiosyncratic risk?',
+            options: ['Systemic risk only affects small banks', 'Systemic risk threatens the entire financial system', 'Idiosyncratic risk is more dangerous', 'They are the same thing'],
+            correctIndex: 1,
+            explanation: 'Systemic risk is the risk of collapse of an entire financial system or market, while idiosyncratic risk is specific to individual entities.'
+          },
+          {
+            question: 'What is procyclicality in financial systems?',
+            options: ['Systems that work countercyclically', 'Tendency to amplify economic cycles—excessive risk-taking in booms, deleveraging in busts', 'Systems that are always stable', 'Systems that only grow'],
+            correctIndex: 1,
+            explanation: 'Procyclicality refers to the tendency of financial systems to amplify economic cycles, with excessive risk-taking during booms and deleveraging during busts.'
+          },
+          {
+            question: 'What is a common contagion channel?',
+            options: ['Only government actions', 'Counterparty relationships and asset fire sales', 'Only foreign exchange markets', 'Only stock markets'],
+            correctIndex: 1,
+            explanation: 'Contagion spreads through direct counterparty relationships and indirect channels like asset fire sales, information effects, and liquidity hoarding.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-2',
+        title: 'Financial Contagion',
+        duration: '35 min',
+        content: `
+## Understanding Contagion
+
+Financial contagion is the spread of financial distress from one institution or market to others, potentially leading to broader systemic crisis. It occurs through various channels in interconnected financial networks.
+
+## Contagion Mechanisms
+
+### Direct Contagion
+Through explicit contractual relationships:
+- **Interbank exposures:** Bank A fails → Bank B suffers losses
+- **Derivatives contracts:** Counterparty default triggers losses
+- **Payment systems:** Settlement failures cascade
+
+### Indirect Contagion
+Through market mechanisms:
+- **Asset fire sales:** Forced selling depresses prices, affecting other holders
+- **Liquidity hoarding:** Institutions hoard cash, causing funding shortages
+- **Information effects:** Panic spreads as investors reassess risk
+- **Portfolio rebalancing:** Investors sell similar assets, amplifying price declines
+
+## Network Theory and Contagion
+
+Financial systems can be modeled as networks where nodes are institutions and edges represent relationships (exposures, correlations, etc.).
+
+### Key Network Properties
+- **Degree centrality:** Number of connections per node (highly connected nodes are potential contagion sources)
+- **Betweenness centrality:** Nodes that lie on many shortest paths (control information/contagion flow)
+- **Clustering:** Tendency for connected nodes to share connections (can amplify or contain contagion)
+
+### Too Interconnected to Fail
+Some institutions may be too interconnected to fail—their failure would disrupt the entire network even if they're not individually "too big to fail."
+
+## Empirical Evidence
+
+### 2008 Financial Crisis
+- Subprime mortgage losses spread to global banking system
+- Lehman Brothers collapse triggered panic
+- Interbank lending froze
+- Asset fire sales across markets
+
+### 2010 European Sovereign Debt Crisis
+- Greek debt concerns spread to other Eurozone countries
+- Bank-sovereign doom loop (banks hold sovereign debt; sovereigns guarantee banks)
+- Contagion across sovereign bond markets
+
+### 2020 COVID Crisis
+- Flight to safety caused liquidity shortages
+- Central bank intervention prevented contagion
+- Highlighted importance of market infrastructure
+
+*External Reading: [OFR: Contagion in Financial Networks](https://www.financialresearch.gov/working-papers/files/OFRwp-2015-21_Contagion-in-Financial-Networks.pdf)*
+`,
+        keyPoints: [
+          'Contagion spreads distress through direct and indirect channels',
+          'Direct contagion: contractual relationships like interbank lending',
+          'Indirect contagion: fire sales, liquidity hoarding, information effects',
+          'Network theory helps identify potential contagion sources',
+          'Highly connected institutions can be contagion amplifiers'
+        ],
+        quiz: [
+          {
+            question: 'What is an example of direct contagion?',
+            options: ['Investors panic after reading news', 'Bank A fails causing losses at Bank B due to interbank lending', 'Asset prices fall due to forced selling', 'Central bank raises interest rates'],
+            correctIndex: 1,
+            explanation: 'Direct contagion occurs through explicit contractual relationships, such as when Bank A fails and Bank B suffers losses due to interbank lending or derivatives exposures.'
+          },
+          {
+            question: 'What is asset fire sale contagion?',
+            options: ['Banks selling assets to make profits', 'Forced selling depresses prices, affecting other holders of similar assets', 'Investors buying assets during crisis', 'Government selling assets'],
+            correctIndex: 1,
+            explanation: 'Asset fire sale contagion occurs when distressed institutions are forced to sell assets, depressing prices and causing losses for other institutions holding similar assets.'
+          },
+          {
+            question: 'What does "too interconnected to fail" mean?',
+            options: ['Institutions that are too big', 'Institutions whose failure would disrupt the network due to their connections', 'Institutions that never fail', 'Government-owned banks'],
+            correctIndex: 1,
+            explanation: 'Too interconnected to fail refers to institutions that, while not necessarily large, have so many connections that their failure would disrupt the entire financial network.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-3',
+        title: 'Historical Financial Crises',
+        duration: '40 min',
+        content: `
+## Learning from Crisis History
+
+Financial crises are recurring events with common patterns. Understanding historical crises helps identify warning signs and policy responses.
+
+## 1929 Great Depression
+
+### Causes
+- Stock market bubble and crash
+- Bank failures (over 9,000 banks failed)
+- Deflationary spiral
+- Protectionist trade policies (Smoot-Hawley Tariff)
+- Policy mistakes (tightening monetary policy too early)
+
+### Lessons
+- Importance of lender of last resort
+- Dangers of deflation
+- Need for bank deposit insurance
+- Coordination of international policy
+
+## 1997 Asian Financial Crisis
+
+### Causes
+- Fixed exchange rate regimes became unsustainable
+- Large current account deficits
+- Short-term foreign currency debt
+- Weak financial regulation
+- Contagion across "Asian Tigers"
+
+### Timeline
+- Thailand devalues baht (July 1997)
+- Crisis spreads to Indonesia, South Korea, Malaysia
+- IMF provides emergency loans with conditionality
+- Capital controls imposed by Malaysia
+
+### Lessons
+- Dangers of short-term foreign currency debt
+- Importance of flexible exchange rates
+- Need for strong financial regulation
+- Contagion can spread quickly across regions
+
+## 2008 Global Financial Crisis
+
+### Causes
+- Subprime mortgage lending boom
+- Securitization and complex derivatives (CDOs, CDS)
+- Excessive leverage
+- Rating agency failures
+- Regulatory gaps (shadow banking)
+
+### Key Events
+- Housing bubble bursts (2007)
+- Bear Stearns rescued (March 2008)
+- Lehman Brothers fails (September 2008)
+- AIG rescued, TARP enacted
+- Global recession
+
+### Lessons
+- Importance of macroprudential regulation
+- Need to address too-big-to-fail
+- Shadow banking requires oversight
+- Central banks as lenders of last resort for non-banks
+
+## 2010 European Sovereign Debt Crisis
+
+### Causes
+- High government debt levels
+- Banking crises in some countries
+- Loss of monetary policy flexibility (Eurozone)
+- Bank-sovereign doom loop
+
+### Response
+- Austerity measures
+- ECB interventions (SMP, OMT, QE)
+- Bailouts for Greece, Ireland, Portugal, Spain, Cyprus
+- Banking union reforms
+
+### Lessons
+- Fiscal discipline matters in monetary unions
+- Need for banking union
+- Central bank backstop can calm markets
+- Structural reforms are difficult but necessary
+
+## 2020 COVID-19 Crisis
+
+### Characteristics
+- Exogenous shock (not financial in origin)
+- Rapid economic contraction
+- Unprecedented policy response
+- Financial system remained resilient
+
+### Response
+- Aggressive monetary easing globally
+- Fiscal stimulus on historic scale
+- Central bank corporate bond purchases
+- Suspension of normal rules
+
+### Lessons
+- Speed of response matters
+- Central bank tools can be adapted
+- Financial system more resilient post-2008 reforms
+- Importance of market infrastructure
+
+## Common Patterns
+
+1. **Credit boom precedes crisis**
+2. **Leverage amplifies downturns**
+3. **Contagion spreads across markets**
+4. **Policy response critical to limit damage**
+5. **Crisis leads to regulatory reform**
+
+*External Reading: [ECB: Decomposing Systemic Risk](https://www.ecb.europa.eu/pub/pdf/scpwps/ecb.wp2929~19cda4a673.en.pdf)*
+`,
+        keyPoints: [
+          'Financial crises show recurring patterns: credit booms, leverage, contagion',
+          '1929: Lessons on lender of last resort and avoiding deflation',
+          '1997 Asia: Dangers of short-term foreign debt and fixed rates',
+          '2008: Shadow banking, too-big-to-fail, macroprudential regulation',
+          '2020 COVID: Importance of rapid policy response'
+        ],
+        quiz: [
+          {
+            question: 'What was a key lesson from the 1997 Asian Financial Crisis?',
+            options: ['Fixed exchange rates are always good', 'Short-term foreign currency debt is dangerous', 'IMF loans should never have conditions', 'Capital controls are always bad'],
+            correctIndex: 1,
+            explanation: 'The Asian Financial Crisis highlighted the dangers of short-term foreign currency debt, which became unsustainable when exchange rates came under pressure.'
+          },
+          {
+            question: 'What was unique about the 2008 crisis compared to previous crises?',
+            options: ['It only affected the US', 'It involved complex derivatives and shadow banking', 'It was caused by government spending', 'It had no impact on housing'],
+            correctIndex: 1,
+            explanation: 'The 2008 crisis was unique in its involvement of complex derivatives (CDOs, CDS) and the shadow banking system, which were outside traditional regulatory oversight.'
+          },
+          {
+            question: 'How did the 2020 COVID crisis differ from previous financial crises?',
+            options: ['It was caused by financial speculation', 'It was an exogenous shock with unprecedented policy response', 'It only affected emerging markets', 'It led to tighter monetary policy'],
+            correctIndex: 1,
+            explanation: 'The COVID-19 crisis was an exogenous shock (not financial in origin) that triggered an unprecedented global policy response, with the financial system remaining relatively resilient due to post-2008 reforms.'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'derivatives',
+    title: 'Financial Derivatives',
+    region: 'General',
+    description: 'Master derivatives including forwards, futures, options, swaps, and their role in risk management and speculation.',
+    lessons: [
+      {
+        id: 'lesson-1',
+        title: 'Introduction to Derivatives',
+        duration: '30 min',
+        content: `
+## What Are Derivatives?
+
+A derivative is a financial contract whose value is derived from an underlying asset or group of assets. The underlying asset can be stocks, bonds, commodities, currencies, interest rates, or market indices.
+
+## Why Derivatives Matter
+
+### Risk Management (Hedging)
+Derivatives allow market participants to transfer risk:
+- Farmers lock in crop prices
+- Airlines hedge fuel costs
+- Investors protect portfolios
+- Banks manage interest rate exposure
+
+### Price Discovery
+Derivatives markets provide information about future expectations:
+- Futures prices reflect expected future spot prices
+- Options implied volatility shows market uncertainty
+
+### Speculation
+Derivatives enable leveraged bets on market movements with relatively small capital outlay.
+
+### Market Efficiency
+Derivatives improve market efficiency by allowing:
+- Arbitrage between related markets
+- More complete markets
+- Better risk sharing
+
+## Basic Types of Derivatives
+
+### Forwards
+Customized contracts to buy/sell an asset at a specified price on a future date. Traded over-the-counter (OTC).
+
+### Futures
+Standardized contracts traded on exchanges. Similar to forwards but with daily margining and clearing.
+
+### Options
+Contracts giving the right (but not obligation) to buy (call) or sell (put) an asset at a specified price.
+
+### Swaps
+Agreements to exchange cash flows based on different underlying variables (interest rates, currencies, etc.).
+
+## Exchange-Traded vs. OTC
+
+### Exchange-Traded
+- Standardized contracts
+- Central clearing (CCP)
+- Transparent pricing
+- Lower counterparty risk
+- Limited customization
+
+### Over-the-Counter (OTC)
+- Customized terms
+- Bilateral agreements
+- Less transparent
+- Higher counterparty risk
+- Greater flexibility
+
+## The Derivatives Market
+
+The global derivatives market is enormous, with notional amounts exceeding $600 trillion. The majority is OTC, particularly interest rate and currency derivatives.
+
+*External Reading: [IGC Working Paper on Derivatives](https://www.theigc.org/sites/default/files/2015/02/Sundaram-2012-Working-Paper.pdf)*
+`,
+        keyPoints: [
+          'Derivatives derive value from underlying assets',
+          'Used for hedging, price discovery, speculation, and market efficiency',
+          'Basic types: forwards, futures, options, swaps',
+          'Exchange-traded: standardized, cleared; OTC: customized, bilateral',
+          'Global derivatives market exceeds $600 trillion notional'
+        ],
+        quiz: [
+          {
+            question: 'What is the primary purpose of hedging with derivatives?',
+            options: ['To maximize profits', 'To transfer risk and protect against adverse price movements', 'To speculate on market movements', 'To avoid paying taxes'],
+            correctIndex: 1,
+            explanation: 'Hedging with derivatives is primarily used to transfer risk and protect against adverse price movements in underlying assets.'
+          },
+          {
+            question: 'What is the main difference between forwards and futures?',
+            options: ['Forwards are standardized; futures are customized', 'Forwards are OTC; futures are exchange-traded with daily margining', 'Forwards are for stocks only; futures are for commodities only', 'There is no difference'],
+            correctIndex: 1,
+            explanation: 'Forwards are customized OTC contracts, while futures are standardized exchange-traded contracts with daily margining and central clearing.'
+          },
+          {
+            question: 'What is an option?',
+            options: ['An obligation to buy or sell', 'The right but not obligation to buy or sell at a specified price', 'A type of stock', 'A government bond'],
+            correctIndex: 1,
+            explanation: 'An option gives the holder the right, but not the obligation, to buy (call) or sell (put) an underlying asset at a specified price.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-2',
+        title: 'Interest Rate Derivatives',
+        duration: '35 min',
+        content: `
+## Why Interest Rate Derivatives Matter
+
+Interest rate risk is one of the most significant risks faced by financial institutions, corporations, and investors. Interest rate derivatives allow market participants to manage this risk.
+
+## Types of Interest Rate Derivatives
+
+### Interest Rate Swaps
+Agreements to exchange fixed-rate payments for floating-rate payments (or vice versa).
+
+**Notional amount:** The reference amount used to calculate payments (principal is not exchanged)
+
+**Example:** Company pays fixed 5% on $100 million notional, receives floating LIBOR + 1%
+
+**Uses:**
+- Convert floating-rate debt to fixed-rate
+- Speculate on interest rate movements
+- Match asset/liability durations
+
+### Forward Rate Agreements (FRAs)
+OTC contracts to lock in an interest rate for a future period.
+
+**Example:** Agree to borrow at 4% for 3 months starting in 6 months
+
+**Uses:**
+- Hedge future borrowing costs
+- Lock in lending rates
+
+### Interest Rate Futures
+Exchange-traded contracts on short-term interest rates (e.g., Eurodollar futures, Treasury futures).
+
+**Characteristics:**
+- Standardized contract sizes
+- Daily margining
+- Highly liquid
+- Used for hedging and speculation
+
+### Interest Rate Options
+
+**Caps:** Series of call options on interest rates (protect against rising rates)
+**Floors:** Series of put options on interest rates (protect against falling rates)
+**Swaptions:** Options to enter into interest rate swaps
+
+## The Swap Market
+
+The interest rate swap market is the largest segment of the global derivatives market, with notional amounts exceeding $400 trillion.
+
+### Market Structure
+- **Dealer banks:** Large banks that make markets in swaps
+- **End users:** Corporations, financial institutions, governments
+- **Clearing:** Increasing use of CCPs post-2008
+
+### Pricing
+Swap rates are determined by:
+- The yield curve (government bond yields)
+- Credit risk of counterparties
+- Supply and demand
+- Expected future interest rates
+
+## Risks in Interest Rate Derivatives
+
+### Interest Rate Risk
+Changes in market interest rates affect derivative values.
+
+### Credit/Counterparty Risk
+Risk that counterparty defaults (especially in OTC markets).
+
+### Basis Risk
+Imperfect correlation between hedged exposure and derivative.
+
+### Liquidity Risk
+Difficulty exiting positions in stressed markets.
+
+## Regulation Post-2008
+
+- Mandatory clearing for standardized swaps
+- Margin requirements for non-cleared swaps
+- Trade reporting and transparency
+- Centralized electronic trading
+
+*External Reading: [IMF: Role of Derivatives in Emerging Markets](https://www.elibrary.imf.org/display/book/9781589062917/ch04.xml)*
+`,
+        keyPoints: [
+          'Interest rate swaps exchange fixed for floating payments',
+          'FRAs lock in future interest rates',
+          'Interest rate futures are exchange-traded and highly liquid',
+          'Interest rate options include caps, floors, and swaptions',
+          'Swap market exceeds $400 trillion notional, increasingly cleared through CCPs'
+        ],
+        quiz: [
+          {
+            question: 'What does an interest rate swap typically involve?',
+            options: ['Exchanging principal amounts', 'Exchanging fixed-rate payments for floating-rate payments', 'Buying and selling bonds', 'Exchanging currencies'],
+            correctIndex: 1,
+            explanation: 'Interest rate swaps typically involve exchanging fixed-rate payments for floating-rate payments (or vice versa) based on a notional amount.'
+          },
+          {
+            question: 'What is an FRA?',
+            options: ['A type of government bond', 'An OTC contract to lock in an interest rate for a future period', 'An exchange-traded option', 'A type of stock'],
+            correctIndex: 1,
+            explanation: 'A Forward Rate Agreement (FRA) is an OTC contract that allows parties to lock in an interest rate for borrowing or lending over a future period.'
+          },
+          {
+            question: 'What is the purpose of an interest rate cap?',
+            options: ['To protect against falling interest rates', 'To protect against rising interest rates', 'To speculate on stock prices', 'To exchange currencies'],
+            correctIndex: 1,
+            explanation: 'An interest rate cap is a series of call options on interest rates that provides protection against rising interest rates.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-3',
+        title: 'FX and Credit Derivatives',
+        duration: '35 min',
+        content: `
+## Foreign Exchange Derivatives
+
+FX derivatives allow market participants to hedge currency risk and speculate on exchange rate movements.
+
+### Types of FX Derivatives
+
+#### FX Forwards
+OTC contracts to exchange currencies at a specified rate on a future date.
+
+**Forward points:** Difference between forward and spot rates, determined by interest rate differentials
+
+**Example:** Agree to buy EUR for USD at 1.1000 in 3 months
+
+**Uses:**
+- Hedge future currency exposures
+- Lock in exchange rates for trade transactions
+- Speculate on currency movements
+
+#### FX Swaps
+Simultaneous purchase and sale of currencies for different value dates.
+
+**Example:** Buy EUR for USD spot, sell EUR for USD in 3 months
+
+**Uses:**
+- Manage short-term funding needs
+- Roll forward FX positions
+- Access foreign currency funding
+
+#### Currency Swaps
+Exchange principal and interest payments in different currencies.
+
+**Example:** Exchange USD principal and interest for EUR principal and interest
+
+**Uses:**
+- Access foreign currency at favorable rates
+- Hedge long-term currency exposure
+- Convert debt between currencies
+
+#### FX Options
+Right (but not obligation) to buy/sell currency at specified rate.
+
+**Uses:**
+- Hedge against adverse movements while retaining upside
+- Speculate with limited downside
+
+## Credit Derivatives
+
+Credit derivatives allow transfer of credit risk without transferring the underlying asset.
+
+### Credit Default Swaps (CDS)
+
+**Structure:** Protection buyer pays periodic premium to protection seller; seller compensates buyer if credit event occurs
+
+**Credit events:**
+- Bankruptcy
+- Failure to pay
+- Debt restructuring
+- Acceleration/repudiation
+
+**Example:** Buy CDS on Company X bonds; pay 200 bps annually; receive payment if Company X defaults
+
+**Uses:**
+- Hedge credit exposure
+- Take short positions on credit
+- Diversify credit risk
+- Speculate on credit events
+
+### CDS Index Products
+
+**CDX.NA.IG:** Index of 125 North American investment-grade corporate CDS
+**iTraxx Europe:** Index of 125 European investment-grade corporate CDS
+
+**Uses:**
+- Hedge broad credit exposure
+- Gain exposure to credit markets
+- Trade credit sentiment
+
+### Other Credit Derivatives
+
+**Total Return Swaps:** Exchange total return of reference asset for floating rate
+**Credit Linked Notes:** Securities with embedded credit derivatives
+**Collateralized Debt Obligations (CDOs):** Structured products tranched by credit risk
+
+## The Role of Credit Derivatives
+
+### Benefits
+- Risk transfer and diversification
+- Price discovery for credit risk
+- Liquidity for credit markets
+- Hedging tool for bond portfolios
+
+### Risks and Concerns
+- Counterparty risk (AIG in 2008)
+- Opacity and complexity
+- Potential for speculation
+- Contagion channels (2008 crisis)
+
+## Regulation Post-2008
+
+- Central clearing for standardized CDS
+- Margin requirements
+- Trade reporting and transparency
+- Ban on naked CDS on sovereign debt (EU)
+
+## Market Size
+
+- FX derivatives: ~$100 trillion notional daily
+- CDS: ~$10 trillion notional outstanding
+
+FX derivatives are the most actively traded derivatives globally, with the majority being swaps and forwards.
+`,
+        keyPoints: [
+          'FX forwards lock in future exchange rates',
+          'FX swaps manage short-term funding across currencies',
+          'CDS transfers credit risk via periodic premiums',
+          'CDS indexes provide broad credit market exposure',
+          'Credit derivatives improve risk transfer but created contagion in 2008'
+        ],
+        quiz: [
+          {
+            question: 'What does a Credit Default Swap (CDS) provide?',
+            options: ['Insurance against stock market losses', 'Protection against credit events like default or bankruptcy', 'Guarantee of profit on investments', 'Low-interest loans'],
+            correctIndex: 1,
+            explanation: 'A CDS provides protection against credit events such as bankruptcy, failure to pay, or debt restructuring in exchange for periodic premium payments.'
+          },
+          {
+            question: 'What determines forward points in FX forwards?',
+            options: ['Stock market performance', 'Interest rate differentials between currencies', 'Government regulations', 'Trading volume'],
+            correctIndex: 1,
+            explanation: 'Forward points (the difference between forward and spot FX rates) are determined by interest rate differentials between the two currencies.'
+          },
+          {
+            question: 'What was a major concern about credit derivatives during the 2008 crisis?',
+            options: ['They were too simple', 'Counterparty risk and opacity created contagion channels', 'They were not used enough', 'They were only traded on exchanges'],
+            correctIndex: 1,
+            explanation: 'During the 2008 crisis, counterparty risk (e.g., AIG) and the opacity of credit derivatives created contagion channels that amplified the crisis.'
           }
         ]
       }

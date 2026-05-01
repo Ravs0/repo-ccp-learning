@@ -1,9 +1,10 @@
 import { Link, useLocation } from 'react-router-dom'
-import { BookOpen, GitCompare, HelpCircle, Library, Menu, X } from 'lucide-react'
+import { BookOpen, GitCompare, HelpCircle, Library, Menu, X, Network } from 'lucide-react'
 import { useState } from 'react'
 
 const navItems = [
   { path: '/', label: 'Home', icon: BookOpen },
+  { path: '/concepts', label: 'Concepts', icon: Network },
   { path: '/compare', label: 'Compare', icon: GitCompare },
   { path: '/quiz', label: 'Quiz', icon: HelpCircle },
   { path: '/glossary', label: 'Glossary', icon: Library },

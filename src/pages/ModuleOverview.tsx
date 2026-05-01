@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Clock, CheckCircle, Lock } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Clock } from 'lucide-react'
 import { modules } from '../data/lessons'
 
 export default function ModuleOverview() {
@@ -28,9 +28,13 @@ export default function ModuleOverview() {
         <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-4 ${
           module.region === 'US' 
             ? 'bg-accent-blue/20 text-accent-blue' 
-            : 'bg-accent-purple/20 text-accent-purple'
+            : module.region === 'Asia'
+            ? 'bg-accent-purple/20 text-accent-purple'
+            : module.region === 'Global'
+            ? 'bg-accent-green/20 text-accent-green'
+            : 'bg-accent-orange/20 text-accent-orange'
         }`}>
-          {module.region} Markets
+          {module.region === 'General' ? 'Finance Fundamentals' : `${module.region} Markets`}
         </div>
         <h1 className="text-3xl font-bold mb-4">{module.title}</h1>
         <p className="text-gray-400 text-lg">{module.description}</p>

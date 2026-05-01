@@ -7,6 +7,7 @@ import ComparePage from './pages/ComparePage'
 import QuizPage from './pages/QuizPage'
 import GlossaryPage from './pages/GlossaryPage'
 import SourcesPage from './pages/SourcesPage'
+import ConceptTree from './components/ConceptTree'
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="quiz" element={<QuizPage />} />
         <Route path="glossary" element={<GlossaryPage />} />
         <Route path="sources" element={<SourcesPage />} />
+        <Route path="concepts" element={<ConceptTree />} />
       </Route>
     </Routes>
   )
