@@ -61,7 +61,43 @@ function MarkdownContent({ content }: { content: string }) {
         </pre>
       )
     } else if (line.trim()) {
-      elements.push(<p key={i} className="mb-4 text-gray-300 leading-relaxed">{line}</p>)
+      // Check for markdown links [text](url)
+      const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
+      const matches = [...line.matchAll(linkRegex)]
+      
+      if (matches.length > 0) {
+        let lastIndex = 0
+        const parts: JSX.Element[] = []
+        
+        matches.forEach((match, idx) => {
+          // Add text before link
+          if (match.index > lastIndex) {
+            parts.push(<span key={`text-${idx}`}>{line.slice(lastIndex, match.index)}</span>)
+          }
+          // Add link
+          parts.push(
+            <a 
+              key={`link-${idx}`}
+              href={match[2]} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-accent-cyan hover:text-white underline"
+            >
+              {match[1]}
+            </a>
+          )
+          lastIndex = match.index + match[0].length
+        })
+        
+        // Add remaining text
+        if (lastIndex < line.length) {
+          parts.push(<span key={`text-end`}>{line.slice(lastIndex)}</span>)
+        }
+        
+        elements.push(<p key={i} className="mb-4 text-gray-300 leading-relaxed">{parts}</p>)
+      } else {
+        elements.push(<p key={i} className="mb-4 text-gray-300 leading-relaxed">{line}</p>)
+      }
     }
     i++
   }
