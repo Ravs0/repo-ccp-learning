@@ -1,3 +1,12 @@
+import { glossary as glossaryData } from './modules/glossary'
+import { sources as sourcesData } from './modules/sources'
+import { basel3Module } from './modules/basel-iii'
+import { fxDerivativesModule } from './modules/fx-derivatives'
+import { fixedIncomeMathModule } from './modules/fixed-income-math'
+import { algoTradingModule } from './modules/algo-trading'
+import { sovereignDebtModule } from './modules/sovereign-debt'
+import { quantRiskModule } from './modules/quant-risk'
+
 export interface Lesson {
   id: string
   title: string
@@ -5404,242 +5413,1433 @@ Combination of European and American features to balance alignment and GP liquid
         ]
       }
     ]
-  }
+  },
+  {
+    id: 'advanced-ccp',
+    title: 'Advanced CCP Risk Management',
+    region: 'Global',
+    description: 'Deep dive into CCP default waterfalls, recovery and resolution, VMGH, skin-in-the-game, and interoperability between clearinghouses.',
+    lessons: [
+      {
+        id: 'lesson-1',
+        title: 'The Default Waterfall Structure',
+        duration: '45 min',
+        content: `
+## Understanding the CCP Default Waterfall
+
+The default waterfall is the sequence of financial resources a CCP uses to absorb losses when a clearing member defaults. It represents the CCP's "defense in depth" against member failure.
+
+## The Standard Waterfall Sequence
+
+### 1. Initial Margin (Defaulter's Collateral)
+
+The first line of defense is the defaulting member's own collateral.
+
+**Initial Margin:** Posted by the defaulter at trade initiation
+- Covers potential future exposure (PFE) under extreme scenarios
+- Calculated using historical or stressed market movements
+- Usually SPAN-based or VaR-based models
+- May include add-ons for concentrated positions
+
+**Variation Margin:** Collected daily to cover mark-to-market losses
+- Ensures current exposure is zero
+- Intraday margin calls in volatile markets
+
+**Excess Margin:** Any collateral posted beyond minimum requirements
+
+**Why This Matters:** Defaulter pays first principle ensures incentives remain aligned. Members know their own collateral is at risk.
+
+### 2. Default Fund Contribution (Defaulter's Skin in the Game)
+
+After initial margin is exhausted, the defaulter's default fund contribution is used.
+
+**Purpose:** Mutualized loss absorption for extreme losses beyond IM
+**Size:** Typically 10-25% of total default fund
+**Called:** "Skin in the game" because it's the defaulter's own capital at risk
+
+### 3. CCP Own Capital (Skin in the Game)
+
+The CCP contributes its own capital to absorb losses.
+
+**Size Requirements (CPMI-IOSCO):**
+- Minimum amount equal to largest two member default fund contributions
+- Cover-2 standard ensures CCP has meaningful exposure
+
+**Forms:**
+- Cash reserves
+- High-quality liquid assets
+- Parent company guarantees (for some structures)
+
+**Why Required:** Aligns CCP incentives with members; CCP management feels pain of poor risk management
+
+### 4. Non-Defaulting Members' Default Fund Contributions
+
+Losses exceeding defaulter's resources and CCP capital hit the mutualized default fund.
+
+**Structure:**
+- Pre-funded contributions from all clearing members
+- Pro-rata allocation based on member activity/risk
+- Held in segregated accounts, bankruptcy remote
+
+**Assessment Rights:**
+- CCPs typically have rights to call additional assessments (2-4x initial contribution)
+- Members must commit to provide additional funds if needed
+- Creates ongoing mutualization even after pre-funded amounts exhausted
+
+**Concentration Risk:** Large members' default fund contributions may be disproportionately large, creating systemic concentration
+
+### 5. Recovery Assessments
+
+If the pre-funded default fund is exhausted, CCPs can assess remaining members.
+
+**Types:**
+- Pro-rata assessments based on member size/activity
+- May be capped at certain multiples of initial default fund contribution
+- Usually limited to losses from a single default event
+
+**Practical Example:**
+FICC's Government Securities Division (GSD) waterfall includes:
+1. Defaulter's initial margin
+2. Defaulter's default fund contribution
+3. FICC's own capital (cover-2)
+4. Mutualized default fund
+5. Assessment rights on surviving members
+
+## VMGH: Variation Margin Gains Haircutting
+
+A controversial recovery tool allowing CCPs to reduce payments to members with in-the-money positions.
+
+**Mechanism:**
+- In stress, CCP may not collect sufficient variation margin from defaulter
+- To prevent default fund depletion, CCP can "haircut" (reduce) payments to members owed variation margin
+- Effectively forces winners to subsidize losses
+
+**Controversy:**
+- Violates expectation of full payment
+- Creates incentive to reduce positions before stress
+- Legal uncertainty in some jurisdictions
+- BIS research (Aldasoro-Veraart) shows VMGH can create cross-CCP contagion
+
+**Real-World Usage:**
+Most CCPs have VMGH authority but rarely use it due to reputational concerns.
+
+## Recovery Tools Beyond the Waterfall
+
+### Tear-Up (Forced Close-Out)
+
+CCP can tear up (close out at mid-market) positions of surviving members to reduce risk.
+
+**When Used:**
+- Position concentration risk too high after default
+- Market liquidity deteriorating
+- Need to rapidly reduce exposures
+
+**Impact:**
+- Forces members to realize mark-to-market
+- Disrupts hedging strategies
+- Used in extreme circumstances only
+
+### Auction of Defaulted Positions
+
+The primary method for managing a defaulter's portfolio.
+
+**Process:**
+1. CCP novates defaulter's positions to itself
+2. Holds auction among surviving members to take over positions
+3. Assigns portfolios to auction winners
+4. Losses from unfavorable auction prices hit waterfall
+
+**Key Considerations:**
+- Auction success depends on market conditions
+- Wide bid-ask spreads increase waterfall losses
+- Members may collude to obtain favorable pricing
+- CCP may need to warehouse positions if auction fails
+
+## Reading: The Cover-2 Standard and Its Limitations
+
+CPMI-IOSCO guidance requires CCPs to hold sufficient resources to cover losses from default of the two largest clearing members under extreme but plausible scenarios.
+
+**Limitations:**
+
+1. **Static view of member rankings:** Who are "largest" changes with market conditions
+2. **Correlated defaults:** Cover-2 assumes sequential, not simultaneous, defaults
+3. **Interconnectedness ignored:** Members of multiple CCPs create contagion channels
+4. **Procyclicality:** Margin increases during stress may trigger the very defaults the waterfall is designed to cover
+
+**Aldasoro & Veraart (2022) finding:**
+> "We show that who the two top clearing members are varies significantly depending on whether one accounts for contagion effects stemming from interconnectedness through shared clearing membership."
+
+**Implication:** Cover-2 is necessary but insufficient. CCPs need:
+- Dynamic risk monitoring
+- Stress testing with correlated defaults
+- Systemic risk assessments across CCPs
+
+[External Reading: CPMI-IOSCO Principles for Financial Market Infrastructures](https://www.bis.org/cpmi/publ/d101.pdf)
+`,
+        keyPoints: [
+          'Default waterfall: defaulter IM → defaulter DF → CCP capital → mutualized DF → assessments',
+          'Cover-2 standard: CCP capital must equal largest two member default fund contributions',
+          'VMGH allows CCPs to reduce variation margin payments to members during stress',
+          'Default auctions transfer defaulter positions to surviving members',
+          'Recovery assessments allow CCPs to call additional funds from surviving members',
+          'Cover-2 has limitations: assumes sequential defaults, ignores interconnectedness'
+        ],
+        quiz: [
+          {
+            question: 'In the CCP default waterfall, which resource is used first?',
+            options: ['CCP own capital', 'Mutualized default fund', 'Defaulter initial margin', 'Recovery assessments'],
+            correctIndex: 2,
+            explanation: 'The defaulter\'s initial margin is always the first line of defense, followed by their default fund contribution, then CCP capital, then the mutualized default fund.'
+          },
+          {
+            question: 'What does "Cover-2" refer to in CCP risk management?',
+            options: ['Covering two days of losses', 'CCP capital equal to two largest member default fund contributions', 'Covering two asset classes', 'Two rounds of margin calls'],
+            correctIndex: 1,
+            explanation: 'Cover-2 requires CCPs to hold capital equal to the default fund contributions of the two largest clearing members to ensure the CCP has meaningful skin in the game.'
+          },
+          {
+            question: 'What is Variation Margin Gains Haircutting (VMGH)?',
+            options: ['Reducing haircuts on collateral', 'Cutting variation margin payments owed to members', 'Increasing margin requirements', 'Closing out positions'],
+            correctIndex: 1,
+            explanation: 'VMGH allows CCPs to reduce ("haircut") payments owed to members with in-the-money positions during stress, effectively forcing winners to subsidize losses.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-2',
+        title: 'CCP Resolution and Systemic Risk',
+        duration: '50 min',
+        content: `
+## When the Waterfall Fails: CCP Resolution
+
+If a CCP exhausts all waterfall resources and still faces insolvency, resolution authorities step in. CCP failure is a systemic risk event requiring special legal frameworks.
+
+## The Resolution Challenge
+
+Unlike banks, CCPs cannot simply be liquidated:
+- Thousands of counterparties depend on CCP performance
+- Sudden close-out would devastate markets
+- Contagion would spread through interconnected members
+
+**Key Principle:** CCPs are "too systemic to fail" but also "too complex to resolve traditionally"
+
+## Resolution Tools for CCPs
+
+### 1. Loss Allocation (Cash Calls)
+
+Resolution authority requires surviving members to contribute additional capital.
+
+**Mechanics:**
+- Uncapped or high-capped assessments on non-defaulting members
+- Can exceed standard assessment commitments
+- May be immediate (same-day) calls
+
+**Legal Basis:**
+- Statutory resolution powers override standard contract terms
+- May be challenged in courts (untested in practice)
+
+**Incentive Problems:**
+- Creates moral hazard: members may reduce positions before crisis
+- Uncertainty about ultimate liability reduces participation
+- Drives "flight to safety" away from CCP clearing
+
+### 2. Partial Tear-Up
+
+Resolution authority cancels (tears up) some cleared positions.
+
+**How It Works:**
+- Positions closed at mid-market valuations
+- Creates realized losses for affected members
+- Reduces CCP exposure and risk
+
+**Types:**
+- Pro-rata across all positions
+- Concentrated on specific products/markets
+- Targeted at members with largest gains (VMGH on steroids)
+
+**Market Impact:**
+- Forces immediate hedging by affected members
+- May trigger further market volatility
+- Undermines confidence in clearing
+
+### 3. Bridge CCP
+
+Resolution authority transfers critical functions to a temporary entity.
+
+**Structure:**
+- New entity ("bridge CCP") assumes CCP operations
+- Funded by resolution authority or private capital
+- Eventually sold, wound down, or merged
+
+**Challenges:**
+- Requires rapid operational setup
+- IT systems and operational continuity
+- Staff retention during crisis
+
+### 4. Bail-In
+
+Converting debt or other obligations into equity or cancellation.
+
+**Limited Use in CCPs:**
+- CCPs typically don't have bail-inable debt
+- Default fund contributions aren't debt instruments
+- Less applicable than for banks
+
+## The Too-Big-To-Fail Problem
+
+Even with resolution tools, authorities may face pressure to bail out CCPs.
+
+**Why Bailouts Are Tempting:**
+- Immediate market stability
+- Protects thousands of counterparties
+- Prevents contagion cascade
+- Political pressure to "do something"
+
+**Why Bailouts Are Dangerous:**
+- Moral hazard: CCPs take more risk knowing backstop exists
+- Unfair to taxpayers
+- Creates competitive distortions
+- Undermines market discipline
+
+**FICC Example:**
+The U.S. Treasury/Federal Reserve have indicated FICC is systemically important. While no explicit guarantee exists, market participants assume implicit backing—a classic moral hazard problem.
+
+## Cross-Border Resolution Challenges
+
+Most major CCPs operate across multiple jurisdictions, creating coordination problems.
+
+### Home vs. Host Country Conflicts
+
+**Primary Jurisdiction:** Where CCP is incorporated (e.g., UK for LCH)
+**Host Jurisdictions:** Where CCP clears trades for local members
+
+**Conflicts:**
+- Which resolution authority takes lead?
+- How are losses allocated across jurisdictions?
+- Different national resolution regimes may conflict
+
+**Examples:**
+- LCH (UK-based) clears for U.S., European, and Asian members
+- JSCC (Japan) has international members
+- Cross-default provisions complicate unilateral action
+
+### Memoranda of Understanding (MOUs)
+
+Regulators attempt to coordinate through bilateral agreements.
+
+**Limitations:**
+- Not legally binding in crisis
+- Different time zones complicate coordination
+- National interest may override cooperation
+- No supranational authority exists
+
+## Interoperability and Multi-CCP Risk
+
+When CCPs link together to clear related products, failure at one can affect others.
+
+### Interoperability Models
+
+**1. Cross-Margining Agreements:**
+- Offsetting positions at different CCPs reduce combined margin
+- Members post less total collateral
+- But creates cross-exposure: if one CCP fails, positions at both are at risk
+
+**2. Linked Clearing:**
+- CCPs recognize each other's trades
+- Losses at one may cascade to linked CCP
+
+**3. Common Members:**
+- Large dealers clear at multiple CCPs
+- Default at one strains resources at others through shared membership
+
+### The Aldasoro-Veraart Research
+
+BIS Working Paper No 1052 analyzes multi-CCP contagion:
+
+**Key Findings:**
+
+1. **Shared membership creates contagion channels**
+   - Large dealer defaults at one CCP
+   - Strains same dealer's positions at other CCPs
+   - May trigger sequential defaults
+
+2. **Cover-2 insufficient for multi-CCP analysis**
+   - Top two members differ when interconnectedness considered
+   - May need Cover-3, Cover-4, or higher in dense networks
+
+3. **VMGH spillovers**
+   - One CCP imposing VMGH affects member liquidity at other CCPs
+   - Creates coordination problem: which CCP imposes VMGH first?
+
+**Policy Implications:**
+- Stress testing must be system-wide, not CCP-specific
+- Recovery planning requires coordination across CCPs
+- Macroprudential supervision of CCP ecosystem needed
+
+## Systemic Risk Mitigation Strategies
+
+### Macroprudential Approach
+
+Supervise CCPs as a system, not individual entities.
+
+**Tools:**
+- Aggregate stress testing across all CCPs
+- Monitor concentration of members across CCPs
+- Limit cross-margining to reduce interdependencies
+- Coordinate margin policies to avoid procyclicality
+
+### CCP Diversity
+
+Avoid single points of failure through multiple CCPs.
+
+**Asian Model Advantage:**
+- JSCC, CDP, HKSCC provide redundancy
+- No single entity dominates
+- Distributed risk across jurisdictions
+
+**U.S. Model Risk:**
+- FICC is sole Treasury repo CCP
+- All repo risk concentrated in one entity
+- Single point of failure for critical market
+
+### Living Wills
+
+CCPs must create resolution plans ("living wills") documenting:
+- How to wind down operations
+- Critical functions and continuity plans
+- Resource requirements under stress
+- Coordination with regulators
+
+## Key Takeaways
+
+**Resolution is untested:** No major CCP has been resolved in crisis. Tools exist on paper but real-world effectiveness unknown.
+
+**Systemic risk is real:** CCPs concentrate counterparty risk. What makes individual transactions safer may make the system riskier.
+
+**Coordination is essential:** Cross-border and multi-CCP coordination gaps remain significant vulnerabilities.
+
+**Prevention > Resolution:** Building robust CCPs with adequate resources is far preferable to relying on resolution tools.
+
+[External Reading: FSB Resolution of CCPs](https://www.fsb.org/work-of-the-fsb/financial-stability/central-counterparties-ccps/)
+`,
+        keyPoints: [
+          'CCP resolution tools: loss allocation, tear-up, bridge CCP, bail-in',
+          'Cross-border resolution complicated by home/host jurisdiction conflicts',
+          'Multi-CCP interoperability creates contagion channels through shared membership',
+          'Cover-2 standard insufficient when interconnectedness considered',
+          'No major CCP has been resolved - tools remain untested in crisis',
+          'Macroprudential supervision of CCP ecosystem is essential'
+        ],
+        quiz: [
+          {
+            question: 'What is a "bridge CCP" in resolution?',
+            options: ['A backup data center', 'A temporary entity that assumes CCP operations during resolution', 'A cross-border agreement', 'A margin call mechanism'],
+            correctIndex: 1,
+            explanation: 'A bridge CCP is a temporary entity created by resolution authorities to assume a failing CCP\'s operations, maintaining continuity while arranging permanent resolution.'
+          },
+          {
+            question: 'Why is CCP resolution particularly challenging?',
+            options: ['CCPs are too small to matter', 'Liquidation would devastate markets and counterparties', 'CCPs have no assets', 'Regulators have no authority'],
+            correctIndex: 1,
+            explanation: 'CCPs cannot be simply liquidated like banks because thousands of counterparties depend on their continued performance, and sudden close-out would cause market devastation and contagion.'
+          },
+          {
+            question: 'What does Aldasoro-Veraart research show about multi-CCP systems?',
+            options: ['They are always safer', 'Shared membership creates contagion channels', 'VMGH is never used', 'Cover-2 is always sufficient'],
+            correctIndex: 1,
+            explanation: 'The research demonstrates that large dealers clearing at multiple CCPs can transmit stress across markets, and the Cover-2 standard may be insufficient when interconnectedness is considered.'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'securities-lending',
+    title: 'Securities Lending & Prime Brokerage',
+    region: 'Global',
+    description: 'Comprehensive coverage of securities lending mechanics, beneficial ownership, rehypothecation, and prime brokerage services.',
+    lessons: [
+      {
+        id: 'lesson-1',
+        title: 'Securities Lending Fundamentals',
+        duration: '40 min',
+        content: `
+## Securities Lending vs. Repo: Key Differences
+
+While repo and securities lending both involve collateralized transfers of securities, they serve different economic purposes and have distinct legal structures.
+
+## Economic Purpose
+
+**Repo (Repurchase Agreement):**
+- Purpose: Financing transaction (borrowing/lending cash)
+- Securities serve as collateral for cash loan
+- Focus on cash side of transaction
+
+**Securities Lending:**
+- Purpose: Facilitate short selling and settlement
+- Cash (or other securities) serve as collateral for securities loan
+- Focus on securities side of transaction
+
+## Legal Structure
+
+**Repo:**
+- Sale and repurchase agreement
+- Title transfer of securities (true sale)
+- Bankruptcy remote (securities not part of estate)
+- Netting agreements typically apply
+
+**Securities Lending:**
+- Loan of securities (not a sale)
+- Title transfer occurs (for practical purposes) but transaction characterized as loan
+- Borrower can sell/re-lend securities
+- Return of equivalent securities (not identical)
+
+## Market Size and Participants
+
+**Global Securities Lending Market:**
+- Approximately **$2.5 trillion** in securities on loan globally
+- US Treasuries: ~$500 billion
+- Equities: ~$1 trillion
+- Corporate bonds: ~$500 billion
+- Other (municipals, agencies, etc.): ~$500 billion
+
+**Key Participants:**
+
+**Lenders (Long-term holders):**
+- Institutional investors (pension funds, insurers, mutual funds)
+- ETFs and index funds (BlackRock, Vanguard, State Street)
+- Corporate treasuries
+- Sovereign wealth funds
+
+**Borrowers (Need securities):**
+- Hedge funds (short sellers)
+- Market makers (settlement fails)
+- Arbitrageurs (convertible arbitrage, relative value)
+- Other institutional investors
+
+**Intermediaries:**
+- Agent lenders (BNY Mellon, JPMorgan, State Street)
+- Prime brokers
+- Custodian banks
+
+## The Securities Lending Transaction
+
+### Transaction Flow
+
+**1. Initiation:**
+- Borrower requests specific securities via agent lender or prime broker
+- Lender agrees to lend, receives collateral
+- Loan rate (fee) negotiated
+
+**2. During Loan:**
+- Borrower can sell, re-lend, or pledge securities
+- Lender retains economic ownership (dividends, voting rights)
+- Collateral marked to market daily
+- Borrower pays loan fee (typically annualized)
+
+**3. Return:**
+- Borrower returns equivalent securities (not same CUSIP)
+- Lender returns collateral
+- Transaction terminates
+
+### Collateral Types
+
+**Cash Collateral:**
+- Most common (60-70% of market)
+- Borrower provides cash equal to 102-105% of security value
+- Lender reinvests cash, earns reinvestment return
+- Rebate rate = Reinvestment return - Loan fee
+
+**Non-Cash Collateral:**
+- Other securities (Treasuries, agencies, equities)
+- Letters of credit
+- Used when cash unavailable or restricted
+- No reinvestment - fee paid directly
+
+## Pricing and Economics
+
+### Loan Fee (Rebate Rate)
+
+The rebate rate is what the lender pays the borrower on cash collateral, net of the loan fee.
+
+**Formula:**
+Rebate Rate = Reinvestment Return - Loan Fee
+
+**General Collateral (GC):**
+- Easy to borrow securities (on-the-run Treasuries, liquid equities)
+- Loan fee: 0.05-0.25% annually
+- Rebate rate close to general collateral rate (e.g., SOFR - 10-30 bps)
+
+**Specials (Hard-to-Borrow):**
+- High demand, limited supply
+- Loan fee: 1-10% annually (can spike higher)
+- Negative rebate rates possible (lender pays net fee)
+
+**Examples:**
+- On-the-run 10-year Treasury: 0.10% fee (general collateral)
+- High-short-interest tech stock: 15% fee (special)
+- Post-earnings borrow: 50%+ fee (extreme special)
+
+### Reinvestment Risk
+
+When lenders receive cash collateral, they must reinvest it.
+
+**Standard Reinvestment:**
+- Overnight repo or money market
+- Must be liquid and safe (principal preservation)
+- Lender bears reinvestment risk
+
+**Challenges:**
+- Negative rates in some jurisdictions
+- Yield compression post-2008
+- Regulatory restrictions ( money fund reforms)
+
+## Beneficial Ownership and Voting Rights
+
+### Dividend and Coupon Treatment
+
+**Manufactured Dividends:**
+- When securities are lent over dividend date, borrower pays "manufactured dividend" to lender
+- Tax treatment may differ from actual dividends
+- May affect foreign tax credits
+
+**Tax Considerations:**
+- Dividend withholding tax complications
+- Ineligibility for qualified dividend treatment in some cases
+- Treaty benefits may be lost
+
+### Voting Rights
+
+**Proxy Voting:**
+- Lender temporarily loses voting rights while securities are lent
+- Borrower has voting rights (if they hold at record date)
+- Can recall loans to vote on important matters
+
+**Recall Provisions:**
+- Lenders can recall securities with standard notice (often T+1)
+- Borrower must return or find alternative supply
+- Important for voting, corporate actions, risk management
+
+## Short Selling Mechanics
+
+### How Short Selling Works
+
+**Purpose:** Profit from price decline or hedge long positions
+
+**Process:**
+1. Borrow securities via securities lending
+2. Sell borrowed securities in market
+3. Later, buy securities in market to return
+4. Profit = Sale Price - Purchase Price - Borrow Cost
+
+### Short Squeeze Risk
+
+When short interest is high and borrow becomes scarce:
+
+**Dynamics:**
+- Short sellers must return securities or face buy-in
+- Few shares available to borrow → fee spikes
+- Forced buying drives price higher
+- Creates feedback loop (short squeeze)
+
+**Famous Examples:**
+- GameStop (2021): Borrow fees exceeded 100%
+- Volkswagen (2008): Briefly became world's most valuable company
+- Tesla: Multiple squeeze attempts
+
+### Buy-Ins
+
+If borrower cannot return securities:
+
+**Process:**
+- Lender issues buy-in notice
+- Can purchase securities in market at borrower's expense
+- Borrower liable for any loss plus fees
+
+## Regulatory Framework
+
+### Rule 15c3-3 (SEC)
+
+Requires broker-dealers to maintain possession or control of customer securities.
+
+**Securities Lending Implications:**
+- Customer securities can only be lent with consent
+- Must maintain equivalent securities
+- Cash collateral requirements
+
+### Reg SHO (SEC)
+
+Regulates short selling to prevent abusive practices.
+
+**Key Provisions:**
+- Locate requirement: Must locate securities before shorting
+- Close-out requirement: Force close-out of fails
+- Threshold securities: Reporting for heavily shorted stocks
+
+### UCITS/AIFMD (Europe)
+
+European regulations governing fund securities lending.
+
+**Requirements:**
+- Counterparty exposure limits
+- Collateral requirements (quality, diversification)
+- Revenue sharing disclosure (agent lenders)
+- Transparency to investors
+
+## Risk Management
+
+### Counterparty Risk
+
+Lender faces risk borrower defaults and collateral insufficient.
+
+**Mitigation:**
+- Daily mark-to-market and margin calls
+- High-quality collateral (Treasuries or cash)
+- Master agreements with close-out netting
+- Borrower credit limits
+
+### Operational Risk
+
+**Settlement Fails:**
+- Failure to deliver securities on settlement date
+- Creates market disruption
+- Penalties under CSDR (Europe) and SEC rules (US)
+
+**Corporate Actions:**
+- Rights issues, conversions, tenders during loan period
+- Complex processing requirements
+- Economic equivalence must be maintained
+
+### Legal Risk
+
+**Title Questions:**
+- Who owns securities in bankruptcy of borrower/lender?
+- Treatment under different jurisdictions
+- Rehypothecation limits (see next section)
+
+## Key Takeaways
+
+**Not the same as repo:** Different economic purpose, legal structure, and market dynamics
+
+**Two-sided market:** Lenders earn incremental return; borrowers facilitate short selling and settlement
+
+**Specials matter:** Hard-to-borrow securities command premium fees, creating significant revenue for lenders
+
+**Voting/recall complications:** Securities lending temporarily transfers certain ownership rights
+
+**Short selling essential:** Provides market liquidity, price discovery, and hedging—but carries squeeze risk
+
+[External Reading: ISLA Securities Lending Guidelines](https://www.isla.org/)
+`,
+        keyPoints: [
+          'Securities lending facilitates short selling; repo facilitates cash financing',
+          'Global securities lending market ~$2.5 trillion; loan fees range 0.05% (GC) to 10%+ (specials)',
+          'Lenders temporarily lose voting rights; borrowers pay manufactured dividends',
+          'Short squeezes occur when borrow becomes scarce, forcing buy-ins at high prices',
+          'Cash collateral (60-70% of market) creates reinvestment risk for lenders',
+          'Regulatory frameworks: Rule 15c3-3, Reg SHO (US); UCITS/AIFMD (Europe)'
+        ],
+        quiz: [
+          {
+            question: 'What is the primary economic purpose of securities lending?',
+            options: ['Cash financing for dealers', 'Facilitate short selling and settlement', 'Central clearing of trades', 'Government bond issuance'],
+            correctIndex: 1,
+            explanation: 'Securities lending primarily facilitates short selling (borrowers sell borrowed securities) and helps prevent settlement fails, unlike repo which is for cash financing.'
+          },
+          {
+            question: 'What is a "special" in securities lending?',
+            options: ['A type of government bond', 'Hard-to-borrow securities with high loan fees', 'A short squeeze', 'A collateral type'],
+            correctIndex: 1,
+            explanation: 'Specials are securities in high demand but limited supply, commanding premium loan fees (1-10% or more) compared to general collateral (0.05-0.25%).'
+          },
+          {
+            question: 'What happens to voting rights when securities are lent?',
+            options: ['They are retained by the lender', 'They transfer to the borrower', 'They are suspended', 'They transfer to the agent lender'],
+            correctIndex: 1,
+            explanation: 'While the lender retains economic ownership (dividends), voting rights temporarily transfer to the borrower who holds the securities at the record date. Lenders can recall securities to vote.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-2',
+        title: 'Prime Brokerage & Rehypothecation',
+        duration: '45 min',
+        content: `
+## Prime Brokerage Services
+
+Prime brokers provide comprehensive services to hedge funds and institutional investors, with securities financing at the core.
+
+## Prime Brokerage Overview
+
+**Definition:** A bundled package of services provided by investment banks to hedge funds and asset managers.
+
+**Core Services:**
+
+**1. Securities Lending:**
+- Locates securities for short selling
+- Provides borrow for settlement
+- Manages recalls and returns
+
+**2. Margin Financing:**
+- Extends credit for long positions
+- Rehypothecates client assets as collateral
+- Provides leverage
+
+**3. Custody and Clearing:**
+- Holds client securities
+- Processes settlements
+- Corporate actions processing
+
+**4. Reporting:**
+- Portfolio valuation
+- Risk analytics
+- Regulatory reporting
+
+**5. Capital Introduction:**
+- Introduces hedge funds to potential investors
+- Facilitates fundraising
+
+## The Prime Brokerage Relationship
+
+### Master Securities Lending Agreement (MSLA)
+
+Governs securities lending between prime broker and hedge fund.
+
+**Key Terms:**
+- Borrow and lending mechanics
+- Collateral requirements
+- Margin maintenance
+- Events of default
+- Close-out provisions
+
+### Prime Brokerage Agreement (PBA)
+
+Broader agreement covering all services.
+
+**Critical Provisions:**
+- Rehypothecation rights
+- Margin requirements
+- Cross-margining
+- Commingling of assets
+- Security interest in client assets
+
+## Rehypothecation Explained
+
+### What Is Rehypothecation?
+
+The practice whereby a broker-dealer uses client assets as collateral for its own financing.
+
+**Mechanism:**
+1. Client (hedge fund) buys securities on margin
+2. Client securities held by prime broker as collateral
+3. Prime broker pledges same securities to bank for repo financing
+4. Same securities serve as collateral for two loans
+
+**Example:**
+- Hedge fund buys $100m equities with $50m margin loan from prime broker
+- Prime broker holds $100m equities as collateral
+- Prime broker repos $80m of those equities to bank for funding
+- The $80m equities are "rehypothecated"
+
+### Rehypothecation Limits
+
+**US Regulation (SEC Rule 15c3-3):**
+- Prime broker can rehypothecate up to 140% of customer debit balance
+- If client owes $50m, can rehypothecate $70m of securities
+- Must be in connection with financing customer positions
+
+**UK/Europe (Less Restrictive):**
+- Generally no statutory limits
+- Subject to contractual agreements
+- Client consent required
+- More permissive environment historically
+
+### The 2008 Crisis: Rehypothecation Risk Revealed
+
+**Lehman Brothers Collapse:**
+- Lehman UK rehypothecated significant client assets
+- When Lehman failed, clients became unsecured creditors
+- Many couldn't recover securities (owned by Lehman's banks)
+- Estimated $15-20b in client asset shortfall
+
+**MF Global Failure (2011):**
+- Commingled and rehypothecated customer funds
+- $1.6 billion in customer funds missing
+- Excessive repo-to-maturity trades using customer collateral
+- Criminal convictions for misappropriation
+
+### Segregation Requirements Post-Crisis
+
+**CFTC Margin Rules (US):**
+- Swap dealers must segregate customer margin
+- Cannot rehypothecate cleared swap margin
+- Uncleared swaps: Limited rehypothecation
+
+**EMIR (Europe):**
+- Mandatory segregation for OTC derivatives margin
+- Rehypothecation prohibited for variation margin
+- Initial margin subject to strict limits
+
+**SEC Rules:**
+- Enhanced disclosure of rehypothecation
+- Consent requirements
+- Asset protection rule amendments
+
+## Margin Requirements in Prime Brokerage
+
+### Initial Margin
+
+**Purpose:** Protect against adverse price movements
+**Calculation:** Risk-based (VaR or scenario-based)
+**Levels:** 10-50% depending on asset volatility
+
+**Portfolio Margin (Advanced Approach):**
+- Offsets between long and short positions
+- Correlation adjustments
+- Lower margin for hedged portfolios
+
+### Maintenance Margin
+
+**Purpose:** Ongoing protection; margin calls when breached
+**Typical Level:** 75-85% of initial margin requirement
+**Margin Call:** Required when equity falls below maintenance level
+
+### Margin Calculations Example
+
+**Scenario:**
+- Long $10m large-cap equities
+- Short $5m different large-cap equities
+- Prime broker margin requirement: 15% gross, 6% portfolio
+
+**Gross Margin:**
+- ($10m + $5m) × 15% = $2.25m
+
+**Portfolio Margin:**
+- Net position: $5m exposure
+- Concentration add-on: $0.5m
+- Total requirement: $5.5m × 6% + $0.5m = $830k
+
+**Savings:** $2.25m - $0.83m = $1.42m (63% reduction)
+
+## Prime Brokerage Risk Management
+
+### Prime Broker Risks
+
+**1. Client Default:**
+- Client can't meet margin call
+- Securities sold at declining prices
+- Loss if collateral insufficient
+
+**2. Rehypothecation Risk:**
+- Client demands return of securities
+- Prime broker has rehypothecated them
+- Must find replacement securities or buy in market
+
+**3. Funding Risk:**
+- Prime broker relies on wholesale funding
+- Repo markets can freeze
+- Mismatch between client financing and PB funding
+
+**4. Operational Risk:**
+- Complex reconciliations
+- Settlement fails
+- Corporate actions processing
+
+### Client Risks
+
+**1. Prime Broker Default:**
+- Prime broker fails (Lehman)
+- Securities may be tied up in bankruptcy
+- Rehypothecated assets may be lost
+
+**2. Commingling Risk:**
+- Client assets not segregated
+- Hard to identify "your" securities in bankruptcy
+- May become general creditor
+
+**3. Lock-Up Periods:**
+- Agreements restrict withdrawal
+- Assets trapped during stress
+- Gate provisions during crisis
+
+## The Role of Tri-Party Repo in Prime Brokerage
+
+### Tri-Party Mechanics
+
+**Participants:**
+- Cash investor (money market fund)
+- Cash borrower (prime broker)
+- Tri-party agent (BNY Mellon, JPMorgan)
+
+**Process:**
+1. Prime broker pledges securities as repo collateral
+2. Tri-party agent values securities, manages collateral
+3. Cash investor provides funds
+4. Agent handles daily settlement, substitution
+
+### Intra-Day Credit Risk
+
+**The Problem:**
+- Tri-party agents provide massive intra-day credit
+- Morning: Return cash to investors
+- Afternoon: Re-receive cash for new repo
+- During day: Prime broker uses cash
+- Agent exposed if PB fails intra-day
+
+**2010 Reforms:**
+- Limited intra-day credit exposure
+- Earlier cut-off times
+- Reduced reliance on clearing bank funding
+
+## Multi-Prime Brokerage Strategy
+
+### Why Funds Use Multiple Prime Brokers
+
+**1. Diversification:**
+- Reduce exposure to any single prime broker
+- Protect against PB default
+
+**2. Capacity:**
+- Large funds exceed single PB's risk appetite
+- Spread financing across balance sheets
+
+**3. Best Execution:**
+- Competition for securities lending rates
+- Better pricing through multiple sources
+
+**4. Specialization:**
+- Different PBs for different strategies
+- Regional expertise (Asia, Europe)
+
+### Challenges
+
+**Operational Complexity:**
+- Multiple reconciliations
+- Fragmented reporting
+- Cross-PB margin inefficiencies
+
+**Cost:**
+- Minimum fees at each PB
+- Operational overhead
+
+## Key Takeaways
+
+**Prime brokerage is essential infrastructure:** Enables hedge fund leverage, short selling, and operational efficiency
+
+**Rehypothecation is powerful but risky:** Same assets collateralize multiple obligations; limits and segregation critical
+
+**Post-crisis reforms:** Enhanced segregation, rehypothecation limits, and disclosure requirements
+
+**Client protections matter:** Segregation, excess margin, and multi-prime strategies protect against PB failure
+
+**Tri-party repo is critical funding source:** Prime brokers rely on tri-party market for financing; reforms address intra-day risk
+
+[External Reading: SIFMA Prime Brokerage Guidelines](https://www.sifma.org/)
+`,
+        keyPoints: [
+          'Prime brokers provide securities lending, margin financing, custody, and reporting to hedge funds',
+          'Rehypothecation: prime broker uses client assets as collateral for its own financing (140% limit in US)',
+          'Lehman and MF Global failures revealed rehypothecation risks; post-crisis reforms mandate segregation',
+          'Portfolio margin reduces requirements for hedged positions through offset recognition',
+          'Tri-party repo is critical PB funding source; reforms addressed intra-day credit risk from agents',
+          'Multi-prime strategies diversify counterparty risk but add operational complexity'
+        ],
+        quiz: [
+          {
+            question: 'What is rehypothecation?',
+            options: ['Selling securities short', 'Using client assets as collateral for broker financing', 'Central clearing of trades', 'Reinvesting cash collateral'],
+            correctIndex: 1,
+            explanation: 'Rehypothecation is when a prime broker pledges client securities as collateral for its own financing. US regulations limit this to 140% of the client\'s debit balance.'
+          },
+          {
+            question: 'What was a key lesson from the Lehman Brothers collapse regarding prime brokerage?',
+            options: ['Prime brokers cannot fail', 'Rehypothecated client assets may be lost in bankruptcy', 'Short selling should be banned', 'Margin requirements are too low'],
+            correctIndex: 1,
+            explanation: 'Lehman UK had rehypothecated significant client assets. When Lehman failed, those clients became unsecured creditors and many could not recover their securities, revealing the bankruptcy risk of rehypothecation.'
+          },
+          {
+            question: 'What is portfolio margin?',
+            options: ['Fixed percentage for all positions', 'Risk-based margin recognizing offsets between positions', 'No margin required', 'Double the standard margin'],
+            correctIndex: 1,
+            explanation: 'Portfolio margin is an advanced approach that calculates margin based on overall portfolio risk, recognizing offsets between long and short positions, typically resulting in lower margin requirements than gross approaches.'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'credit-derivatives',
+    title: 'Credit Derivatives & CDS',
+    region: 'Global',
+    description: 'In-depth coverage of credit default swaps, indices, tranches, and their role in systemic risk.',
+    lessons: [
+      {
+        id: 'lesson-1',
+        title: 'Credit Default Swaps (CDS) Fundamentals',
+        duration: '45 min',
+        content: `
+## Credit Default Swaps: Insurance or Speculation?
+
+Credit Default Swaps are the most important credit derivative, with a market of approximately **$8-9 trillion** in notional outstanding (BIS data 2024).
+
+## What Is a CDS?
+
+A CDS is a financial contract where the protection buyer makes periodic payments to the protection seller in exchange for a payoff if a "credit event" occurs on a reference entity.
+
+**Contract Terms:**
+- **Reference Entity:** The issuer whose default is being insured (single name CDS)
+- **Notional Amount:** The face value of protection
+- **Credit Event:** Defined default triggers (bankruptcy, failure to pay, restructuring)
+- **Spread (Premium):** Annual payment, quoted in basis points
+- **Maturity:** Typically 1, 3, 5, 7, or 10 years (5-year most common)
+
+## CDS vs. Insurance: Key Differences
+
+While CDS function like insurance, important distinctions exist:
+
+**Insurable Interest:**
+- Insurance: Must have economic interest in underlying
+- CDS: No ownership required; can speculate on default
+
+**Standardization:**
+- Insurance: Custom contracts
+- CDS: ISDA standard documentation
+
+**Cash Settlement:**
+- Insurance: Typically reimbursement of actual loss
+- CDS: Auction settlement determined by market (not actual loss)
+
+**Counterparty Risk:**
+- Insurance: Insurance company risk
+- CDS: Bilateral counterparty exposure
+
+## CDS Pricing and Spreads
+
+### CDS Spread Interpretation
+
+The CDS spread reflects the annual cost of protection as a percentage of notional.
+
+**Examples:**
+- 100 bps (1%) on $10m notional = $100,000/year
+- 500 bps (5%) on $10m notional = $500,000/year
+
+**Spread Drivers:**
+1. **Default probability:** Higher PD → Higher spread
+2. **Recovery rate:** Lower expected recovery → Higher spread
+3. **Risk-free rate:** Minor effect on spread
+
+### Upfront Premium vs. Running Spread
+
+**Running Spread (Legacy):**
+- Fixed coupon (100 bps for investment grade, 500 bps for high yield)
+- Actual spread quoted as upfront + running
+- Complex present value calculations
+
+**Upfront Premium (Standard, post-2014):**
+- Standardized coupons (1% IG, 5% HY)
+- If spread > coupon, buyer pays upfront
+- If spread < coupon, seller pays upfront
+- Cleaner pricing, better standardization
+
+### CDS-Bond Basis
+
+The CDS spread typically differs from the bond credit spread:
+
+**CDS-Bond Basis = CDS Spread - Bond Spread**
+
+**Drivers of Basis:**
+- **Funding cost:** CDS unfunded, bond requires cash
+- **Cheapest-to-deliver option:** CDS protection holder can deliver any eligible bond
+- **Technical factors:** Supply/demand in CDS vs. cash markets
+- **Counterparty risk:** CDS includes CVA
+
+**Arbitrage Constraints:**
+- Basis can persist due to market frictions
+- "Negative basis trade" buys bond + CDS protection
+- "Positive basis trade" sells CDS + shorts bond
+
+## Credit Events and Settlement
+
+### Types of Credit Events
+
+**Bankruptcy:**
+- Reference entity files for bankruptcy
+- Most common trigger
+
+**Failure to Pay:**
+- Misses scheduled payment
+- Grace period considerations
+- Minimum threshold amounts
+
+**Restructuring:**
+- Terms of debt modified to benefit borrower
+- Modified restructuring (MR) vs. modified modified restructuring (MMR)
+- Regional variations (Europe includes restructuring, North America typically doesn't)
+
+**Repudiation/Moratorium:**
+- Challenges reference entity's obligations
+- Rare in developed markets
+
+### Settlement Process
+
+**Physical Settlement (Historical):**
+- Protection buyer delivers defaulted bonds to seller
+- Receives notional amount in cash
+- Problem: "Delivery squeezes" if not enough bonds available
+
+**Cash Settlement (Current Standard):**
+- Auction determines recovery value
+- Protection seller pays: Notional × (100% - Recovery%)
+- No physical delivery required
+
+**Auction Mechanics:**
+1. ISDA organizes auction after credit event
+2. Market participants submit bid/offer prices
+3. Auction clearing price determines recovery
+4. Usually multiple rounds to ensure fair price
+
+**Historical Recoveries:**
+- Lehman Brothers: 8.625% (91.375% payout)
+- General Motors: 12.5% (87.5% payout)
+- Energy Future Holdings: 12.5% (87.5% payout)
+
+## CDS Indices
+
+### The CDX and iTraxx Families
+
+CDS indices provide diversified credit exposure through standardized baskets.
+
+**CDX North America:**
+- Investment Grade (CDX.NA.IG): 125 investment grade entities
+- High Yield (CDX.NA.HY): 100 high yield entities
+- High Yield BB, B (sub-indices by rating)
+- Emerging Markets (CDX.EM)
+
+**iTraxx Europe:**
+- Main (iTraxx Main): 125 investment grade entities
+- Crossover (iTraxx Crossover): 40 sub-investment grade
+- Financials, Senior/Subordinated (sector indices)
+- Asia, Australia (regional indices)
+
+### Index Mechanics
+
+**Roll Schedule:**
+- New series issued every 6 months (March and September)
+- Series numbered (e.g., "CDX IG Series 40")
+- "On-the-run" = most recent series (most liquid)
+- "Off-the-run" = older series (less liquid)
+
+**Constituent Changes:**
+- Defaulted names removed
+- Downgraded names may move to crossover index
+- New names added to maintain count
+
+**Index vs. Single-Name CDS:**
+- Index trades at spread roughly equal to average constituent spread
+- Index typically trades tighter (liquidity premium)
+- Index is unfunded; single-name can be traded on either funded or unfunded basis
+
+### Index Tranches
+
+**Synthetic CDOs:**
+CDS indices can be tranched to create different risk/return profiles.
+
+**Standard Tranches (CDX IG):**
+- 0-3% (Equity tranche): First loss, highest risk/highest return
+- 3-7% (Mezzanine): Middle risk
+- 7-10%, 10-15%, 15-30%, 30-100% (Senior tranches): Lower risk
+
+**Correlation Trading:**
+- Tranche pricing depends on default correlation assumptions
+- If correlation increases, equity tranche value decreases, senior tranches increase
+- "Correlation skew" describes market pricing vs. model
+
+## The 2008 Crisis: CDS Role
+
+### AIG Financial Products
+
+**The Problem:**
+- AIG sold CDS protection on mortgage-backed securities
+- Assumed subprime risk via multi-sector CDOs
+- No collateral posting until ratings downgrades
+- $400+ billion notional exposure
+
+**Collapse Mechanism:**
+1. Housing prices decline
+2. Downgrades trigger collateral calls
+3. AIG lacks liquidity to post collateral
+4. Government bailout required ($182 billion)
+5. AIG almost brought down the financial system
+
+**Lesson:** Wrong-way risk—selling protection on assets correlated with own creditworthiness.
+
+### The CDS Market in 2008
+
+**Market Size:**
+- Peak: ~$60 trillion notional (2007)
+- Current: ~$8-9 trillion (massive compression through netting)
+
+**Problems Revealed:**
+1. **Bilateral collateral:** Counterparty credit risk in OTC market
+2. **Naked CDS:** Speculation without underlying exposure
+3. **Settlement uncertainty:** Unclear auction processes
+4. **Systemic concentration:** AIG, monoline insurers
+
+## Post-Crisis CDS Market Reforms
+
+### Central Clearing
+
+**Mandatory Clearing:**
+- Standardized CDS must be centrally cleared
+- Reduces counterparty risk through CCP
+- CCP becomes counterparty to both sides
+
+**CCPs for CDS:**
+- ICE Clear Credit (US)
+- LCH CDSClear (Europe)
+
+**Clearing Eligibility:**
+- Standardized indices (CDX, iTraxx)
+- Standardized single names (limited)
+- Bespoke and illiquid CDS remain bilateral
+
+### Trade Reporting
+
+**DTCC Data Repository:**
+- All CDS trades reported to trade repository
+- Regulators gain transparency into positions
+- Systemic risk monitoring improved
+
+### Standardization
+
+**ISDA Standard Definitions:**
+- 2014 Credit Derivatives Definitions
+- Standardized coupons (1% IG, 5% HY)
+- Clarified auction settlement terms
+- Streamlined credit event processing
+
+## CDS as a Hedging Tool
+
+### Corporate Bond Hedging
+
+**Perfect Hedge (Theoretical):**
+- Own $10m corporate bond
+- Buy $10m CDS protection
+- If issuer defaults: Bond loses value, CDS pays off
+- Net exposure = 0
+
+**Imperfections:**
+- Basis risk: CDS spread ≠ Bond spread movement
+- Cheapest-to-deliver: You may not own the delivery bond
+- Duration mismatch: CDS curve vs. bond curve
+
+### Loan Portfolio Hedging
+
+**LCDX (Loan CDS Index):**
+- CDS on syndicated loans (not bonds)
+- Allows hedging loan portfolio credit risk
+- Different recovery assumptions (loans senior to bonds)
+
+### Sovereign CDS
+
+**Use Cases:**
+- Hedge emerging market debt
+- Speculate on sovereign default
+- Measure sovereign credit risk (CDS spread as metric)
+
+**Controversy:**
+- Naked sovereign CDS banned in EU (2012)
+- Argued to increase borrowing costs for stressed sovereigns
+- Empirical evidence mixed
+
+## CDS as a Market Signal
+
+### Credit Spread as Predictor
+
+CDS spreads often lead bond market moves.
+
+**Leading Indicator Properties:**
+- More liquid than cash bonds
+- Speculative participation
+- Faster price discovery
+
+**Distressed Signals:**
+- CDS spreads > 500 bps: Distressed territory
+- CDS spreads > 1000 bps: High probability of default priced
+- Inverted CDS curve: Short-term stress greater than long-term
+
+### CDS Implied Probability of Default
+
+**Approximation:**
+PD ≈ CDS Spread / (1 - Recovery Rate)
+
+**Example:**
+- CDS spread: 200 bps (2%)
+- Recovery rate: 40%
+- Implied PD: 2% / (1 - 0.4) = 3.33%
+
+**Limitations:**
+- Assumes risk-neutral pricing
+- Ignores counterparty risk (CVA)
+- Recovery rate uncertain
+
+## Key Takeaways
+
+**CDS is not insurance:** No insurable interest required, standardized, cash settlement
+
+**Market is large but shrinking:** From $60T peak to $8-9T current; central clearing and compression
+
+**AIG demonstrated systemic risk:** Wrong-way risk, concentration, inadequate collateral practices
+
+**Post-crisis reforms:** Central clearing, trade reporting, standardized documentation
+
+**Useful tool for:** Hedging credit risk, speculating, measuring market sentiment
+
+**Limitations:** Basis risk, cheapest-to-deliver option, counterparty risk in bilateral trades
+
+[External Reading: ISDA Credit Derivatives Definitions](https://www.isda.org/)
+`,
+        keyPoints: [
+          'CDS market: ~$8-9 trillion notional; peaked at ~$60 trillion before compression and clearing mandates',
+          'CDS functions like insurance but no insurable interest required; used for hedging and speculation',
+          'Credit events: bankruptcy, failure to pay, restructuring; settled via auction process determining recovery',
+          'CDS indices (CDX, iTraxx) provide diversified exposure; can be tranched to create synthetic CDOs',
+          'AIG failure (2008): sold CDS on mortgage CDOs without adequate collateral; required $182B government bailout',
+          'Post-crisis reforms: mandatory central clearing for standardized CDS, trade reporting, ISDA 2014 standardization'
+        ],
+        quiz: [
+          {
+            question: 'What is the key difference between CDS and insurance?',
+            options: ['CDS has higher premiums', 'CDS does not require insurable interest in the reference entity', 'CDS only covers bonds, not loans', 'CDS cannot be traded'],
+            correctIndex: 1,
+            explanation: 'Unlike insurance, CDS contracts do not require the protection buyer to have an economic interest in the reference entity. This allows speculation on credit events without owning underlying bonds.'
+          },
+          {
+            question: 'What triggered the AIG crisis in 2008?',
+            options: ['Stock market crash', 'Collateral calls triggered by ratings downgrades on mortgage CDS', 'Interest rate spikes', 'Currency devaluation'],
+            correctIndex: 1,
+            explanation: 'AIG sold CDS protection on mortgage-backed securities without posting initial collateral. When ratings were downgraded, massive collateral calls were triggered that AIG could not meet, leading to a government bailout.'
+          },
+          {
+            question: 'What is the current standard CDS settlement method?',
+            options: ['Physical delivery of bonds', 'Cash settlement via auction process', 'Fixed payment schedule', 'Mutual cancellation'],
+            correctIndex: 1,
+            explanation: 'Since 2009, the standard settlement method is cash settlement via auction. An auction determines the recovery value of defaulted bonds, and the protection seller pays the difference between par and recovery.'
+          }
+        ]
+      }
+    ]
+  },
+  basel3Module,
+  fxDerivativesModule,
+  fixedIncomeMathModule,
+  algoTradingModule,
+  sovereignDebtModule,
+  quantRiskModule
 ]
 
-export const glossary = [
-  {
-    term: 'Repo (Repurchase Agreement)',
-    definition: 'A sale of securities coupled with an agreement to repurchase them at a future date and price; economically a collateralized short-term loan.',
-    category: 'Core Concepts'
-  },
-  {
-    term: 'Reverse Repo',
-    definition: 'The opposite side of a repo transaction; from the cash lender\'s perspective, it is a collateralized deposit or investment of cash.',
-    category: 'Core Concepts'
-  },
-  {
-    term: 'CCP (Central Counterparty)',
-    definition: 'An entity that interposes itself between buyers and sellers in financial transactions to guarantee performance and mutualize counterparty credit risk.',
-    category: 'Core Concepts'
-  },
-  {
-    term: 'Novation',
-    definition: 'The legal replacement of an original contract between two parties with two new contracts between each party and a central counterparty, extinguishing bilateral exposure.',
-    category: 'Core Concepts'
-  },
-  {
-    term: 'Netting',
-    definition: 'The offsetting of mutual obligations to reduce the number and size of payments or securities transfers required for settlement.',
-    category: 'Risk Management'
-  },
-  {
-    term: 'Margin (Initial)',
-    definition: 'Collateral posted at the initiation of a trade to protect against potential future exposure to counterparty default.',
-    category: 'Risk Management'
-  },
-  {
-    term: 'Margin (Variation)',
-    definition: 'Collateral transferred daily (or intraday) to reflect changes in the market value of cleared positions.',
-    category: 'Risk Management'
-  },
-  {
-    term: 'Haircut',
-    definition: 'A discount applied to the market value of collateral to create a buffer against price fluctuations.',
-    category: 'Risk Management'
-  },
-  {
-    term: 'DTCC/FICC',
-    definition: 'Depository Trust & Clearing Corporation / Fixed Income Clearing Corporation—the sole CCP for U.S. Treasury repo markets.',
-    category: 'U.S. Markets'
-  },
-  {
-    term: 'BNY Mellon',
-    definition: 'Bank of New York Mellon—the sole clearing bank for U.S. repo markets, holding custodial accounts for FICC and market participants.',
-    category: 'U.S. Markets'
-  },
-  {
-    term: 'CBES',
-    definition: 'Commercial Book-Entry System—the Federal Reserve\'s definitive ledger for U.S. Treasury securities ownership.',
-    category: 'U.S. Markets'
-  },
-  {
-    term: 'JSCC',
-    definition: 'Japan Securities Clearing Corporation—the central counterparty for Japanese securities markets, including JGB repo.',
-    category: 'Asian Markets'
-  },
-  {
-    term: 'CDP',
-    definition: 'Central Depository (Pte) Limited—the clearing house for Singapore securities, with limited repo clearing capabilities.',
-    category: 'Asian Markets'
-  },
-  {
-    term: 'HKSCC',
-    definition: 'Hong Kong Securities Clearing Company—the clearing house for Hong Kong equities, with limited repo clearing.',
-    category: 'Asian Markets'
-  },
-  {
-    term: 'Tri-Party Repo',
-    definition: 'A repo transaction where a third party (clearing bank) manages collateral selection, valuation, and settlement between borrower and lender.',
-    category: 'Market Structure'
-  },
-  {
-    term: 'Bilateral Repo',
-    definition: 'A repo transaction where two parties face each other directly without a central counterparty, each bearing the other\'s credit risk.',
-    category: 'Market Structure'
-  },
-  {
-    term: 'Sponsored Member',
-    definition: 'A market participant that accesses central clearing through a direct CCP member (e.g., a hedge fund sponsored by a dealer bank).',
-    category: 'Market Structure'
-  },
-  {
-    term: 'Default Waterfall',
-    definition: 'The ordered sequence of financial resources used by a CCP to absorb losses from a member default.',
-    category: 'Risk Management'
-  },
-  {
-    term: 'PFMI',
-    definition: 'Principles for Financial Market Infrastructures—international standards set by CPMI-IOSCO for payment, clearing, and settlement systems.',
-    category: 'Regulation'
-  },
-  {
-    term: 'FMU',
-    definition: 'Financial Market Utility—a systemically important financial market infrastructure designated under the U.S. Dodd-Frank Act.',
-    category: 'Regulation'
-  },
-  {
-    term: 'Joint Clearing Members',
-    definition: 'Large clearing members that participate in multiple CCPs simultaneously, creating potential transmission channels for stress across markets (Aldasoro & Veraart, BIS WP 1052).',
-    category: 'Risk Management'
-  },
-  {
-    term: 'Cover-2 Standard',
-    definition: 'CCP stress testing standard requiring sufficient prefunded resources to withstand the simultaneous default of the two clearing members with the largest exposures; challenged by research showing interconnectedness effects.',
-    category: 'Risk Management'
-  },
-  {
-    term: 'Novation',
-    definition: 'The legal replacement of an original contract between two parties with two new contracts between each party and a central counterparty, extinguishing bilateral exposure.',
-    category: 'Core Concepts'
-  },
-  {
-    term: 'Guarantee Fund',
-    definition: 'Prefunded resources contributed by CCP members to mutualize losses after a defaulting member\'s own resources are exhausted; also called default fund or clearing fund.',
-    category: 'Risk Management'
-  },
-  {
-    term: 'Variation Margin Gains Haircutting (VMGH)',
-    definition: 'A CCP loss allocation mechanism where variation margin payments to non-defaulting members are reduced (\'haircutted\') to absorb losses from a member default; creates potential spillovers to other CCPs.',
-    category: 'Risk Management'
-  },
-  {
-    term: 'Intra-Day Credit',
-    definition: 'Credit extended by a clearing bank to repo market participants during the trading day, enabling securities settlement before final funding; a key systemic risk in tri-party repo markets.',
-    category: 'Market Structure'
-  },
-  {
-    term: 'Contagion',
-    definition: 'The transmission of financial stress from one entity to others through direct or indirect linkages; in CCP contexts, often occurs through shared clearing membership or correlated collateral.',
-    category: 'Risk Management'
-  },
-  {
-    term: 'Recovery and Resolution',
-    definition: 'Frameworks for managing CCPs in financial distress—recovery involves tools to prevent failure; resolution addresses how authorities handle a failing CCP without taxpayer bailout.',
-    category: 'Regulation'
-  }
-]
+export const glossary = glossaryData
 
-export const sources = [
-  {
-    title: 'Repo & CCP Frequently Asked Questions',
-    author: 'ICMA European Repo and Collateral Council',
-    url: 'https://www.icmagroup.org/market-practice-and-regulatory-policy/repo-and-collateral-markets/icma-ercc-publications/frequently-asked-questions-on-repo/',
-    type: 'Industry Guide',
-    description: 'Comprehensive FAQ covering repo fundamentals and CCP functions.'
-  },
-  {
-    title: 'Principles for Financial Market Infrastructures',
-    author: 'CPMI-IOSCO',
-    url: 'https://www.bis.org/cpmi/publ/d101.htm',
-    type: 'Regulatory Standard',
-    description: 'International standards for payment, clearing, and settlement systems including CCPs.'
-  },
-  {
-    title: 'Japan Securities Clearing Corporation',
-    author: 'JPX Group',
-    url: 'https://www.jpx.co.jp/jscc/en/',
-    type: 'Official Website',
-    description: 'Official information on JSCC clearing services and risk management.'
-  },
-  {
-    title: 'Changes in repo markets and the necessity for CCPs in Korea',
-    author: 'Journal of Derivatives and Quantitative Studies',
-    url: 'https://www.emerald.com/jdqs/article/32/1/2/1214020',
-    type: 'Academic Paper',
-    description: 'Analysis of Korean repo market development and CCP necessity.'
-  },
-  {
-    title: 'SGX Clearing Information',
-    author: 'Singapore Exchange',
-    url: 'https://www.sgx.com/securities/clearing-information',
-    type: 'Official Documentation',
-    description: 'Clearing rules and procedures for Singapore securities markets.'
-  },
-  {
-    title: 'HKEX CCP Disclosures',
-    author: 'Hong Kong Exchanges and Clearing',
-    url: 'https://www.hkex.com.hk/Services/Clearing/Securities/CCP-Disclosures',
-    type: 'Regulatory Disclosure',
-    description: 'Quantitative disclosures for HKEX central counterparty clearing.'
-  },
-  {
-    title: 'The impact of CCPs\' margin policies on repo markets',
-    author: 'BIS Working Papers',
-    url: 'https://www.bis.org/publ/work515.pdf',
-    type: 'Research Paper',
-    description: 'BIS analysis of CCP margin policies and their effects on repo markets.'
-  },
-  {
-    title: 'CCP Global Clearing Report 2024',
-    author: 'CCP Global (CCPG)',
-    url: 'https://ccp-global.org/amr',
-    type: 'Industry Report',
-    description: 'Annual review of global clearing market trends and developments.'
-  },
-  {
-    title: 'Systemic Risk in Markets with Multiple Central Counterparties',
-    author: 'Aldasoro & Veraart, BIS Working Paper No 1052',
-    url: 'https://www.bis.org/publ/work1052.htm',
-    type: 'Academic Research',
-    description: 'Analysis of how joint clearing membership transmits stress across multiple CCPs; introduces framework for quantifying payment shortfalls and challenges Cover-2 standard assumptions.'
-  },
-  {
-    title: 'Clearing Houses 101: What They Are and How They Work',
-    author: 'Futures Trading Pedia',
-    url: 'https://futurestradingpedia.com/clearing-house-explained-what-is-a-clearing-organization-and-how-does-it-work/',
-    type: 'Educational Primer',
-    description: 'Comprehensive primer on clearing house functions: novation, margining, default management, netting, and guarantee funds.'
-  },
-  {
-    title: 'Tri-Party Repo Infrastructure Reform',
-    author: 'Federal Reserve Bank of New York',
-    url: 'https://www.newyorkfed.org/banking/tpr_infr_reform.html',
-    type: 'Official Documentation',
-    description: 'FRBNY framework for tri-party repo market reforms addressing systemic risk from clearing bank intra-day credit.'
-  },
-  {
-    title: 'Central Counterparties: Addressing their Too Important to Fail Status',
-    author: 'IMF Working Paper WP/15/21',
-    url: 'https://www.imf.org/external/pubs/ft/wp/2015/wp1521.pdf',
-    type: 'Policy Research',
-    description: 'IMF analysis of CCP interconnectedness, systemic importance, and resolution frameworks for too-important-to-fail clearing houses.'
-  },
-  {
-    title: 'How Does the Repo Market Behave Under Stress?',
-    author: 'IMF Working Paper WP/21/267',
-    url: 'https://imf.org/-/media/Files/Publications/WP/2021/English/wpiea2021267-print-pdf.ashx',
-    type: 'Academic Research',
-    description: 'Evidence from the COVID-19 crisis on repo market liquidity risk, financial networks, and market microstructure.'
-  }
-]
+export const sources = sourcesData
+
+// End of file - exports above
