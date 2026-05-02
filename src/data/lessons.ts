@@ -58,16 +58,19 @@ Repo is the plumbing of the financial system. It finances dealer inventories, en
 
 ## Market Size and Significance
 
-- The U.S. repo market exceeds **$5 trillion daily volume**
+- The U.S. repo market reached **$11.9 trillion** in gross outstanding positions in 2024 (Federal Reserve data)
+- Approximately **38% ($4.6 trillion)** is in the less transparent non-centrally cleared bilateral repo (NCCBR) segment
 - It is the primary funding mechanism for primary dealers who make markets in Treasuries
 - Disruptions create spillovers across money markets, derivatives, and Treasury auctions
+- Dealers operate matched books, serving as intermediaries between cash borrowers (hedge funds) and cash providers (money market funds)
 `,
         keyPoints: [
           'Repo = collateralized short-term loan',
           'Legal form is two sales; economic form is secured lending',
           'Haircut determines leverage ratio',
-          'U.S. repo market > $5 trillion daily',
-          'Critical for dealer financing and market liquidity'
+          'U.S. repo market reached $11.9 trillion in 2024 (Federal Reserve data)',
+          '38% of repo is non-centrally cleared bilateral segment',
+          'Dealers serve as intermediaries between hedge funds and money market funds'
         ],
         quiz: [
           {
@@ -4197,11 +4200,24 @@ Uses include: Purchase price (enterprise value), Transaction fees (advisory, fin
 
 **Entry Multiple:** Purchase Price / LTM EBITDA (Typical range: 6x - 12x)
 
-**Leverage Multiple:** Total Debt / EBITDA (Senior: 3.0x-5.0x, Total: 4.0x-7.0x)
+**Leverage Multiple:** Total Debt / EBITDA (Entry: 4.0x-6.0x, Exit: 2.0x-3.0x)
 
-**Debt Service:** EBITDA / Interest Expense (Minimum 2.0x for investment grade)
+**Debt Service Coverage:** EBITDA / (Interest + Principal) (Minimum 1.5x required by lenders)
+
+**Interest Coverage:** EBITDA / Interest Expense (Averaged 2.34x for new LBOs in 2024)
+
+**IRR Targets by Industry:**
+- Technology and Healthcare: 25-35% IRR
+- Business Services: 22-28% IRR
+- Manufacturing and Distribution: 18-25% IRR
+
+**MOIC Target:** 2.0x - 3.5x
 
 [External Reading: LBO Modeling Guide - Wall Street Prep](https://www.wallstreetprep.com/knowledge/lbo-modeling/)
+
+[External Reading: The $12 Trillion US Repo Market - Federal Reserve FEDS Notes](https://www.federalreserve.gov/econres/notes/feds-notes/the-12-trillion-u-s-repo-market-evidence-from-a-novel-panel-of-intermediaries-20250711.html)
+
+[External Reading: LBO Model Fundamentals Guide 2026 - Abacum](https://www.abacum.ai/blog/lbo-model-fundamentals-a-comprehensive-guide)
 `,
         keyPoints: [
           'LBO uses debt to finance acquisition with assets as collateral',
@@ -4601,15 +4617,30 @@ A QoE report is prepared by accounting firms to validate EBITDA quality.
 
 **1. Revenue Analysis:**
 - Cut-off testing (revenue recognition timing)
-- Customer concentration
-- Related-party revenue
-- One-time vs recurring
+- Contract terms and milestone definitions
+- Multiple element arrangements (bundled products/services allocation)
+- Percentage-of-completion methods
+- Bill-and-hold arrangements
+- Customer concentration by customer, geography, and product
+- Revenue categorization by quality:
+  - Recurring/subscription-based (highest quality)
+  - Repeat customer purchases (high quality)
+  - One-time project revenue (medium quality)
+  - Windfall or distressed sales (lowest quality)
+- Seasonal and cyclical patterns
+- Economic sensitivity and recession resistance
 
 **2. Expense Analysis:**
 - Vendor concentration
 - Related-party expenses
 - Cut-off testing
 - Accrual vs cash basis anomalies
+- Expense categorization:
+  - Recurring Operating Expenses (personnel, facilities, tech, marketing)
+  - Non-Recurring Items (legal, restructuring, impairment, asset dispositions)
+  - Owner/Management Adjustments (personal expenses, above-market compensation, perquisites)
+- Spending efficiency compared to industry benchmarks
+- Investment in growth vs maintenance spending
 
 **3. Working Capital Analysis:**
 - Days Sales Outstanding (DSO)
@@ -4679,6 +4710,8 @@ Example:
 - Declining maintenance capex
 
 [External Reading: Quality of Earnings Analysis - Deloitte](https://www2.deloitte.com/us/en/pages/mergers-and-acquisitions/articles/quality-of-earnings.html)
+
+[External Reading: Quality of Earnings Analysis Complete Guide 2025 - Duedilio](https://www.duedilio.com/quality-of-earnings-analysis-guide-2025/)
 `,
         keyPoints: [
           'Reported EBITDA is just the starting point; adjustments reveal true operating performance',
