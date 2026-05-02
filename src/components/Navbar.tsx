@@ -4,7 +4,7 @@ import { useState } from 'react'
 import AuthButton from './AuthButton'
 
 const navItems = [
-  { path: '/', label: 'Home', icon: BookOpen },
+  { path: '/dashboard', label: 'Dashboard', icon: BookOpen },
   { path: '/concepts', label: 'Concepts', icon: Network },
   { path: '/compare', label: 'Compare', icon: GitCompare },
   { path: '/quiz', label: 'Quiz', icon: HelpCircle },

@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
-import Home from './pages/Home'
+import Landing from './pages/Landing'
+import Dashboard from './pages/Dashboard'
 import LessonPage from './pages/LessonPage'
 import ModuleOverview from './pages/ModuleOverview'
 import ComparePage from './pages/ComparePage'
@@ -13,8 +14,13 @@ import ProtectedRoute from './components/ProtectedRoute'
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
+      <Route path="/" element={<Landing />} />
+      <Route path="/dashboard" element={<Layout />}>
+        <Route index element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
         <Route path="module/:moduleId" element={
           <ProtectedRoute>
             <ModuleOverview />

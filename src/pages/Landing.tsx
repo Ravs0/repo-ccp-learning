@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, BookOpen, Globe, Scale, Shield, Zap } from 'lucide-react'
+import { ArrowRight, BookOpen, Globe, Scale, Shield, Zap, TrendingUp, Clock, Award } from 'lucide-react'
 import { modules } from '../data/lessons'
 
 function FeatureCard({ icon: Icon, title, description }: { icon: typeof BookOpen, title: string, description: string }) {
@@ -12,7 +12,7 @@ function FeatureCard({ icon: Icon, title, description }: { icon: typeof BookOpen
   )
 }
 
-export default function Home() {
+export default function Landing() {
   const totalLessons = modules.reduce((sum, m) => sum + m.lessons.length, 0)
   const totalQuizzes = modules.reduce((sum, m) => sum + m.lessons.reduce((l, lesson) => l + lesson.quiz.length, 0), 0)
 
@@ -27,26 +27,26 @@ export default function Home() {
             <span>Interactive Learning Platform</span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-accent-cyan to-accent-blue bg-clip-text text-transparent">
-            Repo Markets & CCPs
+            Master Financial Markets
           </h1>
           <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-            Master repurchase agreements and central counterparty clearing across U.S. and Asia-Pacific markets. 
-            From bilateral trading to FICC and JSCC—understand the plumbing of the financial system.
+            Learn repo markets, central clearing, M&A structures, private equity, and derivatives 
+            through interactive lessons and quizzes. Track your progress and build expertise step by step.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              to="/module/us-repo"
+              to="/dashboard"
               className="inline-flex items-center gap-2 px-6 py-3 bg-accent-blue hover:bg-accent-cyan text-white font-medium rounded-lg transition-all hover:scale-105"
             >
-              Start Learning
+              Get Started Free
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              to="/compare"
+              to="/dashboard"
               className="inline-flex items-center gap-2 px-6 py-3 bg-dark-700 hover:bg-dark-600 text-white font-medium rounded-lg transition-all border border-dark-500"
             >
               <Scale className="w-4 h-4" />
-              Compare Markets
+              View Curriculum
             </Link>
           </div>
         </div>
@@ -68,22 +68,56 @@ export default function Home() {
             <div className="text-sm text-gray-400">Quiz Questions</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-accent-cyan">2</div>
-            <div className="text-sm text-gray-400">Regions Covered</div>
+            <div className="text-3xl font-bold text-accent-cyan">100%</div>
+            <div className="text-sm text-gray-400">Free</div>
           </div>
         </div>
       </section>
 
-      {/* Modules */}
+      {/* Learning Path Preview */}
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-bold mb-8 text-center">Learning Modules</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">Structured Learning Path</h2>
+          <p className="text-gray-400 text-center mb-8 max-w-2xl mx-auto">
+            Our Duolingo-style learning path guides you through concepts step by step. 
+            Track your progress, earn XP, and master financial markets at your own pace.
+          </p>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="lesson-card text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center">
+                <Clock className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Learn at Your Pace</h3>
+              <p className="text-gray-400 text-sm">Short, focused lessons that fit your schedule. Pick up where you left off anytime.</p>
+            </div>
+            <div className="lesson-card text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
+                <TrendingUp className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Track Progress</h3>
+              <p className="text-gray-400 text-sm">Visual learning path shows exactly where you are and what's next. Earn XP and level up.</p>
+            </div>
+            <div className="lesson-card text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Test Knowledge</h3>
+              <p className="text-gray-400 text-sm">Interactive quizzes after each lesson reinforce learning and identify areas to review.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Modules Preview */}
+      <section className="py-16 px-4 bg-dark-800/50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-bold mb-8 text-center">What You'll Learn</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            {modules.map((module) => (
-              <Link
+            {modules.slice(0, 4).map((module) => (
+              <div
                 key={module.id}
-                to={`/module/${module.id}`}
-                className="lesson-card group hover:border-accent-cyan transition-all"
+                className="lesson-card group"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className={`px-3 py-1 rounded-full text-xs font-medium ${
@@ -97,9 +131,9 @@ export default function Home() {
                   }`}>
                     {module.region === 'General' ? 'Finance Fundamentals' : `${module.region} Markets`}
                   </div>
-                  <Globe className="w-5 h-5 text-gray-500 group-hover:text-accent-cyan transition-colors" />
+                  <Globe className="w-5 h-5 text-gray-500" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-accent-cyan transition-colors">
+                <h3 className="text-xl font-semibold mb-2">
                   {module.title}
                 </h3>
                 <p className="text-gray-400 text-sm mb-4">{module.description}</p>
@@ -108,14 +142,23 @@ export default function Home() {
                   <span>•</span>
                   <span>{module.lessons.reduce((sum, l) => sum + l.quiz.length, 0)} quizzes</span>
                 </div>
-              </Link>
+              </div>
             ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              to="/dashboard"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-accent-blue hover:bg-accent-cyan text-white font-medium rounded-lg transition-all"
+            >
+              View All Modules
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Features */}
-      <section className="py-16 px-4 bg-dark-800/50">
+      <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl font-bold mb-8 text-center">Platform Features</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -150,6 +193,23 @@ export default function Home() {
               description="Comprehensive terminology definitions and academic sources."
             />
           </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 px-4 bg-gradient-to-b from-dark-800 to-dark-900">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-4">Ready to Start Learning?</h2>
+          <p className="text-gray-400 mb-8">
+            Join thousands of learners mastering financial markets. Free forever, no credit card required.
+          </p>
+          <Link
+            to="/dashboard"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-accent-blue hover:bg-accent-cyan text-white font-medium rounded-lg transition-all hover:scale-105 text-lg"
+          >
+            Get Started Now
+            <ArrowRight className="w-5 h-5" />
+          </Link>
         </div>
       </section>
     </div>
