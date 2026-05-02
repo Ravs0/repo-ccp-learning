@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ArrowRightLeft, Globe, Building2, Scale } from 'lucide-react'
 import { modules } from '../data/lessons'
 
@@ -164,9 +165,9 @@ export default function ComparePage() {
       {/* Module Access */}
       <div className="mt-12 grid md:grid-cols-2 gap-6">
         {modules.map((module) => (
-          <a
+          <Link
             key={module.id}
-            href={`/module/${module.id}`}
+            to={`/dashboard/module/${module.id}`}
             className="lesson-card group"
           >
             <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-3 ${
@@ -183,7 +184,7 @@ export default function ComparePage() {
             <div className="text-sm text-accent-cyan">
               Explore {module.lessons.length} lessons →
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </div>
