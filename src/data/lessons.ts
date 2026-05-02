@@ -4136,6 +4136,737 @@ FX derivatives are the most actively traded derivatives globally, with the major
         ]
       }
     ]
+  },
+  {
+    id: 'lbo-modeling',
+    title: 'LBO Modeling & Analysis',
+    region: 'Global',
+    description: 'Master LBO modeling from scratch: build integrated 3-statement models, analyze returns, and understand value creation drivers.',
+    lessons: [
+      {
+        id: 'lesson-1',
+        title: 'LBO Fundamentals & Model Structure',
+        duration: '45 min',
+        content: `
+## What is an LBO?
+
+A Leveraged Buyout (LBO) is the acquisition of a company using a significant amount of borrowed money (debt) to meet the purchase cost. The assets of the company being acquired are often used as collateral for the loans.
+
+## Why PE Firms Use LBOs
+
+**The LBO Equation:**
+Returns = (Exit Value - Net Debt) / Equity Invested
+
+- **Financial leverage:** Debt amplifies equity returns
+- **Tax shield:** Interest payments are tax-deductible
+- **Operational improvements:** PE firms drive value creation
+- **Multiple expansion:** Buy low, sell high on valuation multiples
+
+## Key LBO Model Components
+
+**1. Sources & Uses of Funds**
+Sources include: Senior debt (revolver, Term Loan A/B), Subordinated debt (high-yield bonds, mezzanine), Equity contribution (PE firm + management), Existing cash on target's balance sheet
+Uses include: Purchase price (enterprise value), Transaction fees (advisory, financing, legal), Debt refinancing, Cash to balance sheet
+
+**2. Purchase Price Allocation**
+- Goodwill creation
+- Asset step-ups (PPA - Purchase Price Allocation)
+- Deferred tax implications
+
+**3. Debt Schedule**
+- Principal repayments (mandatory vs optional)
+- Interest calculations (cash vs PIK)
+- Covenant compliance tracking
+
+**4. Returns Analysis**
+- IRR (Internal Rate of Return)
+- MOIC (Multiple on Invested Capital)
+- Value creation bridge
+
+## Typical LBO Capital Structure
+
+| Tranche | % of Total | Cost | Security |
+|---------|-----------|------|----------|
+| Revolver | 0-10% | LIBOR + 200-300bps | First lien |
+| Term Loan B | 40-60% | LIBOR + 300-400bps | First lien |
+| Senior Notes | 20-30% | 6-8% fixed | Second lien or unsecured |
+| Mezzanine | 0-10% | 10-14% (cash + PIK) | Subordinated |
+| Equity | 30-50% | 20-30% target return | Residual |
+
+## Key LBO Metrics
+
+**Entry Multiple:** Purchase Price / LTM EBITDA (Typical range: 6x - 12x)
+
+**Leverage Multiple:** Total Debt / EBITDA (Senior: 3.0x-5.0x, Total: 4.0x-7.0x)
+
+**Debt Service:** EBITDA / Interest Expense (Minimum 2.0x for investment grade)
+
+[External Reading: LBO Modeling Guide - Wall Street Prep](https://www.wallstreetprep.com/knowledge/lbo-modeling/)
+`,
+        keyPoints: [
+          'LBO uses debt to finance acquisition with assets as collateral',
+          'Sources = Uses: Debt + Equity = Purchase Price + Fees + Refinancing',
+          'Typical capital structure: 50-70% debt, 30-50% equity',
+          'Returns driven by: EBITDA growth, multiple expansion, debt paydown, cash flow generation',
+          'Entry multiples typically 6x-12x EBITDA depending on industry and market conditions'
+        ],
+        quiz: [
+          {
+            question: 'What is the primary source of returns in an LBO?',
+            options: ['Dividend payments', 'Debt paydown and EBITDA growth', 'Stock price appreciation', 'Interest income'],
+            correctIndex: 1,
+            explanation: 'LBO returns primarily come from debt paydown (increasing equity value), EBITDA growth (increasing exit value), multiple expansion, and free cash flow generation.'
+          },
+          {
+            question: 'What does "Sources = Uses" mean in an LBO?',
+            options: ['Revenue equals expenses', 'Total financing equals total acquisition cost', 'Assets equal liabilities', 'Cash in equals cash out'],
+            correctIndex: 1,
+            explanation: 'Sources = Uses means the total financing (debt + equity) must equal the total acquisition cost (purchase price + transaction fees + debt refinancing + cash to balance sheet).'
+          },
+          {
+            question: 'What is a typical debt-to-EBITDA leverage ratio in an LBO?',
+            options: ['1x - 2x', '2x - 3x', '4x - 7x', '10x - 12x'],
+            correctIndex: 2,
+            explanation: 'Typical LBO leverage ratios range from 4x to 7x EBITDA, with senior debt at 3x-5x and total debt including subordinated at 4x-7x depending on market conditions.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-2',
+        title: 'Building the Integrated LBO Model',
+        duration: '50 min',
+        content: `
+## Building an LBO Model Step-by-Step
+
+### Step 1: Set Up the Model Structure
+
+**Input Sections:**
+- Transaction assumptions (entry multiple, premium, fees)
+- Debt assumptions (interest rates, terms, covenants)
+- Operating assumptions (revenue growth, margins, capex)
+- Exit assumptions (exit multiple, year)
+
+**Output Sections:**
+- Returns analysis (IRR, MOIC)
+- Sensitivity tables
+- Value creation bridge
+
+### Step 2: Build the Sources & Uses Schedule
+
+**Example Sources:**
+- Senior Debt (Revolver): $50m
+- Term Loan B: $400m
+- Senior Notes: $200m
+- Equity Contribution: $300m
+- Cash on Target's BS: $50m
+- Total Sources: $1,000m
+
+**Example Uses:**
+- Purchase Equity: $800m
+- Refinance Existing Debt: $100m
+- Transaction Fees: $50m
+- Cash to Balance Sheet: $50m
+- Total Uses: $1,000m
+
+### Step 3: Calculate Goodwill and PPA
+
+**Purchase Price Allocation:**
+- Equity Purchase Price: $800m
+- Plus: Existing Net Debt: $100m
+- Enterprise Value: $900m
+
+**Allocation:**
+- Tangible Assets (written up to FMV): $200m
+- Existing Intangibles: $50m
+- New Goodwill: $650m
+
+**Tax Implications:**
+- Asset step-ups create deferred tax liabilities
+- Goodwill is not tax-deductible
+
+### Step 4: Build the Debt Schedule
+
+Track:
+- Beginning balance
+- Mandatory repayment (usually % of excess cash flow)
+- Optional prepayment
+- Ending balance
+- Interest calculation (use average balance)
+
+### Step 5: Link to 3-Statement Model
+
+**Income Statement:**
+- Add interest expense from debt schedule
+- Calculate tax-effected net income
+
+**Balance Sheet:**
+- Add goodwill and intangible assets
+- Show debt balances from schedule
+- Calculate equity (beginning + net income - dividends)
+
+**Cash Flow Statement:**
+- CFO: Net income + D&A - Change in NWC
+- CFI: CapEx - Acquisitions
+- CFF: Debt issuance/repayment + equity contributions/distributions
+
+### Step 6: Calculate Returns
+
+**IRR Calculation:**
+- Year 0: -$300m (equity invested)
+- Year 5: +$600m (exit proceeds)
+- IRR = 14.9%
+
+**MOIC Calculation:**
+- Exit Equity Value: $600m
+- Invested Equity: $300m
+- MOIC = 2.0x
+
+## Common Modeling Best Practices
+
+1. **Circularity Breaker:** Use a switch to break circular references (interest affects cash, cash affects interest)
+2. **Error Checks:** Build checks that Sources = Uses, Balance Sheet balances
+3. **Consistency:** Format all numbers the same way (one decimal for $ in millions)
+4. **Sensitivities:** Build data tables for Entry/Exit multiples vs EBITDA growth
+
+[External Reading: LBO Modeling Best Practices - Macabacus](https://www.macabacus.com/lbo-modeling/)
+`,
+        keyPoints: [
+          'Sources & Uses must always balance: total financing equals total acquisition cost',
+          'Goodwill = Purchase Price - Fair Value of Net Identifiable Assets',
+          'Debt schedule tracks mandatory repayments, optional prepayments, and interest',
+          'Circularity breaker needed for interest expense (cash depends on interest, interest depends on debt balance)',
+          'Returns calculated via IRR (time-weighted) and MOIC (total multiple)'
+        ],
+        quiz: [
+          {
+            question: 'Why is a circularity breaker needed in an LBO model?',
+            options: ['To prevent errors', 'To break circular references between interest and cash balances', 'To simplify the model', 'To reduce file size'],
+            correctIndex: 1,
+            explanation: 'A circularity breaker is needed because interest expense depends on average debt balance, which depends on cash flow, which depends on interest expense. This creates a circular reference that must be broken for the model to calculate properly.'
+          },
+          {
+            question: 'What creates goodwill in an LBO?',
+            options: ['Debt financing', 'Paying more than the fair value of net identifiable assets', 'Transaction fees', 'Working capital adjustments'],
+            correctIndex: 1,
+            explanation: 'Goodwill is created when the purchase price exceeds the fair value of the target\'s net identifiable assets (tangible assets + identifiable intangibles - liabilities).'
+          },
+          {
+            question: 'How is MOIC calculated?',
+            options: ['Exit Equity Value / Invested Equity', 'IRR × Years Held', 'Total Debt / EBITDA', 'EBITDA Growth × Multiple Expansion'],
+            correctIndex: 0,
+            explanation: 'MOIC (Multiple on Invested Capital) = Exit Equity Value / Invested Equity. It shows how many times the initial equity investment is returned at exit.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-3',
+        title: 'Value Creation & Returns Analysis',
+        duration: '40 min',
+        content: `
+## Sources of Value Creation in LBOs
+
+PE firms generate returns through four primary levers:
+
+### 1. EBITDA Growth (30-50% of returns)
+
+**Organic Growth:**
+- Revenue growth (market expansion, pricing power)
+- Margin improvement (cost reduction, operational efficiency)
+
+**Inorganic Growth:**
+- Add-on acquisitions (buy-and-build strategy)
+- Geographic expansion
+
+**Example:** Entry EBITDA: $100m, Exit EBITDA: $150m (10% CAGR), Multiple: 8x (unchanged), EV Created: $400m
+
+### 2. Multiple Expansion (20-30% of returns)
+
+Buying at a lower multiple and selling at a higher multiple.
+
+**Drivers of Multiple Expansion:**
+- Improved growth profile
+- Reduced business risk
+- Scale advantages from add-ons
+- Market timing (buy in recession, sell in expansion)
+
+**Example:** Entry Multiple: 7x, Exit Multiple: 9x, EBITDA: $100m (unchanged), EV Created: $200m
+
+### 3. Debt Paydown (20-30% of returns)
+
+Using free cash flow to reduce debt increases equity value.
+
+**Free Cash Flow Example:**
+- EBITDA: $100m
+- Less CapEx: ($20m)
+- Less Change in NWC: ($5m)
+- Less Cash Taxes: ($15m)
+- Free Cash Flow: $60m
+- Less Mandatory Debt Paydown: ($30m)
+- Less Optional Prepayment: ($20m)
+- Cash to Balance Sheet: $10m
+
+**Example:** Entry Net Debt: $400m, Exit Net Debt: $100m, Debt Reduction: $300m (accrues to equity)
+
+### 4. Cash Flow Generation (10-20% of returns)
+
+Dividends, recapitalizations, and distributions during the hold period.
+
+**Dividend Recap:**
+- Refinance to take cash out
+- Does not change total return but accelerates cash realization
+- Increases IRR by returning cash sooner
+
+## Returns Analysis Framework
+
+### IRR vs MOIC
+
+**MOIC (Multiple on Invested Capital):**
+- Simple multiple: Exit Equity / Entry Equity
+- Ignores timing of cash flows
+- Good for comparing across deals
+- Typical target: 2.0x - 3.0x
+
+**IRR (Internal Rate of Return):**
+- Time-weighted return
+- Accounts for interim distributions
+- Typical target: 20% - 30%
+
+**The Relationship:**
+- Same MOIC, higher IRR = faster return of capital
+- Same IRR, higher MOIC = more total value created
+
+### Value Creation Bridge Example
+
+- Entry Enterprise Value: $700m
+- EBITDA Growth (8% CAGR): +$280m
+- Multiple Expansion (7x to 9x): +$200m
+- Less Additional Net Debt: ($50m)
+- Exit Enterprise Value: $1,130m
+- Less Exit Net Debt: ($150m)
+- Exit Equity Value: $980m
+- Plus Interim Dividends: $70m
+- Total Proceeds: $1,050m
+- Divided by Equity Invested: $300m
+- MOIC: 3.5x
+- IRR (5-year hold): 28.5%
+
+### Sensitivity Analysis
+
+Two-Way Data Table showing MOIC at different EBITDA CAGR and Exit Multiple combinations:
+
+At 5% EBITDA CAGR: 1.8x to 2.7x MOIC
+At 7% EBITDA CAGR: 2.0x to 3.2x MOIC
+At 10% EBITDA CAGR: 2.3x to 3.8x MOIC
+At 12% EBITDA CAGR: 2.6x to 4.4x MOIC
+
+### Break-Even Analysis
+
+**Margin of Safety:**
+- How much can EBITDA decline before MOIC = 1.0x?
+- How much can exit multiple compress before IRR = 0%?
+
+**Example:** If MOIC = 2.0x at 10% EBITDA growth, break-even is approximately 2% EBITDA CAGR with no multiple compression.
+
+## PE Firm Value Creation Strategies
+
+### Operational Improvements
+- **Cost reduction:** Procurement savings, headcount optimization
+- **Revenue growth:** New products, pricing optimization
+- **Working capital:** Inventory management, receivables collection
+
+### Strategic Initiatives
+- **Add-on acquisitions:** Roll-up strategy, synergies
+- **International expansion:** New markets, diversification
+- **Digital transformation:** E-commerce, automation
+
+### Financial Engineering
+- **Debt optimization:** Refinancing at lower rates
+- **Tax efficiency:** Structuring, NOL utilization
+- **Dividend recaps:** Return capital while maintaining ownership
+
+[External Reading: Value Creation in Private Equity - McKinsey](https://www.mckinsey.com/industries/private-equity/our-insights/creating-value-in-private-equity)
+`,
+        keyPoints: [
+          'Four value creation levers: EBITDA growth (30-50%), multiple expansion (20-30%), debt paydown (20-30%), cash generation (10-20%)',
+          'MOIC = Exit Equity / Entry Equity; IRR accounts for timing',
+          'Debt paydown uses free cash flow after capex, working capital, and taxes',
+          'Multiple expansion driven by improved growth, lower risk, scale advantages',
+          'Dividend recaps accelerate IRR but do not change total MOIC'
+        ],
+        quiz: [
+          {
+            question: 'Which value creation lever typically contributes the most to LBO returns?',
+            options: ['Debt paydown', 'Multiple expansion', 'EBITDA growth', 'Cash dividends'],
+            correctIndex: 2,
+            explanation: 'EBITDA growth typically contributes 30-50% of total returns in an LBO, making it the largest driver. This includes both organic growth and growth from add-on acquisitions.'
+          },
+          {
+            question: 'What is the difference between MOIC and IRR?',
+            options: ['MOIC is time-weighted, IRR is not', 'MOIC ignores timing, IRR accounts for when cash is received', 'MOIC is for debt, IRR is for equity', 'They are the same'],
+            correctIndex: 1,
+            explanation: 'MOIC is a simple multiple (Exit Equity / Entry Equity) that ignores timing. IRR is a time-weighted return that accounts for when interim distributions occur. Two deals can have the same MOIC but different IRRs.'
+          },
+          {
+            question: 'What is a dividend recap?',
+            options: ['Paying dividends to all shareholders', 'Refinancing to extract cash while maintaining ownership', 'Reducing dividend payments', 'Exiting the investment'],
+            correctIndex: 1,
+            explanation: 'A dividend recapitalization involves refinancing the capital structure to extract cash while maintaining ownership. It accelerates IRR by returning capital sooner but does not increase total MOIC.'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'financial-statement-analysis',
+    title: 'Financial Statement Analysis for PE',
+    region: 'Global',
+    description: 'Learn to analyze financial statements like a PE associate: EBITDA adjustments, quality of earnings, working capital, and cash flow analysis.',
+    lessons: [
+      {
+        id: 'lesson-1',
+        title: 'Adjusting EBITDA & Normalizations',
+        duration: '40 min',
+        content: `
+## Why EBITDA Adjustments Matter
+
+In PE, reported EBITDA is just the starting point. Associates spend significant time identifying and quantifying adjustments to understand true operating performance.
+
+## Common EBITDA Adjustments
+
+### 1. Non-Recurring Items
+
+**Add-backs for one-time expenses:**
+- Restructuring costs
+- Litigation settlements
+- M&A transaction costs
+- Asset write-downs
+- CEO transition costs
+- COVID-19 impacts
+- Natural disaster impacts
+
+**Example:**
+- Reported EBITDA: $45.0m
+- Add Restructuring costs: $3.0m
+- Add Legal settlement: $2.5m
+- Add Acquisition costs: $1.5m
+- Adjusted EBITDA: $52.0m
+
+### 2. Owner-Related Expenses
+
+**Normalization for private companies:**
+- Above-market owner compensation
+- Personal expenses run through business
+- Related-party transactions
+- Family member salaries
+
+**Example Adjustments:**
+- Reported EBITDA: $12.0m
+- Add Excess owner comp: $2.5m
+- Add Personal auto/fuel: $0.3m
+- Add Family member salaries: $1.2m
+- Adjusted EBITDA: $15.0m
+- At 8x multiple: +$36m valuation impact
+
+### 3. Cost Savings ("Low-Hanging Fruit")
+
+**Pro forma adjustments for PE buyers:**
+- Duplicate overhead elimination
+- Facility consolidation
+- Procurement savings
+- Headcount reduction
+- Systems rationalization
+
+**Important:** Must be achievable within 12-18 months with high confidence
+
+### 4. Management Fees & Professional Services
+
+**Add-backs:**
+- Current PE sponsor management fees
+- Excessive consulting fees
+- Search firm fees for executives
+
+### 5. Non-Operating Items
+
+**Remove from EBITDA:**
+- Investment income/expense
+- FX gains/losses
+- Rental income from non-core assets
+- Gains/losses on asset sales
+
+## Quality of Earnings (QoE) Analysis
+
+A QoE report is prepared by accounting firms to validate EBITDA quality.
+
+### Key QoE Procedures:
+
+**1. Revenue Analysis:**
+- Cut-off testing (revenue recognition timing)
+- Customer concentration
+- Related-party revenue
+- One-time vs recurring
+
+**2. Expense Analysis:**
+- Vendor concentration
+- Related-party expenses
+- Cut-off testing
+- Accrual vs cash basis anomalies
+
+**3. Working Capital Analysis:**
+- Days Sales Outstanding (DSO)
+- Days Inventory Outstanding (DIO)
+- Days Payable Outstanding (DPO)
+- Cash conversion cycle
+
+### Red Flags in QoE:
+
+**Revenue Issues:**
+- Channel stuffing
+- Bill-and-hold arrangements
+- Aggressive revenue recognition
+- Customer concentration greater than 20%
+
+**Expense Issues:**
+- Capitalizing expenses
+- Delaying maintenance
+- Under-accruing expenses
+- Related-party transactions
+
+**Working Capital Issues:**
+- DSO increasing (collection issues)
+- DIO increasing (obsolete inventory)
+- DPO spike (stretching payables)
+- Negative cash conversion trends
+
+## Normalized Working Capital
+
+### Target Working Capital Calculation:
+
+**Historical Average Method:**
+
+Working Capital Components:
+- Accounts Receivable: $12m
+- Inventory: $8m
+- Other Current Assets: $2m
+- Less Accounts Payable: ($6m)
+- Less Accrued Expenses: ($3m)
+- Working Capital: $13m (13% of Revenue)
+
+Target at $150m Revenue: $150m x 13% = $19.5m
+
+### Working Capital Adjustment in Purchase Price:
+
+Example:
+- Purchase Price (8x EBITDA): $400m
+- Less Excess Working Capital: ($5m)
+- Plus Working Capital Deficiency: +$3m
+- Adjusted Purchase Price: $398m
+
+## Cash Flow Conversion Analysis
+
+**EBITDA to Free Cash Flow Bridge:**
+- EBITDA: $100m
+- Less CapEx: ($20m)
+- Less Change in NWC: ($5m)
+- Less Cash Interest: ($15m)
+- Less Cash Taxes: ($12m)
+- Unlevered Free Cash Flow: $48m
+- Conversion Rate: 48%
+
+**Red Flags:**
+- FCF conversion less than 30% consistently
+- Large gap between net income and CFO
+- Increasing DSO/DIO trends
+- Declining maintenance capex
+
+[External Reading: Quality of Earnings Analysis - Deloitte](https://www2.deloitte.com/us/en/pages/mergers-and-acquisitions/articles/quality-of-earnings.html)
+`,
+        keyPoints: [
+          'Reported EBITDA is just the starting point; adjustments reveal true operating performance',
+          'Common adjustments: non-recurring items, owner expenses, cost savings, non-operating items',
+          'QoE (Quality of Earnings) report validates EBITDA quality through detailed procedures',
+          'Working capital targets calculated as % of revenue based on historical averages',
+          'FCF conversion rate (EBITDA to FCF) typically 40-60% for healthy businesses'
+        ],
+        quiz: [
+          {
+            question: 'What is the most common EBITDA adjustment for private companies?',
+            options: ['Revenue recognition changes', 'Owner-related expenses', 'Currency impacts', 'Tax adjustments'],
+            correctIndex: 1,
+            explanation: 'Owner-related expenses are the most common adjustment for private companies, including above-market owner compensation, personal expenses run through the business, and family member salaries.'
+          },
+          {
+            question: 'What is a Quality of Earnings (QoE) report?',
+            options: ['A profitability analysis', 'An accounting firm report validating EBITDA quality', 'A tax compliance report', 'A customer satisfaction survey'],
+            correctIndex: 1,
+            explanation: 'A QoE report is prepared by accounting firms to validate the quality of EBITDA through detailed analysis of revenue recognition, expense classification, and working capital trends.'
+          },
+          {
+            question: 'How is target working capital typically calculated?',
+            options: ['Year-end balance', 'Average of historical periods as % of revenue', 'Industry benchmark', 'Management estimate'],
+            correctIndex: 1,
+            explanation: 'Target working capital is typically calculated as the average of historical working capital as a percentage of revenue, then applied to the current revenue base.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-2',
+        title: 'Cash Flow Analysis & Capex',
+        duration: '35 min',
+        content: `
+## Understanding Free Cash Flow
+
+Free Cash Flow (FCF) is the cash available to all investors (debt and equity) after operating expenses and reinvestment needs.
+
+### Types of Cash Flow:
+
+**Unlevered Free Cash Flow (UFCF):**
+- Cash available to all investors
+- Before debt service
+- Used in DCF and LBO models
+- Formula: EBITDA - CapEx - Change in NWC - Cash Taxes
+
+**Levered Free Cash Flow (LFCF):**
+- Cash available to equity holders only
+- After debt service
+- Used for dividend capacity analysis
+- Formula: EBITDA - CapEx - Change in NWC - Cash Interest - Mandatory Debt Repayment - Cash Taxes
+
+## Capex Analysis
+
+### Maintenance vs Growth Capex
+
+**Maintenance Capex:**
+- Required to maintain current operations
+- Replacement of worn assets
+- Typically 1.0x - 1.5x of depreciation
+
+**Growth Capex:**
+- Expansion capacity
+- New facilities or equipment
+- Technology investments
+
+**Analysis Framework:**
+
+Historical Analysis Example:
+- Year 2021: Depreciation $15m, Capex $18m (1.2x ratio)
+- Year 2022: Depreciation $16m, Capex $22m (1.4x ratio)
+- Year 2023: Depreciation $18m, Capex $35m (1.9x - growth year)
+- Year 2024: Depreciation $20m, Capex $24m (1.2x ratio)
+- Normalized Maintenance: $20m - $25m
+
+### Red Flags in Capex:
+
+**Under-Investment:**
+- Capex less than Depreciation for multiple years
+- Aging equipment
+- Deferred maintenance
+- Potential liability for buyer
+
+**Over-Investment:**
+- Capex significantly exceeds depreciation without growth
+- May indicate inefficient capital allocation
+- High ROIC businesses can sustain lower capex
+
+## Working Capital Deep Dive
+
+### Cash Conversion Cycle
+
+**Formula:** CCC = DSO + DIO - DPO
+
+Where:
+- DSO = (Accounts Receivable / Revenue) x 365
+- DIO = (Inventory / COGS) x 365
+- DPO = (Accounts Payable / COGS) x 365
+
+**Industry Benchmarks:**
+
+| Industry | DSO | DIO | DPO | CCC |
+|----------|-----|-----|-----|-----|
+| Retail | 5 | 45 | 30 | 20 |
+| Manufacturing | 45 | 60 | 35 | 70 |
+| Software | 60 | 0 | 15 | 45 |
+| Healthcare | 50 | 30 | 25 | 55 |
+
+### Working Capital Efficiency Analysis:
+
+**Comparing to Benchmarks:**
+
+Example Gap Analysis:
+- DSO: Company 55 vs Industry 45 (+10 days gap)
+- DIO: Company 50 vs Industry 40 (+10 days gap)
+- DPO: Company 25 vs Industry 35 (-10 days gap)
+- CCC: Company 80 vs Industry 50 (+30 days gap)
+
+Working Capital at $100m Revenue:
+- Current: $100m x (80/365) = $21.9m
+- Target: $100m x (50/365) = $13.7m
+- Potential Release: $8.2m
+
+## Cash Flow Sustainability
+
+### Key Metrics:
+
+**FCF Conversion:**
+- Formula: FCF / EBITDA = Conversion Rate
+- Healthy Range: 40% - 60%
+- Below 30%: Red flag (high capex or working capital drag)
+- Above 70%: Potentially under-investing
+
+**Cash Interest Coverage:**
+- Formula: EBITDA / Cash Interest
+- Minimum: 2.0x
+- Comfortable: 3.0x+
+
+**Debt Paydown Capacity:**
+- Formula: Free Cash Flow / Total Debt
+- Strong: greater than 15% annually
+- Weak: less than 5% annually
+
+### Seasonality Considerations:
+
+**Quarterly Cash Flow Patterns:**
+- Q1: Low (working capital build for year)
+- Q2: Moderate
+- Q3: Moderate
+- Q4: High (collections, inventory drawdown)
+
+**Implications for:**
+- Revolver usage
+- Debt repayment timing
+- Dividend capacity
+- Covenant compliance
+
+[External Reading: Free Cash Flow Analysis - CFO Magazine](https://www.cfo.com/article/2016/12/free-cash-flow-analysis/)
+`,
+        keyPoints: [
+          'UFCF is cash available to all investors; LFCF is after debt service for equity holders',
+          'Maintenance capex typically 1.0x-1.5x depreciation; growth capex is expansion-related',
+          'Cash conversion cycle (CCC) = DSO + DIO - DPO; lower is better',
+          'FCF conversion rate (FCF/EBITDA) of 40-60% indicates healthy cash generation',
+          'Seasonality affects quarterly cash flows and revolver usage patterns'
+        ],
+        quiz: [
+          {
+            question: 'What is the difference between UFCF and LFCF?',
+            options: ['UFCF is after taxes, LFCF is before', 'UFCF is before debt service, LFCF is after', 'UFCF is for one year, LFCF is multi-year', 'They are the same'],
+            correctIndex: 1,
+            explanation: 'Unlevered Free Cash Flow (UFCF) is available to all investors and is calculated before debt service. Levered Free Cash Flow (LFCF) is available only to equity holders and is calculated after interest and mandatory debt repayments.'
+          },
+          {
+            question: 'What is a healthy FCF conversion rate (FCF/EBITDA)?',
+            options: ['10-20%', '20-30%', '40-60%', '80-100%'],
+            correctIndex: 2,
+            explanation: 'A healthy FCF conversion rate is typically 40-60%. Below 30% may indicate high reinvestment needs or working capital issues. Above 70% may indicate under-investment in the business.'
+          },
+          {
+            question: 'What does the cash conversion cycle (CCC) measure?',
+            options: ['Total cash in the business', 'Days to convert inventory and receivables into cash, net of payables', 'Time to close the books', 'Cash interest coverage'],
+            correctIndex: 1,
+            explanation: 'The cash conversion cycle (CCC = DSO + DIO - DPO) measures the number of days it takes to convert inventory and receivables into cash, net of the time taken to pay suppliers. A lower CCC indicates better working capital efficiency.'
+          }
+        ]
+      }
+    ]
   }
 ]
 
