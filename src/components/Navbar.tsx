@@ -5,10 +5,10 @@ import AuthButton from './AuthButton'
 
 const navItems = [
   { path: '/dashboard', label: 'Dashboard', icon: BookOpen },
-  { path: '/concepts', label: 'Concepts', icon: Network },
-  { path: '/compare', label: 'Compare', icon: GitCompare },
-  { path: '/quiz', label: 'Quiz', icon: HelpCircle },
-  { path: '/glossary', label: 'Glossary', icon: Library },
+  { path: '/dashboard/concepts', label: 'Concepts', icon: Network },
+  { path: '/dashboard/compare', label: 'Compare', icon: GitCompare },
+  { path: '/dashboard/quiz', label: 'Quiz', icon: HelpCircle },
+  { path: '/dashboard/glossary', label: 'Glossary', icon: Library },
 ]
 
 export default function Navbar() {
@@ -18,7 +18,7 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 h-16 bg-dark-800/95 backdrop-blur-md border-b border-dark-600 z-50">
       <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/dashboard" className="flex items-center gap-3">
           <div className="w-8 h-8 bg-gradient-to-br from-accent-blue to-accent-cyan rounded-lg flex items-center justify-center">
             <BookOpen className="w-5 h-5 text-white" />
           </div>
@@ -32,7 +32,7 @@ export default function Navbar() {
               key={path}
               to={path}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                location.pathname === path
+                location.pathname.startsWith(path)
                   ? 'text-accent-cyan bg-dark-700'
                   : 'text-gray-400 hover:text-white hover:bg-dark-700'
               }`}
@@ -61,7 +61,7 @@ export default function Navbar() {
               to={path}
               onClick={() => setIsOpen(false)}
               className={`block px-4 py-3 text-sm font-medium ${
-                location.pathname === path
+                location.pathname.startsWith(path)
                   ? 'text-accent-cyan bg-dark-700'
                   : 'text-gray-400 hover:text-white hover:bg-dark-700'
               }`}
