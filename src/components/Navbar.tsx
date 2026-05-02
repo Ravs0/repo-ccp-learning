@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import { BookOpen, GitCompare, HelpCircle, Library, Menu, X, Network } from 'lucide-react'
 import { useState } from 'react'
+import AuthButton from './AuthButton'
 
 const navItems = [
   { path: '/', label: 'Home', icon: BookOpen },
@@ -39,6 +40,7 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
+          <AuthButton />
         </div>
 
         {/* Mobile Menu Button */}
@@ -67,6 +69,9 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
+          <div className="px-4 py-3">
+            <AuthButton />
+          </div>
         </div>
       )}
     </nav>
