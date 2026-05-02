@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, BookOpen, Globe, Scale, Shield, Zap, TrendingUp, Clock, Award } from 'lucide-react'
 import { modules } from '../data/lessons'
+import AuthButton from '../components/AuthButton'
 
 function FeatureCard({ icon: Icon, title, description }: { icon: typeof BookOpen, title: string, description: string }) {
   return (
@@ -18,8 +19,20 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen">
+      {/* Simple Landing Navbar */}
+      <nav className="fixed top-0 left-0 right-0 h-16 bg-dark-800/95 backdrop-blur-md border-b border-dark-600 z-50">
+        <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-accent-blue to-accent-cyan rounded-lg flex items-center justify-center">
+              <BookOpen className="w-5 h-5 text-white" />
+            </div>
+            <span className="font-bold text-lg">Repo & CCP Learning</span>
+          </Link>
+          <AuthButton />
+        </div>
+      </nav>
       {/* Hero */}
-      <section className="relative py-20 px-4 overflow-hidden">
+      <section className="relative pt-36 pb-20 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-accent-blue/10 via-transparent to-transparent" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent-cyan/10 border border-accent-cyan/30 rounded-full text-accent-cyan text-sm mb-6">
