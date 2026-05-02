@@ -1,12 +1,12 @@
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { ArrowLeft, ArrowRight, BookOpen, CheckCircle, XCircle, RotateCcw } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, CheckCircle, RotateCcw } from 'lucide-react'
 import { modules } from '../data/lessons'
 import FlowDiagram from '../components/FlowDiagram'
 
 function MarkdownContent({ content }: { content: string }) {
   const lines = content.split('\n')
-  const elements: JSX.Element[] = []
+  const elements: React.ReactElement[] = []
   let i = 0
 
   while (i < lines.length) {
@@ -67,7 +67,7 @@ function MarkdownContent({ content }: { content: string }) {
       
       if (matches.length > 0) {
         let lastIndex = 0
-        const parts: JSX.Element[] = []
+        const parts: React.ReactElement[] = []
         
         matches.forEach((match, idx) => {
           // Add text before link
@@ -107,7 +107,6 @@ function MarkdownContent({ content }: { content: string }) {
 
 export default function LessonPage() {
   const { moduleId, lessonId } = useParams()
-  const navigate = useNavigate()
   const [showQuiz, setShowQuiz] = useState(false)
   const [quizAnswers, setQuizAnswers] = useState<Record<number, number | null>>({})
   const [showResults, setShowResults] = useState(false)

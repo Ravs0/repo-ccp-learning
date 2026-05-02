@@ -35,7 +35,9 @@ function ConceptNodeComponent({ node, depth = 0, onNodeClick }: { node: ConceptN
         </span>
         
         {node.relatedLessons && node.relatedLessons.length > 0 && (
-          <BookOpen className="w-4 h-4 text-accent-blue ml-auto" title="Related lessons available" />
+          <span title="Related lessons available">
+            <BookOpen className="w-4 h-4 text-accent-blue ml-auto" />
+          </span>
         )}
       </div>
 

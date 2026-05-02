@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRightLeft, Globe, Building2, Scale } from 'lucide-react'
 import { modules } from '../data/lessons'
@@ -67,8 +66,6 @@ const comparisonData = [
 ]
 
 export default function ComparePage() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="text-center mb-12">
