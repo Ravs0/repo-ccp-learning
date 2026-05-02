@@ -4900,6 +4900,510 @@ Working Capital at $100m Revenue:
         ]
       }
     ]
+  },
+  {
+    id: 'ma-deal-structures',
+    title: 'M&A Deal Structures',
+    region: 'Global',
+    description: 'Understand M&A transaction structures, asset vs stock deals, earnouts, representations, warranties, and indemnities.',
+    lessons: [
+      {
+        id: 'lesson-1',
+        title: 'Transaction Structures',
+        duration: '35 min',
+        content: `
+## Asset vs. Stock Deals
+
+### Stock Purchase
+Buyer acquires all outstanding stock of the target company.
+
+**Advantages for Buyer:**
+- Simpler transaction (one agreement)
+- Acquires all assets and liabilities automatically
+- No need to assign individual contracts
+- Tax advantages for sellers (capital gains treatment)
+
+**Disadvantages for Buyer:**
+- Assumes all known and unknown liabilities
+- May need shareholder consent
+- Potential for minority shareholder dissent
+
+**Advantages for Seller:**
+- Clean exit (sell everything at once)
+- Capital gains tax treatment
+- Simpler from seller perspective
+
+### Asset Purchase
+Buyer acquires specific assets and assumes selected liabilities.
+
+**Advantages for Buyer:**
+- Can cherry-pick assets and liabilities
+- Step-up in asset tax basis (depreciation benefits)
+- Avoids assuming unknown liabilities
+- May not need full shareholder approval
+
+**Disadvantages for Buyer:**
+- More complex (multiple asset transfers)
+- Need to assign contracts
+- Potential for higher purchase price due to tax benefits
+
+**Advantages for Seller:**
+- Can retain non-core assets
+- May be able to sell unwanted liabilities separately
+
+**Disadvantages for Seller:**
+- Ordinary income tax on asset sales (higher rate)
+- More complex from seller perspective
+- Double taxation potential (corporate + shareholder)
+
+## Purchase Price Adjustments
+
+### Working Capital Adjustments
+Target working capital is calculated as a percentage of revenue based on historical averages. At closing, actual working capital is compared to target:
+
+- If actual > target: Buyer pays additional amount
+- If actual < target: Purchase price is reduced
+
+### Earnouts
+Contingent consideration based on future performance metrics.
+
+**2024 Market Trends:**
+- Earnouts appeared in 33% of 2024 deals (up from 25% in 2023)
+- While fewer deals include earnouts, more dollars are at play when they do
+- Common metrics: EBITDA, revenue milestones, product development milestones
+- Typical duration: 1-3 years post-closing
+
+**Why Use Earnouts:**
+- Bridge valuation gaps
+- Align incentives (sellers stay motivated)
+- Mitigate buyer risk on uncertain projections
+
+**Earnout Challenges:**
+- Disputes over metric calculation
+- Seller influence on earnout period
+- Accounting complexity
+
+## Representations and Warranties Insurance (RWI)
+
+Insurance that protects buyers against breaches of seller representations and warranties.
+
+**2024 Market Trends:**
+- RWI used in approximately 38% of deals (down from previous peaks)
+- 85% of deals without RWI contained neither fundamental seller representations in 2024 (up from 75% in 2023)
+- Increased use of "walk-away" or no-survival indemnification structures
+- Nearly half of deals with RWI have additional special escrows
+
+**Benefits:**
+- Reduces or eliminates seller indemnification escrow
+- Provides certainty on purchase price
+- Facilitates deals where sellers won't provide extensive indemnities
+
+**Costs:**
+- Premium typically 2.5-4.5% of coverage limit
+- Deductible (retention) typically 1% of deal value
+
+[External Reading: 2024 SRS Acquiom M&A Deal Terms Study](https://www.srsacquiom.com/our-insights/deal-terms-study-2024/)
+`,
+        keyPoints: [
+          'Stock deals: buyer assumes all liabilities; simpler but more risk',
+          'Asset deals: buyer selects assets/liabilities; more complex but less risk',
+          'Working capital adjustments account for normalized working capital at closing',
+          'Earnouts bridge valuation gaps based on future performance (33% of 2024 deals)',
+          'RWI insurance protects against representation breaches (38% of deals in 2024)'
+        ],
+        quiz: [
+          {
+            question: 'What is a key advantage of an asset purchase for the buyer?',
+            options: ['Assumes all liabilities automatically', 'Step-up in asset tax basis for depreciation', 'Simpler transaction structure', 'Capital gains tax treatment for seller'],
+            correctIndex: 1,
+            explanation: 'Asset purchases allow buyers to step up the tax basis of acquired assets, providing depreciation and amortization tax benefits.'
+          },
+          {
+            question: 'What was the trend in earnout usage in 2024?',
+            options: ['Earnouts disappeared completely', 'Earnouts appeared in 33% of deals (up from 25% in 2023)', 'Earnouts appeared in 50% of deals', 'Earnout usage remained unchanged'],
+            correctIndex: 1,
+            explanation: 'According to the 2024 SRS Acquiom M&A Deal Terms Study, earnouts appeared in 33% of deals, up from 25% in 2023.'
+          },
+          {
+            question: 'What is the primary purpose of RWI (Representations and Warranties Insurance)?',
+            options: ['To increase the purchase price', 'To protect buyers against breaches of seller representations', 'To facilitate seller financing', 'To provide tax benefits'],
+            correctIndex: 1,
+            explanation: 'RWI protects buyers against breaches of seller representations and warranties, reducing or eliminating the need for seller indemnification escrows.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-2',
+        title: 'Indemnification & Escrow',
+        duration: '30 min',
+        content: `
+## Indemnification Provisions
+
+Indemnification is the contractual mechanism for allocating post-closing losses between buyer and seller.
+
+### Survival Periods
+The time period during which representations and warranties remain enforceable.
+
+**Typical Survival Periods:**
+- Fundamental representations (title, authority, organization): Indefinite or 3-5 years
+- Non-fundamental representations: 12-24 months
+- Special indemnities: As specified (often 3-6 years)
+
+**2024 Trend:** Increased use of "walk-away" or no-survival indemnification structures (33% of deals)
+
+### Indemnification Baskets
+Threshold amount that must be exceeded before seller indemnification obligations kick in.
+
+**Types of Baskets:**
+- **Deductible basket:** Seller pays first $X of losses, then reimburses buyer for losses above $X
+- **Tipping basket:** Once losses exceed $X, seller reimburses buyer for all losses including the first $X
+
+**Typical Basket Amounts:**
+- Small deals (<$50M): $250K - $500K
+- Mid-market deals ($50M-$500M): $500K - $2M
+- Large deals (>$500M): $1M - $5M
+
+### Caps
+Maximum amount seller can be liable for under indemnification provisions.
+
+**Typical Caps:**
+- General cap: 10-20% of purchase price
+- Fundamental cap: Often 100% of purchase price (unlimited)
+- Special indemnity cap: As specified
+
+## Escrow Accounts
+
+Cash set aside at closing to satisfy potential indemnification claims.
+
+### Standard Escrow
+- Typical size: 10-15% of purchase price
+- Held by neutral third party
+- Released in tranches over survival period
+- Remaining amount returned to seller after survival period expires
+
+### Special Escrows (2024 Trend)
+Nearly half of deals with RWI have additional special escrows for purposes other than general indemnity.
+
+**Common Special Escrow Purposes:**
+- Tax indemnities
+- Environmental liabilities
+- Litigation matters
+- Post-closing adjustments
+
+## No-Survival Deals
+
+Deals where representations and warranties do not survive closing (or have very limited survival).
+
+**2024 Trend:**
+- 85% of deals without RWI contained neither fundamental seller representations in 2024 (up from 75% in 2023)
+- "Walk-away" structures allow buyer to terminate before closing if material breaches discovered
+
+**Benefits:**
+- Certainty for seller (no post-closing exposure)
+- Simpler post-closing relationship
+
+**Drawbacks:**
+- Buyer must rely on due diligence
+- May increase purchase price (buyer pricing in risk)
+- Requires RWI for buyer protection
+
+## Key Negotiating Points
+
+1. **Basket type:** Deductible vs. tipping
+2. **Basket amount:** Higher basket = more seller protection
+3. **Cap amount:** Higher cap = more buyer protection
+4. **Survival periods:** Longer = more buyer protection
+5. **Escrow size:** Larger escrow = more buyer security
+6. **Release schedule:** Faster release = better for seller
+
+[External Reading: Key Takeaways from SRS Acquiom's 2024 M&A Deal Terms Study](https://www.fasken.com/en/knowledge/2025/03/key-takeaways-from-srs-acquioms-2024-ma-deal)
+`,
+        keyPoints: [
+          'Indemnification allocates post-closing losses between buyer and seller',
+          'Survival periods determine how long reps/warranties remain enforceable',
+          'Baskets set threshold before indemnification obligations kick in',
+          'Caps limit maximum seller liability (typically 10-20% of purchase price)',
+          'Escrow accounts hold cash for potential indemnification claims',
+          '2024 trend: Increased "walk-away" structures and special escrows'
+        ],
+        quiz: [
+          {
+            question: 'What is the difference between a deductible basket and a tipping basket?',
+            options: ['No difference', 'Deductible: seller pays first losses; Tipping: once threshold exceeded, seller pays all losses', 'Tipping is larger', 'Deductible is for large deals only'],
+            correctIndex: 1,
+            explanation: 'With a deductible basket, the seller pays the first $X of losses and only reimburses losses above that amount. With a tipping basket, once losses exceed $X, the seller reimburses the buyer for all losses including the first $X.'
+          },
+          {
+            question: 'What is a typical general indemnification cap as a percentage of purchase price?',
+            options: ['1-5%', '10-20%', '30-40%', '50-75%'],
+            correctIndex: 1,
+            explanation: 'Typical general indemnification caps are 10-20% of purchase price, while fundamental representations often have unlimited caps (100% of purchase price).'
+          },
+          {
+            question: 'What was the trend in no-survival deals in 2024?',
+            options: ['No-survival deals decreased', '85% of deals without RWI contained neither fundamental seller representations (up from 75% in 2023)', 'No-survival deals remained at 50%', 'No-survival deals were banned'],
+            correctIndex: 1,
+            explanation: 'In 2024, 85% of deals without RWI contained neither fundamental seller representations, up from 75% in 2023, indicating increased use of "walk-away" or no-survival structures.'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'pe-fund-structures',
+    title: 'Private Equity Fund Structures',
+    region: 'Global',
+    description: 'Understand PE fund structures, limited partner agreements, waterfall distributions, and carried interest mechanics.',
+    lessons: [
+      {
+        id: 'lesson-1',
+        title: 'Fund Structure Basics',
+        duration: '35 min',
+        content: `
+## Private Equity Fund Structure
+
+### Key Parties
+
+**General Partner (GP):**
+- Manages the fund and makes investment decisions
+- Typically contributes 1-2% of fund capital
+- Receives management fees and carried interest
+- Has fiduciary duty to limited partners
+
+**Limited Partners (LPs):**
+- Provide the majority of fund capital (98-99%)
+- Passive investors with limited liability
+- Receive preferred return and profit share
+- Have limited governance rights
+
+**Investment Committee:**
+- Makes investment decisions
+- Typically includes GP professionals and sometimes LP representatives
+- Reviews and approves potential investments
+
+### Limited Partnership Agreement (LPA)
+
+The governing document that establishes the fund structure and terms.
+
+**Key Provisions:**
+- Fund size and investment period
+- Management fees
+- Waterfall distribution mechanics
+- Investment restrictions and guidelines
+- Reporting requirements
+- Key person provisions
+- Removal provisions
+
+### Fund Lifecycle
+
+**1. Fundraising (6-18 months):**
+- GP raises capital from LPs
+- Marketing and due diligence
+- Finalizing LPA terms
+
+**2. Investment Period (3-5 years):**
+- GP makes portfolio investments
+- Capital calls from LPs
+- Active management of portfolio companies
+
+**3. Harvest Period (2-5 years):**
+- Exits from portfolio investments
+- Distributions to LPs
+- Wind-down of remaining positions
+
+**Total Fund Life:** Typically 10-12 years with possible extensions
+
+### Capital Calls and Distributions
+
+**Capital Calls:**
+- GP calls capital from LPs as needed for investments
+- Typically 10-20 days notice
+- LPs must fund or face penalties
+
+**Distributions:**
+- Return of capital when investments are sold
+- Profit distributions according to waterfall
+- Can be in cash or securities
+
+### Management Fees
+
+Annual fee paid to GP for fund management services.
+
+**Typical Structures:**
+- During investment period: 1.5-2.0% of committed capital
+- After investment period: 1.5-2.0% of net asset value (NAV) or invested capital
+- May step down after investment period
+
+**Purpose:**
+- Cover GP operating expenses
+- Pay professional staff
+- Fund overhead costs
+`,
+        keyPoints: [
+          'GP manages fund (1-2% capital contribution); LPs provide 98-99% of capital',
+          'LPA is the governing document establishing fund terms and waterfall mechanics',
+          'Fund lifecycle: Fundraising (6-18 mo), Investment (3-5 yrs), Harvest (2-5 yrs)',
+          'Capital calls: GP draws capital from LPs as needed with 10-20 days notice',
+          'Management fees: 1.5-2.0% of committed capital during investment period'
+        ],
+        quiz: [
+          {
+            question: 'What is the typical GP capital contribution in a private equity fund?',
+            options: ['0%', '1-2%', '10%', '25%'],
+            correctIndex: 1,
+            explanation: 'GPs typically contribute 1-2% of fund capital, aligning their interests with LPs while allowing significant leverage.'
+          },
+          {
+            question: 'What is the typical total life of a private equity fund?',
+            options: ['3-5 years', '10-12 years', '20 years', '30 years'],
+            correctIndex: 1,
+            explanation: 'Private equity funds typically have a total life of 10-12 years, including a 3-5 year investment period and a 2-5 year harvest period, with possible extensions.'
+          },
+          {
+            question: 'What is the typical management fee during the investment period?',
+            options: ['0.5-1.0%', '1.5-2.0%', '3-4%', '5-10%'],
+            correctIndex: 1,
+            explanation: 'Management fees during the investment period are typically 1.5-2.0% of committed capital, covering GP operating expenses and staff costs.'
+          }
+        ]
+      },
+      {
+        id: 'lesson-2',
+        title: 'Waterfall Distributions',
+        duration: '40 min',
+        content: `
+## Distribution Waterfall Overview
+
+The waterfall distribution mechanism determines how investment returns are allocated between LPs and the GP. It ensures LPs receive their capital back and preferred return before the GP receives carried interest.
+
+## Core Components
+
+### Preferred Return (Hurdle Rate)
+A preferred return acts like a risk-free floor for LPs. Only once cumulative distributions exceed the hurdle does any carried interest accrue.
+
+**Typical Rates:**
+- Most common: 8% compound IRR
+- Some emerging managers use tiered hurdles (e.g., 8% then 10%) to attract commitments
+- May be simple or compounded
+
+**Purpose:**
+- Protects LP capital
+- Ensures GP earns carry only after delivering minimum returns
+- Aligns GP incentives with LP interests
+
+### Return of Capital to LPs
+Before any performance payments, LPs receive a dollar-for-dollar return of their contributed capital, including fees and expenses that were drawn down.
+
+**Purpose:**
+- Ensures GPs focus on absolute value creation rather than maintaining NAV
+- Aligns with principle that investors should recover their money before sharing profits
+
+### GP Catch-Up Provisions
+Once LPs have received their capital back and the preferred return, most waterfalls include a catch-up tranche. Here, the GP receives all or a majority of incremental proceeds until its share of total profits equals the agreed carry percentage (typically 20%).
+
+**Purpose:**
+- Accelerates GP economics without disturbing the final 80/20 split
+- Rewards GP for achieving the hurdle quickly
+
+### Carried Interest Allocations
+After the catch-up, any remaining profits are split according to the carried-interest ratio—classically 80% to LPs and 20% to the GP.
+
+**Typical Structures:**
+- Standard: 80% LPs / 20% GP
+- Some LPAs introduce tiered carry that escalates to 25% if performance exceeds, say, a 3× multiple
+
+## Waterfall Structures
+
+### European-Style (Whole-of-Fund) Distributions
+
+Under a European or whole-of-fund waterfall, all cash first repays LP capital and the portfolio-level preferred return before any carry can flow to the GP.
+
+**How it works:**
+- Early winners subsidize later laggards
+- GP never earns carry while the overall fund is underwater
+- Trade-off: Slower GP liquidity
+
+**Where used:**
+- Standard for large buyouts
+- Infrastructure funds
+- Secondary funds
+- Most institutional LPs demand this structure
+
+**Benefits:**
+- Better alignment of GP and LP interests
+- Reduces clawback exposure
+- Ensures fund is profitable overall before carry distribution
+
+**Trade-offs:**
+- Slower GP liquidity
+- May require fee step-downs or co-invest commitments to compensate
+- Less attractive to emerging managers
+
+### American-Style (Deal-by-Deal) Distributions
+
+An American, or deal-by-deal, private equity waterfall model allows the GP to collect and carry on each exit once that single investment clears its hurdle.
+
+**How it works:**
+- GP collects carry on each individual exit
+- After each deal clears its hurdle, GP receives catch-up and carry
+- Faster GP economics
+
+**Where used:**
+- Venture capital partnerships
+- Emerging managers
+- Smaller funds
+
+**Benefits:**
+- Accelerates GP economics (vital for emerging managers)
+- Simpler to calculate and administer
+
+**Drawbacks:**
+- Three pain points for LPs:
+  1. Clawback exposure if later exits underperform
+  2. Escrow locks on 20-30% of interim carry
+  3. Tax-timing complexity for the GP
+- Winners may coast, laggards may gamble (misaligned incentives)
+
+### Hybrid Structures
+
+Combination of European and American features to balance alignment and GP liquidity needs.
+
+**Common variations:**
+- Deal-by-deal with fund-level clawback
+- Partial catch-up on each deal
+- Tiered waterfalls with different rates at different return thresholds
+
+[External Reading: How Private Equity Waterfalls Work - Alter Domus](https://alterdomus.com/insight/private-equity-waterfall/)
+`,
+        keyPoints: [
+          'Preferred return (hurdle rate) typically 8% compound IRR protects LP capital',
+          'LPs receive return of capital before GP receives any carry',
+          'Catch-up provisions accelerate GP economics to reach 20% profit share',
+          'European (whole-of-fund): better alignment, slower GP liquidity',
+          'American (deal-by-deal): faster GP economics, clawback risk'
+        ],
+        quiz: [
+          {
+            question: 'What is the typical preferred return (hurdle rate) in private equity funds?',
+            options: ['4%', '6%', '8%', '12%'],
+            correctIndex: 2,
+            explanation: 'The most common preferred return is 8% compound IRR, acting as a risk-free floor for LPs before any carried interest accrues to the GP.'
+          },
+          {
+            question: 'What is the main difference between European and American waterfall structures?',
+            options: ['European is faster, American is slower', 'European is whole-of-fund (better alignment); American is deal-by-deal (faster GP economics)', 'No difference', 'European is for US funds only'],
+            correctIndex: 1,
+            explanation: 'European (whole-of-fund) waterfalls require the entire fund to be profitable before GP receives carry, providing better alignment. American (deal-by-deal) allows GP to collect carry on each individual exit, providing faster GP economics but creating clawback risk.'
+          },
+          {
+            question: 'What is the purpose of the catch-up provision?',
+            options: ['To slow down GP payments', 'To accelerate GP economics to reach the agreed carry percentage (typically 20%)', 'To protect LPs from losses', 'To calculate management fees'],
+            correctIndex: 1,
+            explanation: 'The catch-up provision allows the GP to receive all or most incremental proceeds after the hurdle is met until their share of total profits equals the agreed carry percentage, accelerating GP economics while maintaining the final 80/20 split.'
+          }
+        ]
+      }
+    ]
   }
 ]
 
