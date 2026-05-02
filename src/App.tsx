@@ -8,19 +8,48 @@ import QuizPage from './pages/QuizPage'
 import GlossaryPage from './pages/GlossaryPage'
 import SourcesPage from './pages/SourcesPage'
 import ConceptTree from './components/ConceptTree'
+import ProtectedRoute from './components/ProtectedRoute'
 
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="module/:moduleId" element={<ModuleOverview />} />
-        <Route path="lesson/:moduleId/:lessonId" element={<LessonPage />} />
-        <Route path="compare" element={<ComparePage />} />
-        <Route path="quiz" element={<QuizPage />} />
-        <Route path="glossary" element={<GlossaryPage />} />
-        <Route path="sources" element={<SourcesPage />} />
-        <Route path="concepts" element={<ConceptTree />} />
+        <Route path="module/:moduleId" element={
+          <ProtectedRoute>
+            <ModuleOverview />
+          </ProtectedRoute>
+        } />
+        <Route path="lesson/:moduleId/:lessonId" element={
+          <ProtectedRoute>
+            <LessonPage />
+          </ProtectedRoute>
+        } />
+        <Route path="compare" element={
+          <ProtectedRoute>
+            <ComparePage />
+          </ProtectedRoute>
+        } />
+        <Route path="quiz" element={
+          <ProtectedRoute>
+            <QuizPage />
+          </ProtectedRoute>
+        } />
+        <Route path="glossary" element={
+          <ProtectedRoute>
+            <GlossaryPage />
+          </ProtectedRoute>
+        } />
+        <Route path="sources" element={
+          <ProtectedRoute>
+            <SourcesPage />
+          </ProtectedRoute>
+        } />
+        <Route path="concepts" element={
+          <ProtectedRoute>
+            <ConceptTree />
+          </ProtectedRoute>
+        } />
       </Route>
     </Routes>
   )
