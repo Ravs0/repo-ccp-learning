@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { CheckCircle, Lock, Star, TrendingUp, Flame, Target, BookOpen } from 'lucide-react'
+import { CheckCircle, Star, TrendingUp, Flame, Target, BookOpen } from 'lucide-react'
 import { modules } from '../data/lessons'
 
 interface ProgressData {
@@ -24,29 +24,24 @@ function LearningPathNode({
   lesson, 
   index, 
   isCompleted, 
-  isLocked, 
   isCurrent 
 }: { 
   module: typeof modules[0]
   lesson: typeof modules[0]['lessons'][0]
   index: number
   isCompleted: boolean
-  isLocked: boolean
   isCurrent: boolean
 }) {
   return (
     <Link
-      to={isLocked ? '#' : `/dashboard/lesson/${module.id}/${lesson.id}`}
+      to={`/dashboard/lesson/${module.id}/${lesson.id}`}
       className={`relative flex items-center gap-4 p-4 rounded-xl transition-all ${
-        isLocked 
-          ? 'opacity-50 cursor-not-allowed bg-dark-700' 
-          : isCompleted 
+        isCompleted 
           ? 'bg-green-900/20 border border-green-700 hover:bg-green-900/30' 
           : isCurrent 
           ? 'bg-accent-blue/20 border-2 border-accent-blue hover:bg-accent-blue/30' 
           : 'bg-dark-700 hover:bg-dark-600'
       }`}
-      onClick={(e) => isLocked && e.preventDefault()}
     >
       {/* Icon */}
       <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
@@ -54,14 +49,10 @@ function LearningPathNode({
           ? 'bg-green-600' 
           : isCurrent 
           ? 'bg-accent-blue' 
-          : isLocked 
-          ? 'bg-dark-600' 
           : 'bg-dark-500'
       }`}>
         {isCompleted ? (
           <CheckCircle className="w-6 h-6 text-white" />
-        ) : isLocked ? (
-          <Lock className="w-6 h-6 text-gray-500" />
         ) : (
           <BookOpen className="w-6 h-6 text-white" />
         )}
@@ -85,15 +76,13 @@ function LearningPathNode({
       </div>
 
       {/* Arrow */}
-      {!isLocked && (
-        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-          isCompleted || isCurrent ? 'bg-white/10' : 'bg-dark-600'
-        }`}>
-          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </div>
-      )}
+      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+        isCompleted || isCurrent ? 'bg-white/10' : 'bg-dark-600'
+      }`}>
+        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </div>
     </Link>
   )
 }
@@ -163,7 +152,7 @@ export default function Dashboard() {
             Learning Path
           </h2>
 
-          {modules.map((module, moduleIndex) => {
+          {modules.map((module) => {
             const moduleCompletedLessons = module.lessons.filter(l => 
               progress.completedLessons.has(`${module.id}-${l.id}`)
             ).length
@@ -171,9 +160,6 @@ export default function Dashboard() {
               ? Math.round((moduleCompletedLessons / module.lessons.length) * 100)
               : 0
             const isModuleCurrent = module.id === progress.currentModule
-            const isModuleLocked = moduleIndex > 0 && modules[moduleIndex - 1].lessons.some(
-              l => !progress.completedLessons.has(`${modules[moduleIndex - 1].id}-${l.id}`)
-            )
 
             return (
               <div key={module.id} className="mb-12">
@@ -185,14 +171,10 @@ export default function Dashboard() {
                         ? 'bg-accent-blue' 
                         : moduleProgress === 100 
                         ? 'bg-green-600' 
-                        : isModuleLocked 
-                        ? 'bg-dark-600' 
                         : 'bg-dark-700'
                     }`}>
                       {moduleProgress === 100 ? (
                         <CheckCircle className="w-6 h-6 text-white" />
-                      ) : isModuleLocked ? (
-                        <Lock className="w-6 h-6 text-gray-500" />
                       ) : (
                         <BookOpen className="w-6 h-6 text-white" />
                       )}
@@ -229,7 +211,6 @@ export default function Dashboard() {
                   {module.lessons.map((lesson, lessonIndex) => {
                     const lessonKey = `${module.id}-${lesson.id}`
                     const isLessonCompleted = progress.completedLessons.has(lessonKey)
-                    const isLessonLocked = !isModuleCurrent && !isLessonCompleted
                     const isLessonCurrent = isModuleCurrent && !isLessonCompleted && lessonIndex === moduleCompletedLessons
 
                     return (
@@ -239,7 +220,6 @@ export default function Dashboard() {
                         lesson={lesson}
                         index={lessonIndex}
                         isCompleted={isLessonCompleted}
-                        isLocked={isLessonLocked}
                         isCurrent={isLessonCurrent}
                       />
                     )
