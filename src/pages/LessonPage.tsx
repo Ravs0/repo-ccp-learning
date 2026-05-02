@@ -127,7 +127,7 @@ export default function LessonPage() {
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Lesson Not Found</h1>
-          <Link to="/" className="text-accent-cyan hover:underline">Return to Home</Link>
+          <Link to="/dashboard" className="text-accent-cyan hover:underline">Return to Dashboard</Link>
         </div>
       </div>
     )
@@ -157,7 +157,7 @@ export default function LessonPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="flex items-center gap-4 mb-6">
-        <Link to={`/module/${module.id}`} className="inline-flex items-center gap-2 text-gray-400 hover:text-white">
+        <Link to={`/dashboard/module/${module.id}`} className="inline-flex items-center gap-2 text-gray-400 hover:text-white">
           <ArrowLeft className="w-4 h-4" />
           {module.title}
         </Link>
@@ -292,7 +292,7 @@ export default function LessonPage() {
       <div className="flex items-center justify-between pt-6 border-t border-dark-600">
         {prevLesson ? (
           <Link
-            to={`/lesson/${module.id}/${prevLesson.id}`}
+            to={`/dashboard/lesson/${module.id}/${prevLesson.id}`}
             className="inline-flex items-center gap-2 px-4 py-2 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -305,7 +305,7 @@ export default function LessonPage() {
 
         {nextLesson ? (
           <Link
-            to={`/lesson/${module.id}/${nextLesson.id}`}
+            to={`/dashboard/lesson/${module.id}/${nextLesson.id}`}
             className="inline-flex items-center gap-2 px-4 py-2 bg-accent-blue hover:bg-accent-cyan rounded-lg transition-colors"
           >
             <span className="hidden sm:inline">Next: {nextLesson.title}</span>
@@ -314,7 +314,7 @@ export default function LessonPage() {
           </Link>
         ) : (
           <Link
-            to={module.id === 'us-repo' ? '/module/asia-repo' : '/quiz'}
+            to={module.id === 'us-repo' ? '/dashboard/module/asia-repo' : '/dashboard/quiz'}
             className="inline-flex items-center gap-2 px-4 py-2 bg-accent-green hover:bg-accent-green/90 rounded-lg transition-colors"
           >
             {module.id === 'us-repo' ? 'Start Asia Module' : 'Take Final Quiz'}

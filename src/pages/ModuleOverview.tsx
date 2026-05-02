@@ -19,9 +19,9 @@ export default function ModuleOverview() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <Link to="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-6">
+      <Link to="/dashboard" className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-6">
         <ArrowLeft className="w-4 h-4" />
-        Back to Home
+        Back to Dashboard
       </Link>
 
       <div className="mb-8">
@@ -45,7 +45,7 @@ export default function ModuleOverview() {
         {module.lessons.map((lesson, index) => (
           <Link
             key={lesson.id}
-            to={`/lesson/${module.id}/${lesson.id}`}
+            to={`/dashboard/lesson/${module.id}/${lesson.id}`}
             className="lesson-card flex items-start gap-4 group"
           >
             <div className="flex-shrink-0 w-10 h-10 bg-dark-600 rounded-lg flex items-center justify-center font-semibold text-accent-cyan">

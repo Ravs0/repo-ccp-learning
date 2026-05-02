@@ -128,8 +128,9 @@ export default function Landing() {
           <h2 className="text-2xl font-bold mb-8 text-center">What You'll Learn</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {modules.slice(0, 4).map((module) => (
-              <div
+              <Link
                 key={module.id}
+                to={`/dashboard/module/${module.id}`}
                 className="lesson-card group"
               >
                 <div className="flex items-start justify-between mb-4">
@@ -155,7 +156,7 @@ export default function Landing() {
                   <span>•</span>
                   <span>{module.lessons.reduce((sum, l) => sum + l.quiz.length, 0)} quizzes</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
           <div className="text-center mt-8">

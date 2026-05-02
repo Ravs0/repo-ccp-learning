@@ -36,7 +36,7 @@ function LearningPathNode({
 }) {
   return (
     <Link
-      to={isLocked ? '#' : `/lesson/${module.id}/${lesson.id}`}
+      to={isLocked ? '#' : `/dashboard/lesson/${module.id}/${lesson.id}`}
       className={`relative flex items-center gap-4 p-4 rounded-xl transition-all ${
         isLocked 
           ? 'opacity-50 cursor-not-allowed bg-dark-700' 
@@ -265,7 +265,7 @@ export default function Dashboard() {
               Each lesson builds on the previous one, so start from the top and work your way down.
             </p>
             <Link
-              to="/lesson/us-repo/lesson-1"
+              to="/dashboard/lesson/us-repo/lesson-1"
               className="inline-flex items-center gap-2 px-6 py-3 bg-accent-blue hover:bg-accent-cyan text-white font-medium rounded-lg transition-all hover:scale-105"
             >
               Start First Lesson
