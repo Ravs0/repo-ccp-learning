@@ -5,6 +5,12 @@ export interface QuizQuestion {
   explanation: string
 }
 
+export interface ResourceLink {
+  label: string
+  href: string
+  type?: 'glossary' | 'source' | 'internal'
+}
+
 export interface Lesson {
   id: string
   title: string
@@ -12,6 +18,17 @@ export interface Lesson {
   content: string
   keyPoints: string[]
   quiz: QuizQuestion[]
+  summary?: string
+  learningObjectives?: string[]
+  relatedTerms?: string[]
+  furtherReading?: ResourceLink[]
+  lessonType?: 'concept' | 'mechanics' | 'market-structure' | 'risk'
+  difficulty?: 'Beginner' | 'Intermediate' | 'Advanced'
+  estimatedHours?: number
+  audience?: string
+  outcomes?: string[]
+  prerequisites?: string[]
+  featured?: boolean
   hasDiagram?: boolean
   diagramType?: 'us-flow' | 'asia-flow' | 'comparison'
 }
@@ -21,6 +38,13 @@ export interface Module {
   title: string
   description: string
   region: 'US' | 'Asia' | 'Global' | 'General'
+  difficulty?: 'Foundation' | 'Intermediate' | 'Advanced'
+  estimatedHours?: string
+  audience?: string
+  outcomes?: string[]
+  prerequisites?: string[]
+  featured?: boolean
+  flagship?: boolean
   lessons: Lesson[]
 }
 

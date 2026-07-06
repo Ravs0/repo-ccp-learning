@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle, RotateCcw } from 'lucide-react'
 import { modules } from '../data/lessons'
 import FlowDiagram from '../components/FlowDiagram'
+import MetadataPill from '../components/MetadataPill'
+import ResourceLinks from '../components/ResourceLinks'
 
 function MarkdownContent({ content }: { content: string }) {
   const lines = content.split('\n')
@@ -174,8 +176,54 @@ export default function LessonPage() {
             <h1 className="text-2xl font-bold">{lesson.title}</h1>
           </div>
         </div>
-        <p className="text-gray-400">Duration: {lesson.duration}</p>
+        <div className="flex flex-wrap items-center gap-3 mb-3">
+          <p className="text-gray-400">Duration: {lesson.duration}</p>
+          {lesson.lessonType && (
+            <MetadataPill
+              label={lesson.lessonType.replace('-', ' ')}
+              tone={lesson.lessonType === 'risk' ? 'amber' : lesson.lessonType === 'market-structure' ? 'green' : lesson.lessonType === 'mechanics' ? 'cyan' : 'blue'}
+            />
+          )}
+        </div>
+        {lesson.summary && (
+          <div className="rounded-lg border border-dark-600 bg-dark-800 p-5">
+            <h2 className="text-lg font-semibold text-white mb-2">Lesson Summary</h2>
+            <p className="text-gray-300 leading-relaxed">{lesson.summary}</p>
+          </div>
+        )}
       </div>
+
+      {(lesson.learningObjectives?.length || lesson.relatedTerms?.length || lesson.furtherReading?.length) && (
+        <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr] mb-8">
+          <div className="rounded-lg border border-dark-600 bg-dark-800 p-6">
+            <h2 className="text-lg font-semibold text-white mb-4">Learning objectives</h2>
+            <ul className="space-y-3">
+              {(lesson.learningObjectives ?? []).map((objective) => (
+                <li key={objective} className="flex items-start gap-3 text-gray-300">
+                  <CheckCircle className="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                  <span>{objective}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-6">
+            <div className="rounded-lg border border-dark-600 bg-dark-800 p-6">
+              <h2 className="text-lg font-semibold text-white mb-4">Related terms</h2>
+              <div className="flex flex-wrap gap-2">
+                {(lesson.relatedTerms ?? []).map((term) => (
+                  <MetadataPill key={term} label={term} tone="slate" />
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-lg border border-dark-600 bg-dark-800 p-6">
+              <h2 className="text-lg font-semibold text-white mb-4">Further reading</h2>
+              <ResourceLinks links={lesson.furtherReading} />
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="prose prose-invert max-w-none mb-8">
         <MarkdownContent content={lesson.content} />

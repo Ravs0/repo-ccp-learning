@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom'
-import { CheckCircle, Star, TrendingUp, Flame, Target, BookOpen } from 'lucide-react'
+import { Star, Flame, Target, BookOpen, CheckCircle } from 'lucide-react'
 import { modules } from '../data/lessons'
+import ProgressPanel from '../components/ProgressPanel'
+import CurriculumPreviewCard from '../components/CurriculumPreviewCard'
+import MetadataPill from '../components/MetadataPill'
+import SectionHeader from '../components/SectionHeader'
 
 interface ProgressData {
   completedLessons: Set<string>
@@ -10,24 +14,24 @@ interface ProgressData {
   streak: number
 }
 
-// Mock progress data - in production, this would come from Firebase/user state
+// Mock progress data — in production this would come from Firebase or user state
 const mockProgress: ProgressData = {
   completedLessons: new Set(),
   completedQuizzes: new Set(),
   currentModule: 'us-repo',
   totalXP: 0,
-  streak: 0
+  streak: 0,
 }
 
-function LearningPathNode({ 
-  module, 
-  lesson, 
-  index, 
-  isCompleted, 
-  isCurrent 
-}: { 
-  module: typeof modules[0]
-  lesson: typeof modules[0]['lessons'][0]
+function LearningPathNode({
+  module,
+  lesson,
+  index,
+  isCompleted,
+  isCurrent,
+}: {
+  module: (typeof modules)[0]
+  lesson: (typeof modules)[0]['lessons'][0]
   index: number
   isCompleted: boolean
   isCurrent: boolean
@@ -36,21 +40,18 @@ function LearningPathNode({
     <Link
       to={`/dashboard/lesson/${module.id}/${lesson.id}`}
       className={`relative flex items-center gap-4 p-4 rounded-xl transition-all ${
-        isCompleted 
-          ? 'bg-green-900/20 border border-green-700 hover:bg-green-900/30' 
-          : isCurrent 
-          ? 'bg-accent-blue/20 border-2 border-accent-blue hover:bg-accent-blue/30' 
-          : 'bg-dark-700 hover:bg-dark-600'
+        isCompleted
+          ? 'bg-green-900/20 border border-green-700 hover:bg-green-900/30'
+          : isCurrent
+            ? 'bg-accent-blue/20 border-2 border-accent-blue hover:bg-accent-blue/30'
+            : 'bg-dark-700 hover:bg-dark-600'
       }`}
     >
-      {/* Icon */}
-      <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-        isCompleted 
-          ? 'bg-green-600' 
-          : isCurrent 
-          ? 'bg-accent-blue' 
-          : 'bg-dark-500'
-      }`}>
+      <div
+        className={`w-12 h-12 rounded-full flex items-center justify-center ${
+          isCompleted ? 'bg-green-600' : isCurrent ? 'bg-accent-blue' : 'bg-dark-500'
+        }`}
+      >
         {isCompleted ? (
           <CheckCircle className="w-6 h-6 text-white" />
         ) : (
@@ -58,7 +59,6 @@ function LearningPathNode({
         )}
       </div>
 
-      {/* Content */}
       <div className="flex-1">
         <div className="flex items-center gap-2 mb-1">
           <span className="text-xs text-gray-500">Lesson {index + 1}</span>
@@ -69,16 +69,15 @@ function LearningPathNode({
             </div>
           )}
         </div>
-        <h4 className={`font-semibold ${isCurrent ? 'text-accent-cyan' : 'text-white'}`}>
-          {lesson.title}
-        </h4>
+        <h4 className={`font-semibold ${isCurrent ? 'text-accent-cyan' : 'text-white'}`}>{lesson.title}</h4>
         <p className="text-sm text-gray-400">{lesson.duration}</p>
       </div>
 
-      {/* Arrow */}
-      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-        isCompleted || isCurrent ? 'bg-white/10' : 'bg-dark-600'
-      }`}>
+      <div
+        className={`w-8 h-8 rounded-full flex items-center justify-center ${
+          isCompleted || isCurrent ? 'bg-white/10' : 'bg-dark-600'
+        }`}
+      >
         <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
@@ -91,16 +90,20 @@ export default function Dashboard() {
   const progress = mockProgress
   const totalLessons = modules.reduce((sum, m) => sum + m.lessons.length, 0)
   const completedCount = progress.completedLessons.size
-  const progressPercent = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0
+  const flagshipModule = modules.find((m) => m.id === 'us-repo')
+  const otherModules = modules.filter((m) => m.id !== 'us-repo')
+
+  const flagshipCompleted = flagshipModule
+    ? flagshipModule.lessons.filter((l) => progress.completedLessons.has(`${flagshipModule.id}-${l.id}`)).length
+    : 0
 
   return (
     <div className="min-h-screen">
-      {/* Header Stats */}
       <section className="py-8 px-4 border-b border-dark-600 bg-dark-800/50">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div className="flex flex-wrap items-start justify-between gap-6 mb-6">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Your Learning Path</h1>
+              <h1 className="text-3xl font-bold mb-2">Your learning hub</h1>
               <p className="text-gray-400">Continue where you left off</p>
             </div>
             <div className="flex items-center gap-6">
@@ -121,117 +124,105 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Overall Progress */}
-          <div className="bg-dark-700 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <Target className="w-5 h-5 text-accent-cyan" />
-                <span className="font-semibold">Overall Progress</span>
+          <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
+            <div className="bg-dark-700 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <Target className="w-5 h-5 text-accent-cyan" />
+                  <span className="font-semibold">Overall Progress</span>
+                </div>
+                <span className="text-accent-cyan font-bold">
+                  {totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0}%
+                </span>
               </div>
-              <span className="text-accent-cyan font-bold">{progressPercent}%</span>
+              <div className="w-full bg-dark-600 rounded-full h-3">
+                <div
+                  className="bg-gradient-to-r from-accent-blue to-accent-cyan h-3 rounded-full transition-all duration-500"
+                  style={{ width: `${totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0}%` }}
+                />
+              </div>
+              <div className="flex items-center justify-between mt-2 text-sm text-gray-400">
+                <span>
+                  {completedCount} of {totalLessons} lessons completed
+                </span>
+                <span>{totalLessons - completedCount} remaining</span>
+              </div>
             </div>
-            <div className="w-full bg-dark-600 rounded-full h-3">
-              <div 
-                className="bg-gradient-to-r from-accent-blue to-accent-cyan h-3 rounded-full transition-all duration-500"
-                style={{ width: `${progressPercent}%` }}
-              />
-            </div>
-            <div className="flex items-center justify-between mt-2 text-sm text-gray-400">
-              <span>{completedCount} of {totalLessons} lessons completed</span>
-              <span>{totalLessons - completedCount} remaining</span>
-            </div>
+
+            <ProgressPanel
+              completedLessons={completedCount}
+              totalLessons={totalLessons}
+              totalXP={progress.totalXP}
+              streak={progress.streak}
+            />
           </div>
         </div>
       </section>
 
-      {/* Learning Path */}
-      <section className="py-12 px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
-            <TrendingUp className="w-6 h-6 text-accent-cyan" />
-            Learning Path
-          </h2>
+      {flagshipModule && (
+        <section className="py-10 px-4 border-b border-dark-700 bg-gradient-to-b from-dark-900 to-dark-800">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <MetadataPill label="Flagship path" tone="green" />
+              {flagshipModule.difficulty && <MetadataPill label={flagshipModule.difficulty} tone="blue" />}
+            </div>
+            <h2 className="text-2xl font-bold mb-2">{flagshipModule.title}</h2>
+            <p className="text-gray-400 mb-6 max-w-3xl">{flagshipModule.description}</p>
 
-          {modules.map((module) => {
-            const moduleCompletedLessons = module.lessons.filter(l => 
-              progress.completedLessons.has(`${module.id}-${l.id}`)
-            ).length
-            const moduleProgress = module.lessons.length > 0 
-              ? Math.round((moduleCompletedLessons / module.lessons.length) * 100)
-              : 0
-            const isModuleCurrent = module.id === progress.currentModule
+            <div className="mb-5 flex items-center gap-4 text-sm text-gray-500">
+              <span>
+                {flagshipCompleted}/{flagshipModule.lessons.length} lessons
+              </span>
+              <span>{flagshipModule.estimatedHours}</span>
+            </div>
 
-            return (
-              <div key={module.id} className="mb-12">
-                {/* Module Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                      isModuleCurrent 
-                        ? 'bg-accent-blue' 
-                        : moduleProgress === 100 
-                        ? 'bg-green-600' 
-                        : 'bg-dark-700'
-                    }`}>
-                      {moduleProgress === 100 ? (
-                        <CheckCircle className="w-6 h-6 text-white" />
-                      ) : (
-                        <BookOpen className="w-6 h-6 text-white" />
-                      )}
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold">{module.title}</h3>
-                      <p className="text-sm text-gray-400">{module.description}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className={`text-lg font-bold ${
-                      moduleProgress === 100 ? 'text-green-400' : isModuleCurrent ? 'text-accent-cyan' : 'text-gray-400'
-                    }`}>
-                      {moduleProgress}%
-                    </div>
-                    <div className="text-xs text-gray-500">{moduleCompletedLessons}/{module.lessons.length} lessons</div>
-                  </div>
-                </div>
+            <div className="w-full bg-dark-700 rounded-full h-2 mb-8">
+              <div
+                className="bg-gradient-to-r from-accent-blue to-accent-cyan h-2 rounded-full transition-all duration-500"
+                style={{
+                  width: `${Math.round((flagshipCompleted / flagshipModule.lessons.length) * 100)}%`,
+                }}
+              />
+            </div>
 
-                {/* Module Progress Bar */}
-                <div className="mb-6">
-                  <div className="w-full bg-dark-700 rounded-full h-2">
-                    <div 
-                      className={`h-2 rounded-full transition-all duration-500 ${
-                        moduleProgress === 100 ? 'bg-green-500' : isModuleCurrent ? 'bg-gradient-to-r from-accent-blue to-accent-cyan' : 'bg-dark-600'
-                      }`}
-                      style={{ width: `${moduleProgress}%` }}
-                    />
-                  </div>
-                </div>
+            <div className="space-y-3">
+              {flagshipModule.lessons.map((lesson, lessonIndex) => {
+                const lessonKey = `${flagshipModule.id}-${lesson.id}`
+                const isLessonCompleted = progress.completedLessons.has(lessonKey)
+                const isLessonCurrent = lessonIndex === flagshipCompleted
 
-                {/* Lessons */}
-                <div className="space-y-3">
-                  {module.lessons.map((lesson, lessonIndex) => {
-                    const lessonKey = `${module.id}-${lesson.id}`
-                    const isLessonCompleted = progress.completedLessons.has(lessonKey)
-                    const isLessonCurrent = isModuleCurrent && !isLessonCompleted && lessonIndex === moduleCompletedLessons
+                return (
+                  <LearningPathNode
+                    key={lesson.id}
+                    module={flagshipModule}
+                    lesson={lesson}
+                    index={lessonIndex}
+                    isCompleted={isLessonCompleted}
+                    isCurrent={isLessonCurrent}
+                  />
+                )
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
-                    return (
-                      <LearningPathNode
-                        key={lesson.id}
-                        module={module}
-                        lesson={lesson}
-                        index={lessonIndex}
-                        isCompleted={isLessonCompleted}
-                        isCurrent={isLessonCurrent}
-                      />
-                    )
-                  })}
-                </div>
-              </div>
-            )
-          })}
+      <section className="py-10 px-4">
+        <div className="max-w-6xl mx-auto">
+          <SectionHeader
+            eyebrow="Additional modules"
+            title="Comparative and adjacent content"
+            description="Supporting modules that give broader market context beyond the flagship Treasury repo path."
+          />
+
+          <div className="grid gap-6 md:grid-cols-2 mt-8">
+            {otherModules.map((module) => (
+              <CurriculumPreviewCard key={module.id} module={module} />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Recommended Next */}
       {progress.totalXP === 0 && (
         <section className="py-12 px-4 bg-gradient-to-b from-dark-800 to-dark-900">
           <div className="max-w-4xl mx-auto text-center">
@@ -241,8 +232,8 @@ export default function Dashboard() {
             </div>
             <h2 className="text-2xl font-bold mb-4">Start Your Learning Journey</h2>
             <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-              Begin with the fundamentals of repo markets and central clearing. 
-              Each lesson builds on the previous one, so start from the top and work your way down.
+              Begin with the fundamentals of repo markets and central clearing. Each lesson builds on the previous one,
+              so start from the top and work your way down.
             </p>
             <Link
               to="/dashboard/lesson/us-repo/lesson-1"

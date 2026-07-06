@@ -1,6 +1,9 @@
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Clock } from 'lucide-react'
+import { ArrowLeft, Clock, Target } from 'lucide-react'
 import { modules } from '../data/lessons'
+import LessonSummaryCard from '../components/LessonSummaryCard'
+import MetadataPill from '../components/MetadataPill'
+import SectionHeader from '../components/SectionHeader'
 
 export default function ModuleOverview() {
   const { moduleId } = useParams()
@@ -18,58 +21,77 @@ export default function ModuleOverview() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="max-w-5xl mx-auto px-4 py-8">
       <Link to="/dashboard" className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-6">
         <ArrowLeft className="w-4 h-4" />
         Back to Dashboard
       </Link>
 
-      <div className="mb-8">
-        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-4 ${
-          module.region === 'US' 
-            ? 'bg-accent-blue/20 text-accent-blue' 
-            : module.region === 'Asia'
-            ? 'bg-accent-purple/20 text-accent-purple'
-            : module.region === 'Global'
-            ? 'bg-accent-green/20 text-accent-green'
-            : 'bg-accent-orange/20 text-accent-orange'
-        }`}>
-          {module.region === 'General' ? 'Finance Fundamentals' : `${module.region} Markets`}
+      <div className="mb-10">
+        <div className="flex flex-wrap items-center gap-3 mb-4">
+          <MetadataPill
+            label={module.region === 'General' ? 'General' : `${module.region} focus`}
+            tone="blue"
+          />
+          {module.difficulty && <MetadataPill label={module.difficulty} tone="slate" />}
+          {module.featured && <MetadataPill label="Flagship" tone="green" />}
         </div>
-        <h1 className="text-3xl font-bold mb-4">{module.title}</h1>
-        <p className="text-gray-400 text-lg">{module.description}</p>
+        <h1 className="text-3xl font-bold mb-3">{module.title}</h1>
+        <p className="text-gray-400 text-lg mb-6 leading-relaxed max-w-3xl">{module.description}</p>
+
+        <div className="flex flex-wrap gap-6 text-sm text-gray-500 mb-6">
+          {module.estimatedHours && (
+            <span className="inline-flex items-center gap-2">
+              <Clock className="w-4 h-4" />
+              {module.estimatedHours}
+            </span>
+          )}
+          <span>{module.lessons.length} lessons</span>
+          {module.audience && <span>{module.audience}</span>}
+        </div>
+
+        {module.prerequisites && module.prerequisites.length > 0 && (
+          <div className="mb-6">
+            <div className="text-sm font-semibold text-gray-400 mb-2">Prerequisites</div>
+            <div className="flex flex-wrap gap-2">
+              {module.prerequisites.map((item) => (
+                <MetadataPill key={item} label={item} tone="slate" />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {module.outcomes && module.outcomes.length > 0 && (
+          <div className="rounded-lg border border-dark-600 bg-dark-800/80 p-5">
+            <div className="flex items-center gap-2 text-accent-cyan font-semibold mb-4">
+              <Target className="w-5 h-5" />
+              <span>By the end of this course you will be able to</span>
+            </div>
+            <ul className="space-y-3">
+              {module.outcomes.map((outcome) => (
+                <li key={outcome} className="flex items-start gap-3 text-gray-300">
+                  <span className="mt-1.5 h-2 w-2 rounded-full bg-accent-cyan flex-shrink-0" />
+                  <span>{outcome}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
 
-      <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Lessons</h2>
-        {module.lessons.map((lesson, index) => (
-          <Link
-            key={lesson.id}
-            to={`/dashboard/lesson/${module.id}/${lesson.id}`}
-            className="lesson-card flex items-start gap-4 group"
-          >
-            <div className="flex-shrink-0 w-10 h-10 bg-dark-600 rounded-lg flex items-center justify-center font-semibold text-accent-cyan">
-              {index + 1}
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-semibold group-hover:text-accent-cyan transition-colors mb-1">
-                {lesson.title}
-              </h3>
-              <p className="text-sm text-gray-400 line-clamp-2 mb-2">
-                {lesson.keyPoints[0]}
-              </p>
-              <div className="flex items-center gap-4 text-sm text-gray-500">
-                <span className="inline-flex items-center gap-1">
-                  <Clock className="w-4 h-4" />
-                  {lesson.duration}
-                </span>
-                <span>{lesson.quiz.length} quiz questions</span>
-                {lesson.hasDiagram && <span>• Interactive diagram</span>}
-              </div>
-            </div>
-            <ArrowRight className="w-5 h-5 text-gray-500 group-hover:text-accent-cyan transition-colors flex-shrink-0" />
-          </Link>
-        ))}
+      <div className="space-y-6">
+        <SectionHeader eyebrow="Curriculum" title="Lessons" description="Each lesson builds toward the module outcomes." />
+        <div className="grid gap-6 md:grid-cols-2">
+          {module.lessons.map((lesson, index) => (
+            <Link
+              key={lesson.id}
+              to={`/dashboard/lesson/${module.id}/${lesson.id}`}
+              className="group"
+            >
+              <LessonSummaryCard lesson={lesson} index={index} />
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   )
